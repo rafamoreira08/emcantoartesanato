@@ -681,36 +681,51 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   gap: .75rem;
 }
 .insta-card {
-  aspect-ratio: 1;
+  display: block;
+  position: relative;
   border-radius: var(--radius);
   overflow: hidden;
-  position: relative;
-  background: linear-gradient(135deg, var(--bg-soft), var(--border));
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #fafafa;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
 }
-.insta-card--1 { background: linear-gradient(135deg, #5BAEE8 0%, #3A85C7 100%); }
-.insta-card--2 { background: linear-gradient(135deg, #A8D8A8 0%, #4A7A3C 100%); }
-.insta-card--3 { background: linear-gradient(135deg, #F4B8C1 0%, #E896A4 100%); }
-.insta-card--4 { background: linear-gradient(135deg, #1A2D5E 0%, #3A85C7 100%); }
-.insta-card--5 { background: linear-gradient(135deg, #F9C74F 0%, #F4831F 100%); }
-.insta-card--6 { background: linear-gradient(135deg, #CE93D8 0%, #7B1FA2 100%); }
+
+.insta-card__embed-wrap {
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+  position: relative;
+}
+
+.insta-card__embed {
+  position: absolute;
+  top: -56px;
+  left: 50%;
+  width: 480px;
+  height: 600px;
+  border: none;
+  pointer-events: none;
+  transform: translateX(-50%) scale(0.64);
+  transform-origin: top center;
+}
 
 .insta-card__overlay {
   position: absolute;
   inset: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  color: rgba(255,255,255,.4);
+  font-size: 2.5rem;
+  color: var(--white);
+  background: transparent;
+  opacity: 0;
   transition: all var(--transition);
 }
 .insta-card:hover .insta-card__overlay {
-  background: rgba(0,0,0,.3);
-  color: var(--white);
-  font-size: 2.5rem;
+  background: rgba(0,0,0,.35);
+  opacity: 1;
 }
 
 /* ============================
