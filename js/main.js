@@ -112,7 +112,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
       mensagem,
     ].filter(Boolean).join('\n');
 
-    const url = `https://wa.me/5511999999999?text=${encodeURIComponent(texto)}`;
+    const url = `https://wa.me/5531991236334?text=${encodeURIComponent(texto)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
 
     showToast('Redirecionando para o WhatsApp… 🎉', 'success');
