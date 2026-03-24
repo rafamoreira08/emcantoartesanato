@@ -19,8 +19,8 @@
   --border:      #D8ECF8;
 
   --font-title:  'Playfair Display', serif;
-  --font-script: 'Dancing Script', cursive;
-  --font-body:   'Lato', sans-serif;
+  --font-script: 'Playfair Display', serif;
+  --font-body:   'Playfair Display', serif;
 
   --radius:      12px;
   --radius-lg:   20px;
@@ -52,10 +52,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .section__eyebrow {
   font-family: var(--font-script);
-  font-size: 1.2rem;
+  font-style: italic;
+  font-size: 1.15rem;
   color: var(--blue-mid);
   margin-bottom: .4rem;
   display: block;
+  font-weight: 400;
+  letter-spacing: .02em;
 }
 .section__title {
   font-family: var(--font-title);
@@ -240,6 +243,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .hero__eyebrow {
   font-family: var(--font-script);
+  font-style: italic;
   font-size: 1.3rem;
   color: var(--blue-mid);
   margin-bottom: .5rem;
@@ -370,8 +374,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: flex;
   flex-direction: column;
 }
-.sobre__signature span { font-family: var(--font-script); font-size: 1rem; color: var(--text-light); }
-.sobre__signature strong { font-family: var(--font-script); font-size: 1.8rem; color: var(--blue-dark); }
+.sobre__signature span { font-family: var(--font-script); font-style: italic; font-size: 1rem; color: var(--text-light); }
+.sobre__signature strong { font-family: var(--font-script); font-style: italic; font-size: 1.8rem; color: var(--blue-dark); }
 
 .sobre__stats {
   display: flex;
@@ -693,21 +697,19 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .insta-card__embed-wrap {
   width: 100%;
-  height: 320px;
+  height: 350px;
   overflow: hidden;
   position: relative;
 }
 
 .insta-card__embed {
   position: absolute;
-  top: -56px;
-  left: 50%;
-  width: 480px;
+  top: -52px;
+  left: 0;
+  width: 100%;
   height: 600px;
   border: none;
   pointer-events: none;
-  transform: translateX(-50%) scale(0.64);
-  transform-origin: top center;
 }
 
 .insta-card__overlay {

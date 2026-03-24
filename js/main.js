@@ -65,7 +65,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
    ============================== */
 (function initCategorias() {
   const btns    = $$('.categoria-card');
-  const cards   = $$('.produto-card[data-categoria]');
+  const cards   = $$('.produto-card[data-cat]');
 
   btns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -74,7 +74,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
       const cat = btn.dataset.cat;
       cards.forEach(card => {
-        const match = cat === 'todos' || card.dataset.categoria === cat;
+        const match = cat === 'todos' || card.dataset.cat === cat;
         card.classList.toggle('hidden', !match);
       });
     });
@@ -92,21 +92,21 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
     e.preventDefault();
 
     const nome      = form.querySelector('[name="nome"]').value.trim();
-    const produto   = form.querySelector('[name="produto"]').value;
+    const interesse = form.querySelector('[name="interesse"]').value;
     const mensagem  = form.querySelector('[name="mensagem"]').value.trim();
     const telefone  = form.querySelector('[name="telefone"]')?.value.trim() || '';
 
-    if (!nome || !produto || !mensagem) {
+    if (!nome || !mensagem) {
       showToast('Por favor, preencha todos os campos obrigatórios.', 'error');
       return;
     }
 
     // Monta mensagem para WhatsApp
     const texto = [
-      `Olá, Sônia! 😊`,
+      `Ola, Sonia! Vim pelo site.`,
       ``,
-      `Meu nome é *${nome}*.`,
-      produto !== 'outro' ? `Tenho interesse em: *${produto}*` : '',
+      `Meu nome e ${nome}.`,
+      interesse && interesse !== 'outro' ? `Tenho interesse em: ${interesse}` : '',
       telefone ? `Telefone: ${telefone}` : '',
       ``,
       mensagem,
@@ -115,7 +115,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
     const url = `https://wa.me/5531991236334?text=${encodeURIComponent(texto)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
 
-    showToast('Redirecionando para o WhatsApp… 🎉', 'success');
+    showToast('Redirecionando para o WhatsApp...', 'success');
     form.reset();
   });
 })();
