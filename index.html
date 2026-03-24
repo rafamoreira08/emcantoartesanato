@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Em Canto Artesanato by Sônia Lima — Peças artesanais únicas feitas com amor. Encomende pelo WhatsApp." />
+  <title>Em Canto Artesanato | By Sônia Lima</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ====== HEADER / NAV ====== -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="#inicio" class="nav__logo">
+        <img src="images/logo.png" alt="Em Canto Artesanato" class="nav__logo-img" id="logoImg" />
+        <span class="nav__logo-text">Em Canto <span>Artesanato</span></span>
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav__list" id="navList">
+        <li><a href="#inicio" class="nav__link">Início</a></li>
+        <li><a href="#sobre" class="nav__link">Sobre</a></li>
+        <li><a href="#catalogo" class="nav__link">Catálogo</a></li>
+        <li><a href="#como-encomendar" class="nav__link">Como Encomendar</a></li>
+        <li><a href="#contato" class="nav__link">Contato</a></li>
+        <li>
+          <a href="https://wa.me/5500000000000?text=Olá%20Sônia!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20uma%20encomenda%20😊" target="_blank" class="btn btn--whatsapp nav__cta">
+            <i class="fab fa-whatsapp"></i> Encomendar
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ====== HERO ====== -->
+  <section class="hero" id="inicio">
+    <div class="hero__flowers hero__flowers--tl"></div>
+    <div class="hero__flowers hero__flowers--br"></div>
+
+    <div class="container hero__content">
+      <p class="hero__eyebrow">Bem-vinda ao</p>
+      <h1 class="hero__title">
+        Em Canto<br /><em>Artesanato</em>
+      </h1>
+      <p class="hero__subtitle">
+        Peças únicas feitas à mão com carinho, dedicação e muito amor.<br />
+        Cada criação conta uma história especial.
+      </p>
+      <div class="hero__actions">
+        <a href="#catalogo" class="btn btn--primary">Ver Catálogo</a>
+        <a href="https://wa.me/5500000000000?text=Olá%20Sônia!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20uma%20encomenda%20😊" target="_blank" class="btn btn--outline">
+          <i class="fab fa-whatsapp"></i> Falar com a Sônia
+        </a>
+      </div>
+      <div class="hero__badges">
+        <span class="badge"><i class="fas fa-heart"></i> Feito à mão</span>
+        <span class="badge"><i class="fas fa-star"></i> Peça única</span>
+        <span class="badge"><i class="fas fa-gift"></i> Presente ideal</span>
+      </div>
+    </div>
+
+    <div class="hero__scroll-hint">
+      <span>Role para baixo</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- ====== SOBRE ====== -->
+  <section class="sobre" id="sobre">
+    <div class="container sobre__grid">
+      <div class="sobre__image-wrap">
+        <div class="sobre__image-frame">
+          <div class="sobre__image-placeholder">
+            <i class="fas fa-seedling"></i>
+          </div>
+          <div class="sobre__deco-flower sobre__deco-flower--1"></div>
+          <div class="sobre__deco-flower sobre__deco-flower--2"></div>
+        </div>
+      </div>
+
+      <div class="sobre__text">
+        <p class="section__eyebrow">Nossa história</p>
+        <h2 class="section__title">O amor que se<br /><em>transforma em arte</em></h2>
+        <p class="sobre__desc">
+          O Em Canto Artesanato nasceu do desejo de transformar momentos simples em memórias afetivas.
+          Cada peça é criada com atenção a cada detalhe, escolha de materiais e muito afeto.
+        </p>
+        <p class="sobre__desc">
+          Aqui você encontra criações exclusivas para decorar sua casa, presentear quem você ama
+          ou celebrar momentos especiais com peças que têm alma.
+        </p>
+        <div class="sobre__signature">
+          <span>com amor,</span>
+          <strong>Sônia Lima</strong>
+        </div>
+        <div class="sobre__stats">
+          <div class="stat">
+            <strong>100%</strong>
+            <span>Artesanal</span>
+          </div>
+          <div class="stat">
+            <strong><i class="fas fa-heart"></i></strong>
+            <span>Feito com amor</span>
+          </div>
+          <div class="stat">
+            <strong>Única</strong>
+            <span>Cada peça</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CATEGORIAS ====== -->
+  <section class="categorias" id="categorias">
+    <div class="container">
+      <p class="section__eyebrow text-center">Explore</p>
+      <h2 class="section__title text-center">Nossas <em>Categorias</em></h2>
+      <div class="categorias__grid">
+        <button class="categoria-card categoria-card--active" data-cat="todos">
+          <i class="fas fa-th"></i>
+          <span>Todos</span>
+        </button>
+        <button class="categoria-card" data-cat="decoracao">
+          <i class="fas fa-home"></i>
+          <span>Decoração</span>
+        </button>
+        <button class="categoria-card" data-cat="presentes">
+          <i class="fas fa-gift"></i>
+          <span>Presentes</span>
+        </button>
+        <button class="categoria-card" data-cat="flores">
+          <i class="fas fa-spa"></i>
+          <span>Flores</span>
+        </button>
+        <button class="categoria-card" data-cat="festas">
+          <i class="fas fa-birthday-cake"></i>
+          <span>Festas</span>
+        </button>
+        <button class="categoria-card" data-cat="personalizado">
+          <i class="fas fa-paint-brush"></i>
+          <span>Personalizado</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CATÁLOGO ====== -->
+  <section class="catalogo" id="catalogo">
+    <div class="container">
+      <p class="section__eyebrow text-center">Criações exclusivas</p>
+      <h2 class="section__title text-center">Nosso <em>Catálogo</em></h2>
+
+      <div class="produtos__grid" id="produtosGrid">
+
+        <!-- Produto 1 -->
+        <article class="produto-card" data-cat="decoracao">
+          <div class="produto-card__img-wrap">
+            <div class="produto-card__img produto-card__img--1">
+              <i class="fas fa-home"></i>
+            </div>
+            <span class="produto-card__badge">Decoração</span>
+          </div>
+          <div class="produto-card__body">
+            <h3 class="produto-card__name">Guirlanda Floral</h3>
+            <p class="produto-card__desc">Guirlanda artesanal com flores delicadas, ideal para decorar sua porta ou parede.</p>
+            <a href="https://wa.me/5500000000000?text=Olá%20Sônia!%20Tenho%20interesse%20na%20Guirlanda%20Floral%20🌸" target="_blank" class="btn btn--card">
+              <i class="fab fa-whatsapp"></i> Tenho interesse
+            </a>
+          </div>
+        </article>
+
+        <!-- Produto 2 -->
+        <article class="produto-card" data-cat="presentes">
+          <div class="produto-card__img-wrap">
+            <div class="produto-card__img produto-card__img--2">
+              <i class="fas fa-gift"></i>
+            </div>
+            <span class="produto-card__badge produto-card__badge--green">Presente</span>
+          </div>
+          <div class="produto-card__body">
+            <h3 class="produto-card__name">Caixa Decorada</h3>
+            <p class="produto-card__desc">Caixa artesanal personalizada para presentear com estilo e carinho.</p>
+            <a href="https://wa.me/5500000000000?text=Olá%20Sônia!%20Tenho%20interesse%20na%20Caixa%20Decorada%20🎁" target="_blank" class="btn btn--card">
+              <i class="fab fa-whatsapp"></i> Tenho interesse
+            </a>
+          </div>
+        </article>
+
+        <!-- Produto 3 -->
+        <article class="produto-card" data-cat="flores">
+          <div class="produto-card__img-wrap">
+            <div class="produto-card__img produto-card__img--3">
+              <i class="fas fa-spa"></i>
+            </div>
+            <span class="produto-card__badge produto-card__badge--pink">Flores</span>
+          </div>
+          <div class="produto-card__body">
+            <h3 class="produto-card__name">Buquê Eterno</h3>
+            <p class="produto-card__desc">Flores que não murcham! Buquê artesanal que dura para sempre com beleza real.</p>
+            <a href="https://wa.me/5500000000000?text=Olá%20Sônia!%20Tenho%20interesse%20no%20Buquê%20Eterno%20💐" target="_blank" class="btn btn--card">
+              <i class="fab fa-whatsapp"></i> Tenho interesse
+            </a>
+          </div>
+        </article>
+
+        <!-- Produto 4 -->
+        <article class="produto-card" data-cat="festas">
+          <div class="produto-card__img-wrap">
+            <div class="produto-card__img produto-card__img--4">
+              <i class="fas fa-birthday-cake"></i>
+            </div>
+            <span class="produto-card__badge produto-card__badge--yellow">Festas</span>
+          </div>
+          <div class="produto-card__body">
+            <h3 class="produto-card__name">Lembrancinhas</h3>
+            <p class="produto-card__desc">Lembrancinhas únicas e personalizadas para tornar sua festa ainda mais especial.</p>
+            <a href="https://wa.me/5500000000000?text=Olá%20Sônia!%20Tenho%20interesse%20nas%20Lembrancinhas%20🎉" target="_blank" class="btn btn--card">
+              <i class="fab fa-whatsapp"></i> Tenho interesse
+            </a>
+          </div>
+        </article>
+
+        <!-- Produto 5 -->
+        <article class="produto-card" data-cat="decoracao">
+          <div class="produto-card__img-wrap">
+            <div class="produto-card__img produto-card__img--5">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <span class="produto-card__badge">Decoração</span>
+          </div>
+          <div class="produto-card__body">
+            <h3 class="produto-card__name">Vaso Decorativo</h3>
+            <p class="produto-card__desc">Vasos pintados à mão com detalhes florais que embelezam qualquer ambiente.</p>
+            <a href="https://wa.me/5500000000000?text=Olá%20Sônia!%20Tenho%20interesse%20no%20Vaso%20Decorativo%20🪴" target="_blank" class="btn btn--card">
+              <i class="fab fa-whatsapp"></i> Tenho interesse
+            </a>
+          </div>
+        </article>
+
+        <!-- Produto 6 -->
+        <article class="produto-card" data-cat="personalizado">
+          <div class="produto-card__img-wrap">
+            <div class="produto-card__img produto-card__img--6">
+              <i class="fas fa-paint-brush"></i>
+            </div>
+            <span class="produto-card__badge produto-card__badge--navy">Personalizado</span>
+          </div>
+          <div class="produto-card__body">
+            <h3 class="produto-card__name">Peça Personalizada</h3>
+            <p class="produto-card__desc">Crie a peça dos seus sonhos! Desenvolvemos criações exclusivas sob encomenda.</p>
+            <a href="https://wa.me/5500000000000?text=Olá%20Sônia!%20Quero%20uma%20peça%20personalizada%20✨" target="_blank" class="btn btn--card">
+              <i class="fab fa-whatsapp"></i> Encomendar
+            </a>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="catalogo__cta">
+        <p>Não encontrou o que procura? Fale comigo!</p>
+        <a href="https://wa.me/5500000000000?text=Olá%20Sônia!%20Vim%20pelo%20site%20e%20gostaria%20de%20ver%20mais%20produtos%20😊" target="_blank" class="btn btn--primary">
+          <i class="fab fa-whatsapp"></i> Ver mais pelo WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== COMO ENCOMENDAR ====== -->
+  <section class="como-encomendar" id="como-encomendar">
+    <div class="container">
+      <p class="section__eyebrow text-center">Simples e fácil</p>
+      <h2 class="section__title text-center">Como <em>Encomendar</em></h2>
+
+      <div class="steps__grid">
+        <div class="step">
+          <div class="step__icon step__icon--1">
+            <i class="fas fa-search"></i>
+          </div>
+          <div class="step__number">01</div>
+          <h3 class="step__title">Escolha</h3>
+          <p class="step__desc">Navegue pelo catálogo e escolha a peça que chamou seu coração.</p>
+        </div>
+
+        <div class="step__arrow"><i class="fas fa-arrow-right"></i></div>
+
+        <div class="step">
+          <div class="step__icon step__icon--2">
+            <i class="fab fa-whatsapp"></i>
+          </div>
+          <div class="step__number">02</div>
+          <h3 class="step__title">Entre em Contato</h3>
+          <p class="step__desc">Clique em "Tenho interesse" ou mande uma mensagem pelo WhatsApp.</p>
+        </div>
+
+        <div class="step__arrow"><i class="fas fa-arrow-right"></i></div>
+
+        <div class="step">
+          <div class="step__icon step__icon--3">
+            <i class="fas fa-comments"></i>
+          </div>
+          <div class="step__number">03</div>
+          <h3 class="step__title">Converse</h3>
+          <p class="step__desc">Combinamos todos os detalhes da sua peça: cores, tamanho, personalização.</p>
+        </div>
+
+        <div class="step__arrow"><i class="fas fa-arrow-right"></i></div>
+
+        <div class="step">
+          <div class="step__icon step__icon--4">
+            <i class="fas fa-box-heart"></i>
+          </div>
+          <div class="step__number">04</div>
+          <h3 class="step__title">Receba com Amor</h3>
+          <p class="step__desc">Sua peça exclusiva é preparada com carinho e enviada até você.</p>
+        </div>
+      </div>
+
+      <div class="como-encomendar__cta">
+        <a href="https://wa.me/5500000000000?text=Olá%20Sônia!%20Vim%20pelo%20site%20e%20quero%20fazer%20uma%20encomenda%20💙" target="_blank" class="btn btn--whatsapp btn--lg">
+          <i class="fab fa-whatsapp"></i> Começar minha encomenda agora
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== DEPOIMENTOS ====== -->
+  <section class="depoimentos" id="depoimentos">
+    <div class="depoimentos__bg-flower depoimentos__bg-flower--1"></div>
+    <div class="depoimentos__bg-flower depoimentos__bg-flower--2"></div>
+    <div class="container">
+      <p class="section__eyebrow text-center">Quem já comprou</p>
+      <h2 class="section__title text-center">O que dizem <em>sobre nós</em></h2>
+
+      <div class="depoimentos__grid">
+        <div class="depoimento-card">
+          <div class="depoimento-card__stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="depoimento-card__text">"Encomendei uma guirlanda para minha sala e ficou simplesmente linda! A Sônia é muito atenciosa e entregou no prazo combinado. Super recomendo!"</p>
+          <div class="depoimento-card__author">
+            <div class="depoimento-card__avatar">A</div>
+            <div>
+              <strong>Ana Paula</strong>
+              <span>Cliente fiel</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="depoimento-card">
+          <div class="depoimento-card__stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="depoimento-card__text">"Pedi lembrancinhas personalizadas para o aniversário da minha filha e todas as convidadas adoraram! Qualidade incrível e muito capricho em cada peça."</p>
+          <div class="depoimento-card__author">
+            <div class="depoimento-card__avatar">C</div>
+            <div>
+              <strong>Carla Mendes</strong>
+              <span>Mamãe feliz</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="depoimento-card">
+          <div class="depoimento-card__stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="depoimento-card__text">"Presentei minha mãe com um buquê eterno e ela chorou de emoção! A Sônia entende exatamente o que você quer e transforma em arte. Amei demais!"</p>
+          <div class="depoimento-card__author">
+            <div class="depoimento-card__avatar">J</div>
+            <div>
+              <strong>Juliana Costa</strong>
+              <span>Presenteou com amor</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== INSTAGRAM ====== -->
+  <section class="instagram" id="instagram">
+    <div class="container">
+      <div class="instagram__header">
+        <p class="section__eyebrow text-center">Siga nossas novidades</p>
+        <h2 class="section__title text-center">No <em>Instagram</em></h2>
+        <a href="https://instagram.com/emcantoartesanato" target="_blank" class="instagram__handle">
+          <i class="fab fa-instagram"></i> @emcantoartesanato
+        </a>
+      </div>
+
+      <div class="instagram__grid">
+        <a href="https://instagram.com/emcantoartesanato" target="_blank" class="insta-card insta-card--1">
+          <div class="insta-card__overlay"><i class="fab fa-instagram"></i></div>
+        </a>
+        <a href="https://instagram.com/emcantoartesanato" target="_blank" class="insta-card insta-card--2">
+          <div class="insta-card__overlay"><i class="fab fa-instagram"></i></div>
+        </a>
+        <a href="https://instagram.com/emcantoartesanato" target="_blank" class="insta-card insta-card--3">
+          <div class="insta-card__overlay"><i class="fab fa-instagram"></i></div>
+        </a>
+        <a href="https://instagram.com/emcantoartesanato" target="_blank" class="insta-card insta-card--4">
+          <div class="insta-card__overlay"><i class="fab fa-instagram"></i></div>
+        </a>
+        <a href="https://instagram.com/emcantoartesanato" target="_blank" class="insta-card insta-card--5">
+          <div class="insta-card__overlay"><i class="fab fa-instagram"></i></div>
+        </a>
+        <a href="https://instagram.com/emcantoartesanato" target="_blank" class="insta-card insta-card--6">
+          <div class="insta-card__overlay"><i class="fab fa-instagram"></i></div>
+        </a>
+      </div>
+
+      <div class="text-center" style="margin-top: 2rem;">
+        <a href="https://instagram.com/emcantoartesanato" target="_blank" class="btn btn--outline">
+          <i class="fab fa-instagram"></i> Ver no Instagram
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CONTATO ====== -->
+  <section class="contato" id="contato">
+    <div class="container contato__grid">
+      <div class="contato__info">
+        <p class="section__eyebrow">Vamos conversar?</p>
+        <h2 class="section__title">Entre em <em>Contato</em></h2>
+        <p class="contato__desc">Estou sempre feliz em conversar sobre criações, encomendas e tudo mais. Mande uma mensagem!</p>
+
+        <div class="contato__channels">
+          <a href="https://wa.me/5500000000000" target="_blank" class="contato__channel contato__channel--whatsapp">
+            <i class="fab fa-whatsapp"></i>
+            <div>
+              <strong>WhatsApp</strong>
+              <span>Mensagem direta</span>
+            </div>
+          </a>
+          <a href="https://instagram.com/emcantoartesanato" target="_blank" class="contato__channel contato__channel--instagram">
+            <i class="fab fa-instagram"></i>
+            <div>
+              <strong>Instagram</strong>
+              <span>@emcantoartesanato</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="contato__form-wrap">
+        <form class="contato__form" id="contatoForm">
+          <h3>Envie uma mensagem</h3>
+          <div class="form-group">
+            <label for="nome">Seu nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Como posso te chamar?" required />
+          </div>
+          <div class="form-group">
+            <label for="telefone">WhatsApp / Telefone</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" />
+          </div>
+          <div class="form-group">
+            <label for="interesse">O que te interessou?</label>
+            <select id="interesse" name="interesse">
+              <option value="">Selecione uma opção</option>
+              <option value="decoracao">Decoração</option>
+              <option value="presentes">Presentes</option>
+              <option value="flores">Flores</option>
+              <option value="festas">Festas / Lembrancinhas</option>
+              <option value="personalizado">Peça Personalizada</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mensagem">Sua mensagem</label>
+            <textarea id="mensagem" name="mensagem" rows="4" placeholder="Conte mais sobre o que você procura..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn--whatsapp btn--full">
+            <i class="fab fa-whatsapp"></i> Enviar pelo WhatsApp
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="container footer__top-grid">
+        <div class="footer__brand">
+          <img src="images/logo.png" alt="Em Canto Artesanato" class="footer__logo" id="footerLogoImg" />
+          <p class="footer__brand-text">Peças únicas feitas à mão<br />com amor e dedicação.</p>
+          <div class="footer__social">
+            <a href="https://instagram.com/emcantoartesanato" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/5500000000000" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+
+        <div class="footer__links">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#catalogo">Catálogo</a></li>
+            <li><a href="#como-encomendar">Como Encomendar</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__links">
+          <h4>Categorias</h4>
+          <ul>
+            <li><a href="#catalogo">Decoração</a></li>
+            <li><a href="#catalogo">Presentes</a></li>
+            <li><a href="#catalogo">Flores</a></li>
+            <li><a href="#catalogo">Festas</a></li>
+            <li><a href="#catalogo">Personalizado</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__contact">
+          <h4>Contato</h4>
+          <a href="https://wa.me/5500000000000" target="_blank" class="footer__contact-item">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+          <a href="https://instagram.com/emcantoartesanato" target="_blank" class="footer__contact-item">
+            <i class="fab fa-instagram"></i> @emcantoartesanato
+          </a>
+          <a href="https://wa.me/5500000000000?text=Olá%20Sônia!%20Quero%20fazer%20uma%20encomenda%20💙" target="_blank" class="btn btn--whatsapp footer__cta">
+            <i class="fab fa-whatsapp"></i> Fazer Encomenda
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="container">
+        <p>© 2025 Em Canto Artesanato · By Sônia Lima · Feito com <i class="fas fa-heart"></i> para você</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/5500000000000?text=Olá%20Sônia!%20Vim%20pelo%20site%20😊" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-float__tooltip">Fale comigo!</span>
+  </a>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
