@@ -147,10 +147,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   flex-shrink: 0;
 }
 .nav__logo-img {
-  height: 48px;
+  height: 60px;
   width: auto;
   object-fit: contain;
 }
+/* Esconde o texto quando o logo carrega */
+.nav__logo-img:not(.hidden) ~ .nav__logo-text { display: none; }
 .nav__logo-text {
   font-family: var(--font-title);
   font-size: 1.05rem;
@@ -824,12 +826,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   gap: 3rem;
 }
 .footer__logo {
-  height: 64px;
+  height: 90px;
   width: auto;
   object-fit: contain;
   margin-bottom: 1rem;
-  filter: brightness(0) invert(1);
-  opacity: .85;
+  background: white;
+  border-radius: 50%;
+  padding: 6px;
 }
 .footer__brand-text { font-size: .88rem; line-height: 1.7; color: rgba(255,255,255,.6); margin-bottom: 1.25rem; }
 .footer__social { display: flex; gap: .75rem; }
