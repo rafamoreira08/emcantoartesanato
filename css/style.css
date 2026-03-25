@@ -151,8 +151,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   width: auto;
   object-fit: contain;
 }
-/* Esconde o texto quando o logo carrega */
-.nav__logo-img:not(.hidden) ~ .nav__logo-text { display: none; }
 .nav__logo-text {
   font-family: var(--font-title);
   font-size: 1.05rem;
@@ -244,8 +242,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   z-index: 1;
 }
 .hero__logo-img {
+  display: block;
+  margin: 0 auto 1.5rem;
   width: clamp(180px, 40vw, 320px);
-  margin-bottom: 1.5rem;
   filter: drop-shadow(0 4px 16px rgba(0,0,0,.15));
 }
 .hero__eyebrow {
