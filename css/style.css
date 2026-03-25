@@ -338,8 +338,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--border);
-  overflow: visible;
+  border: 3px solid var(--border);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
 }
 .sobre__image-placeholder {
   width: 80%;
