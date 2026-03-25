@@ -243,6 +243,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   position: relative;
   z-index: 1;
 }
+.hero__logo-img {
+  width: clamp(180px, 40vw, 320px);
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,.15));
+}
 .hero__eyebrow {
   font-family: var(--font-script);
   font-style: italic;
