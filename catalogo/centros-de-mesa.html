@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Centros de mesa e sousplats artesanais únicos — Em Canto Artesanato." />
+  <title>Centros de Mesa | Em Canto Artesanato</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/catalogo.css" />
+</head>
+<body data-category="centros-de-mesa">
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="../index.html" class="nav__logo">
+        <img src="../images/logo.png" alt="Em Canto Artesanato" class="nav__logo-img" />
+        <span class="nav__logo-text">Em Canto <span>Artesanato</span></span>
+      </a>
+
+      <button class="nav__cart-btn cart-toggle" aria-label="Carrinho">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-badge"></span>
+      </button>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav__list" id="navList">
+        <li><a href="../index.html#inicio" class="nav__link">Início</a></li>
+        <li><a href="../index.html#sobre" class="nav__link">Sobre</a></li>
+        <li><a href="../index.html#catalogo" class="nav__link">Catálogo</a></li>
+        <li><a href="../index.html#contato" class="nav__link">Contato</a></li>
+        <li>
+          <a href="https://wa.me/5531991236334?text=Olá%20Sônia!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20uma%20encomenda." target="_blank" class="btn btn--whatsapp nav__cta">
+            <i class="fab fa-whatsapp"></i> Encomendar
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO DA CATEGORIA -->
+  <section class="cat-hero">
+    <div class="container cat-hero__content">
+      <a href="../index.html#catalogo" class="cat-hero__back">
+        <i class="fas fa-arrow-left"></i> Voltar ao Catálogo
+      </a>
+      <i class="fas fa-seedling cat-hero__icon"></i>
+      <p class="section__eyebrow">Criações exclusivas</p>
+      <h1 class="section__title">Centros de Mesa <em>& Sousplats</em></h1>
+      <p class="cat-hero__subtitle">
+        Arranjos que transformam qualquer mesa em algo especial, com uma proposta única e personalizada.
+      </p>
+    </div>
+  </section>
+
+  <!-- PRODUTOS -->
+  <section class="catalogo-section">
+    <div class="container">
+      <div id="produtosGrid">
+        <div class="catalog-loading" id="catalogLoading">
+          <i class="fas fa-spinner fa-spin"></i>
+          <span>Carregando produtos...</span>
+        </div>
+        <div class="catalog-empty hidden" id="catalogEmpty">
+          <i class="fas fa-seedling"></i>
+          <h3>Em breve!</h3>
+          <p>Estamos preparando peças incríveis para você. Volte em breve ou fale com a Sônia pelo WhatsApp.</p>
+          <a href="https://wa.me/5531991236334?text=Olá%20Sônia!%20Tenho%20interesse%20em%20Centros%20de%20Mesa." target="_blank" class="btn btn--whatsapp" style="margin-top:.5rem">
+            <i class="fab fa-whatsapp"></i> Falar com a Sônia
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WhatsApp Floating -->
+  <a href="https://wa.me/5531991236334?text=Olá%20Sônia!%20Vim%20pelo%20site%20e%20tenho%20interesse%20em%20centros%20de%20mesa." target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-float__tooltip">Fale comigo!</span>
+  </a>
+
+  <script type="module" src="../js/catalogo.js"></script>
+</body>
+</html>

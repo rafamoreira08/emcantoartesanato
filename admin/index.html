@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Admin | Em Canto Artesanato</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="../css/admin.css" />
+</head>
+<body>
+
+  <!-- ======== LOGIN ======== -->
+  <div id="loginView">
+    <div class="login-card">
+      <img src="../images/logo.png" alt="Em Canto Artesanato" class="login-card__logo"
+           onerror="this.style.display='none'" />
+      <h2>Painel Admin</h2>
+      <p>Em Canto Artesanato</p>
+      <p class="login-error" id="loginError"></p>
+      <form id="loginForm" style="text-align:left">
+        <div style="display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem">
+          <label style="font-size:.85rem;font-weight:700;color:#1A2D5E">E-mail</label>
+          <input type="email" name="email" placeholder="seu@email.com" required
+                 style="padding:.65rem 1rem;border:2px solid #D8ECF8;border-radius:8px;font-size:.9rem;outline:none;font-family:inherit" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.5rem">
+          <label style="font-size:.85rem;font-weight:700;color:#1A2D5E">Senha</label>
+          <input type="password" name="password" placeholder="••••••••" required
+                 style="padding:.65rem 1rem;border:2px solid #D8ECF8;border-radius:8px;font-size:.9rem;outline:none;font-family:inherit" />
+        </div>
+        <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center">
+          <i class="fas fa-sign-in-alt"></i> Entrar
+        </button>
+      </form>
+      <p style="margin-top:1.5rem;font-size:.8rem;color:#6B7A8D">
+        <a href="../index.html" style="color:#3A85C7">← Voltar ao site</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ======== ADMIN ======== -->
+  <div id="adminView" hidden>
+
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="admin-header__brand">
+        <img src="../images/logo.png" alt="Em Canto" onerror="this.style.display='none'" />
+        Painel Admin
+      </div>
+      <div class="admin-header__actions">
+        <a href="../index.html" class="btn btn--outline btn--sm" target="_blank">
+          <i class="fas fa-external-link-alt"></i> Ver Site
+        </a>
+        <button id="logoutBtn" class="btn btn--sm" style="background:#FFEBEB;color:#e74c3c">
+          <i class="fas fa-sign-out-alt"></i> Sair
+        </button>
+      </div>
+    </header>
+
+    <main class="admin-main">
+
+      <!-- Toolbar -->
+      <div class="admin-toolbar">
+        <h2><i class="fas fa-box-open"></i> Produtos</h2>
+        <button id="newProdBtn" class="btn btn--primary">
+          <i class="fas fa-plus"></i> Novo Produto
+        </button>
+      </div>
+
+      <!-- Lista de produtos -->
+      <div id="prodList">
+        <div class="admin-loading">
+          <i class="fas fa-spinner fa-spin"></i>
+          <span>Carregando produtos...</span>
+        </div>
+      </div>
+
+      <!-- Formulário de produto -->
+      <section id="formSection" hidden>
+        <h3 id="formTitle">Novo Produto</h3>
+
+        <form id="prodForm">
+          <!-- Imagem -->
+          <div class="form-group full" style="margin-bottom:1.25rem">
+            <label>Foto do Produto</label>
+            <div class="image-upload-area">
+              <input type="file" id="imageInput" accept="image/*" />
+              <label for="imageInput">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Clique para selecionar uma imagem</span>
+                <span style="font-size:.75rem">JPG, PNG ou WEBP — máx. 5 MB</span>
+              </label>
+            </div>
+            <img id="imagePreview" hidden alt="Pré-visualização" />
+            <span id="uploadProgress" class="upload-progress"></span>
+          </div>
+
+          <div class="form-row">
+            <!-- Nome -->
+            <div class="form-group full">
+              <label for="prodName">Nome do produto *</label>
+              <input type="text" id="prodName" name="name" placeholder="Ex: Colar Floral Rosa" required />
+            </div>
+
+            <!-- Categoria -->
+            <div class="form-group">
+              <label for="prodCategory">Categoria *</label>
+              <select id="prodCategory" name="category" required>
+                <option value="">Selecione...</option>
+                <option value="colares">Colares</option>
+                <option value="bolsas">Bolsas</option>
+                <option value="centros-de-mesa">Centros de Mesa / Sousplats</option>
+              </select>
+            </div>
+
+            <!-- Preço base -->
+            <div class="form-group">
+              <label for="prodPrice">Preço base (R$) *</label>
+              <input type="number" id="prodPrice" name="basePrice" placeholder="0,00"
+                     min="0" step="0.01" required />
+            </div>
+
+            <!-- Descrição -->
+            <div class="form-group full">
+              <label for="prodDesc">Descrição</label>
+              <textarea id="prodDesc" name="description" placeholder="Descreva a peça..."></textarea>
+            </div>
+
+            <!-- Ativo -->
+            <div class="form-group full">
+              <div class="toggle-group">
+                <input type="checkbox" id="prodActive" name="active" checked />
+                <label for="prodActive">Produto ativo (visível no site)</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Variações -->
+          <div class="variations-section">
+            <h4><i class="fas fa-sliders-h"></i> Variações</h4>
+            <p style="font-size:.82rem;color:#6B7A8D;margin-bottom:.75rem">
+              Adicione variações como Cor ou Tamanho. Cada opção pode ter um ajuste de preço (positivo ou negativo).
+            </p>
+            <div id="varContainer"></div>
+            <button type="button" id="addVarBtn" class="btn-add-var">
+              <i class="fas fa-plus"></i> Adicionar Variação
+            </button>
+          </div>
+
+          <!-- Botões -->
+          <div class="form-footer">
+            <button type="button" id="cancelFormBtn" class="btn btn--outline">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn--primary">
+              <i class="fas fa-save"></i> Salvar Produto
+            </button>
+          </div>
+        </form>
+      </section>
+
+    </main>
+  </div>
+
+  <script type="module" src="../js/admin.js"></script>
+</body>
+</html>

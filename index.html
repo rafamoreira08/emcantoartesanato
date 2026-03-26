@@ -26,6 +26,11 @@
         <span class="nav__logo-text">Em Canto <span>Artesanato</span></span>
       </a>
 
+      <button class="nav__cart-btn cart-toggle" aria-label="Carrinho">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-badge"></span>
+      </button>
+
       <button class="nav__toggle" id="navToggle" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -103,7 +108,6 @@
           Hoje, cada peça que crio carrega um pouco dessa história. Mais do que produtos, são expressões de carinho, tradição e dedicação — um elo entre o passado e o presente, feito à mão com amor.
         </p>
         <div class="sobre__signature">
-          <span>com amor,</span>
           <strong>Sônia Lima</strong>
         </div>
         <div class="sobre__stats">
@@ -134,18 +138,18 @@
           <i class="fas fa-th"></i>
           <span>Todos</span>
         </button>
-        <button class="categoria-card" data-cat="colares">
+        <a href="catalogo/colares.html" class="categoria-card">
           <i class="fas fa-gem"></i>
           <span>Colares</span>
-        </button>
-        <button class="categoria-card" data-cat="bolsas">
+        </a>
+        <a href="catalogo/bolsas.html" class="categoria-card">
           <i class="fas fa-shopping-bag"></i>
           <span>Bolsas</span>
-        </button>
-        <button class="categoria-card" data-cat="centros-de-mesa">
+        </a>
+        <a href="catalogo/centros-de-mesa.html" class="categoria-card">
           <i class="fas fa-seedling"></i>
           <span>Centros de Mesa / Sousplats</span>
-        </button>
+        </a>
       </div>
     </div>
   </section>
@@ -462,5 +466,9 @@
   </button>
 
   <script src="js/main.js"></script>
+  <script type="module">
+    import { initCart } from './js/cart.js';
+    initCart();
+  </script>
 </body>
 </html>

@@ -1,0 +1,162 @@
+/* ==============================
+   CATÁLOGO — Em Canto Artesanato
+   ============================== */
+
+/* ---- Hero da categoria ---- */
+.cat-hero {
+  padding: 120px 0 60px;
+  background: linear-gradient(135deg, #F0F7FF 0%, #FDF8F5 100%);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cat-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(91,174,232,.1) 0%, transparent 60%),
+              radial-gradient(circle at 80% 50%, rgba(244,184,193,.1) 0%, transparent 60%);
+}
+.cat-hero__content { position: relative; z-index: 1; }
+.cat-hero__back {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  transition: color var(--transition);
+}
+.cat-hero__back:hover { color: var(--blue-mid); }
+.cat-hero__icon {
+  font-size: 2.5rem;
+  color: var(--blue-mid);
+  margin-bottom: .75rem;
+  display: block;
+}
+.cat-hero__subtitle {
+  max-width: 520px;
+  margin: 0 auto;
+  color: var(--text-light);
+  font-size: 1.05rem;
+}
+
+/* ---- Grid de produtos ---- */
+.catalogo-section {
+  padding: 60px 0 100px;
+  background: var(--bg-cream);
+}
+
+#produtosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+/* ---- Estado de loading ---- */
+.catalog-loading {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem 0;
+  color: var(--text-light);
+}
+.catalog-loading i { font-size: 2rem; color: var(--blue-light); }
+
+/* ---- Estado vazio ---- */
+.catalog-empty {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+.catalog-empty.hidden { display: none; }
+.catalog-empty i { font-size: 3rem; color: var(--border); }
+.catalog-empty h3 {
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+  color: var(--blue-dark);
+}
+.catalog-empty p { color: var(--text-light); max-width: 400px; }
+
+/* ---- Card de produto ---- */
+.produto-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.produto-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.produto-card__img-wrap { position: relative; }
+.produto-card__img {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--bg-soft);
+}
+.produto-card__img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+.produto-card:hover .produto-card__img img { transform: scale(1.04); }
+
+.produto-card__badge {
+  position: absolute;
+  top: .75rem; left: .75rem;
+  background: var(--blue-dark);
+  color: var(--white);
+  font-size: .72rem;
+  font-weight: 700;
+  padding: .3rem .8rem;
+  border-radius: 50px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.produto-card__body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: .5rem;
+}
+.produto-card__name {
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+  line-height: 1.3;
+}
+.produto-card__desc {
+  font-size: .88rem;
+  color: var(--text-light);
+  line-height: 1.5;
+  flex: 1;
+}
+.produto-card__price {
+  font-family: var(--font-title);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+}
+
+.btn-add-cart {
+  margin-top: auto;
+}
+
+@media (max-width: 600px) {
+  #produtosGrid { grid-template-columns: 1fr; }
+}
