@@ -159,7 +159,7 @@ function renderCard(p) {
 
 function categoryLabel(cat) {
   const map = {
-    'colares':          'Colares',
+    'colares':          'Colares e Chokers',
     'bolsas':           'Bolsas',
     'centros-de-mesa':  'Centros de Mesa',
     'pronta-entrega':   'Pronta Entrega'

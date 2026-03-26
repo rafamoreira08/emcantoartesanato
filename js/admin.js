@@ -130,7 +130,7 @@ function renderList() {
 }
 
 function categoryLabel(cat) {
-  const map = { colares: 'Colares', bolsas: 'Bolsas', 'centros-de-mesa': 'Centros de Mesa' };
+  const map = { colares: 'Colares e Chokers', bolsas: 'Bolsas', 'centros-de-mesa': 'Centros de Mesa' };
   return map[cat] || cat;
 }
 
