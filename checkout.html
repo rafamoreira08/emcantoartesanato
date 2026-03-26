@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Finalizar pedido — Em Canto Artesanato" />
+  <title>Finalizar Pedido | Em Canto Artesanato</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* ---- Checkout layout ---- */
+    body { background: #F0F7FF; }
+
+    .checkout-page {
+      padding: 100px 0 80px;
+      min-height: 100vh;
+    }
+    .checkout-page__header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .checkout-back {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--text-light);
+      margin-bottom: 1.25rem;
+      transition: color var(--transition);
+    }
+    .checkout-back:hover { color: var(--blue-mid); }
+
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .checkout-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .checkout-card h3 {
+      font-family: var(--font-title);
+      font-size: 1.1rem;
+      color: var(--blue-dark);
+      margin-bottom: 1.25rem;
+      padding-bottom: .75rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    /* Resumo do pedido */
+    .checkout-item {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      padding: .75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .checkout-item:last-child { border-bottom: none; }
+    .checkout-item img {
+      width: 60px; height: 60px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      flex-shrink: 0;
+    }
+    .checkout-item__info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: .2rem;
+    }
+    .checkout-item__info p {
+      font-weight: 600;
+      font-size: .9rem;
+      color: var(--blue-dark);
+    }
+    .checkout-item__info span {
+      font-size: .78rem;
+      color: var(--text-light);
+    }
+    .checkout-item__qty { font-size: .8rem; color: var(--text-light); }
+    .checkout-item > strong {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      flex-shrink: 0;
+    }
+
+    .checkout-empty {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-light);
+    }
+    .checkout-empty a { color: var(--blue-mid); font-weight: 600; }
+
+    /* Totais */
+    .checkout-totals { margin-top: 1rem; }
+    .checkout-totals__row {
+      display: flex;
+      justify-content: space-between;
+      padding: .5rem 0;
+      font-size: .95rem;
+      border-top: 1px solid var(--border);
+    }
+    .checkout-totals__row.total {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--blue-dark);
+      border-top: 2px solid var(--blue-dark);
+      margin-top: .25rem;
+    }
+    .checkout-totals__row span:last-child { font-weight: 600; }
+
+    /* Formulário */
+    .checkout-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-section-title {
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--blue-mid);
+      margin-top: .5rem;
+    }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 80px; gap: .75rem; }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+    }
+    .form-group label {
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--text-light);
+    }
+    .form-group input {
+      padding: .65rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-size: .9rem;
+      font-family: var(--font-body);
+      color: var(--text);
+      outline: none;
+      transition: border-color var(--transition);
+      background: var(--bg-soft);
+    }
+    .form-group input:focus { border-color: var(--blue-mid); background: var(--white); }
+    .form-group input[readonly] { background: #f5f5f5; color: var(--text-light); cursor: default; }
+
+    .cep-row { display: grid; grid-template-columns: 1fr auto; gap: .5rem; align-items: end; }
+    .cep-status { font-size: .78rem; margin-top: .2rem; color: var(--text-light); }
+    .cep-status--error { color: #c0392b; }
+
+    /* Frete */
+    .frete-section {
+      background: var(--bg-soft);
+      border-radius: var(--radius);
+      padding: 1rem;
+    }
+    .frete-placeholder {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: .75rem;
+      background: #EBF5FF;
+      border-radius: 8px;
+      border-left: 3px solid var(--blue-mid);
+    }
+    .frete-placeholder i { color: var(--blue-mid); font-size: 1.2rem; margin-top: .1rem; }
+    .frete-placeholder strong { display: block; font-size: .88rem; color: var(--blue-dark); }
+    .frete-placeholder span { font-size: .8rem; color: var(--text-light); }
+    .frete-msg { font-size: .85rem; padding: .5rem 0; }
+    .frete-msg--error { color: #c0392b; }
+
+    /* Pagamento */
+    .payment-placeholder {
+      background: #FDF8F5;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      text-align: center;
+      color: var(--text-light);
+    }
+    .payment-placeholder i { font-size: 2rem; margin-bottom: .5rem; color: var(--pink-dark); }
+    .payment-placeholder strong { display: block; color: var(--blue-dark); font-size: .95rem; margin-bottom: .25rem; }
+    .payment-placeholder span { font-size: .82rem; }
+
+    .btn-checkout-submit {
+      background: #25D366;
+      color: var(--white);
+      font-size: 1rem;
+      padding: 1rem;
+      border-radius: 50px;
+      width: 100%;
+      justify-content: center;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font-body);
+      margin-top: .5rem;
+      transition: background var(--transition);
+    }
+    .btn-checkout-submit:hover { background: #1EBE5A; }
+
+    .checkout-note {
+      font-size: .78rem;
+      color: var(--text-light);
+      text-align: center;
+      margin-top: .5rem;
+    }
+
+    @media (max-width: 900px) {
+      .checkout-grid { grid-template-columns: 1fr; }
+      .form-row-3 { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .form-row-2, .form-row-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="index.html" class="nav__logo">
+        <img src="images/logo.png" alt="Em Canto Artesanato" class="nav__logo-img" />
+        <span class="nav__logo-text">Em Canto <span>Artesanato</span></span>
+      </a>
+
+      <button class="nav__cart-btn cart-toggle" aria-label="Carrinho">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-badge"></span>
+      </button>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav__list" id="navList">
+        <li><a href="index.html#inicio" class="nav__link">Início</a></li>
+        <li><a href="index.html#catalogo" class="nav__link">Catálogo</a></li>
+        <li><a href="index.html#contato" class="nav__link">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- CHECKOUT -->
+  <main class="checkout-page">
+    <div class="container">
+      <div class="checkout-page__header">
+        <a href="javascript:history.back()" class="checkout-back">
+          <i class="fas fa-arrow-left"></i> Voltar
+        </a>
+        <p class="section__eyebrow">Quase lá!</p>
+        <h1 class="section__title">Finalizar <em>Pedido</em></h1>
+      </div>
+
+      <div class="checkout-grid">
+
+        <!-- Coluna esquerda: formulário -->
+        <div>
+          <form class="checkout-card" id="checkoutForm">
+            <h3><i class="fas fa-user"></i> Seus Dados</h3>
+            <div class="checkout-form">
+
+              <p class="form-section-title">Informações pessoais</p>
+              <div class="form-group">
+                <label for="nome">Nome completo *</label>
+                <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required />
+              </div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="telefone">WhatsApp *</label>
+                  <input type="tel" id="telefone" name="telefone" placeholder="(31) 99999-9999" required />
+                </div>
+                <div class="form-group">
+                  <label for="email">E-mail</label>
+                  <input type="email" id="email" name="email" placeholder="seu@email.com" />
+                </div>
+              </div>
+
+              <p class="form-section-title" style="margin-top:.5rem">Endereço de entrega</p>
+              <div class="cep-row">
+                <div class="form-group">
+                  <label for="cep">CEP *</label>
+                  <input type="text" id="cep" name="cep" placeholder="00000-000" maxlength="9" required />
+                  <span class="cep-status" id="cepStatus"></span>
+                </div>
+                <button type="button" id="calcularFreteBtn" class="btn btn--outline btn--sm" style="margin-bottom:1.4rem">
+                  <i class="fas fa-truck"></i> Calcular Frete
+                </button>
+              </div>
+
+              <div class="form-group">
+                <label for="endereco">Endereço</label>
+                <input type="text" id="endereco" name="endereco" placeholder="Rua, Avenida..." />
+              </div>
+              <div class="form-row-3">
+                <div class="form-group">
+                  <label for="bairro">Bairro</label>
+                  <input type="text" id="bairro" name="bairro" placeholder="Bairro" />
+                </div>
+                <div class="form-group">
+                  <label for="cidade">Cidade</label>
+                  <input type="text" id="cidade" name="cidade" placeholder="Cidade" readonly />
+                </div>
+                <div class="form-group">
+                  <label for="estado">UF</label>
+                  <input type="text" id="estado" name="estado" placeholder="UF" readonly maxlength="2" />
+                </div>
+              </div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="numero">Número *</label>
+                  <input type="text" id="numero" name="numero" placeholder="Nº" required />
+                </div>
+                <div class="form-group">
+                  <label for="complemento">Complemento</label>
+                  <input type="text" id="complemento" name="complemento" placeholder="Apto, Casa..." />
+                </div>
+              </div>
+
+              <!-- Frete -->
+              <div id="freteResult"></div>
+
+              <!-- Pagamento -->
+              <p class="form-section-title" style="margin-top:.5rem">Pagamento</p>
+              <div class="payment-placeholder">
+                <i class="fas fa-credit-card"></i>
+                <strong>Mercado Pago em breve</strong>
+                <span>O pagamento online via Mercado Pago será ativado em breve. Por enquanto, finalize pelo WhatsApp e combine o pagamento com a Sônia.</span>
+              </div>
+
+              <button type="submit" class="btn-checkout-submit">
+                <i class="fab fa-whatsapp"></i> Enviar Pedido pelo WhatsApp
+              </button>
+              <p class="checkout-note">Você será redirecionado ao WhatsApp com os detalhes do pedido.</p>
+
+            </div>
+          </form>
+        </div>
+
+        <!-- Coluna direita: resumo -->
+        <div>
+          <div class="checkout-card">
+            <h3><i class="fas fa-shopping-bag"></i> Resumo do Pedido</h3>
+            <div id="checkoutItems"></div>
+            <div class="checkout-totals">
+              <div class="checkout-totals__row">
+                <span>Frete</span>
+                <span>A calcular</span>
+              </div>
+              <div class="checkout-totals__row total">
+                <span>Subtotal</span>
+                <span id="checkoutTotal">R$ 0,00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="js/checkout.js"></script>
+</body>
+</html>
