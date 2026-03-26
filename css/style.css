@@ -1129,13 +1129,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .step__arrow { transform: rotate(90deg); }
   .step { max-width: 100%; }
 
-  .instagram__grid { grid-template-columns: repeat(2, 1fr); }
+  .instagram__grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
   .hero__actions { flex-direction: column; align-items: center; }
   .sobre__stats { gap: 1rem; justify-content: center; }
-  .instagram__grid { grid-template-columns: repeat(2, 1fr); }
+  .instagram__grid { grid-template-columns: 1fr; }
   .whatsapp-float { bottom: 1rem; right: 1rem; }
   .back-to-top { bottom: 5rem; right: 1rem; }
 }
