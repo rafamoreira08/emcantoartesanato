@@ -262,6 +262,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .nav__dropdown-link:hover { background: var(--bg-soft); color: var(--blue-mid); }
 .nav__dropdown-link:hover i { color: var(--blue-dark); }
 
+.nav__dropdown-label {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--blue-mid);
+  padding: .5rem 1rem .2rem;
+}
+.nav__dropdown-divider {
+  height: 1px;
+  background: var(--border);
+  margin: .3rem .4rem;
+}
+
 /* Mobile: dropdown vira lista acordeão */
 @media (max-width: 768px) {
   .nav__item--has-dropdown { width: 100%; }
