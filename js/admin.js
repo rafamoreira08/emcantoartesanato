@@ -6,7 +6,7 @@ import { signInWithEmailAndPassword,
          signOut, onAuthStateChanged }     from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
 import { collection, getDocs, addDoc,
          updateDoc, deleteDoc, doc,
-         serverTimestamp, orderBy, query } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+         serverTimestamp }                 from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 
 const CLOUDINARY_CLOUD  = 'dmd3guxrq';
 const CLOUDINARY_PRESET = 'emcanto_produtos';
@@ -14,67 +14,65 @@ const CLOUDINARY_PRESET = 'emcanto_produtos';
 const fmt = val => val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
 // ---- Elementos ----
-const loginView   = document.getElementById('loginView');
-const adminView   = document.getElementById('adminView');
-const loginForm   = document.getElementById('loginForm');
-const loginError  = document.getElementById('loginError');
-const logoutBtn   = document.getElementById('logoutBtn');
-const prodList    = document.getElementById('prodList');
-const formSection = document.getElementById('formSection');
-const prodForm    = document.getElementById('prodForm');
-const newProdBtn  = document.getElementById('newProdBtn');
-const cancelBtn   = document.getElementById('cancelFormBtn');
-const formTitle   = document.getElementById('formTitle');
+const loginView    = document.getElementById('loginView');
+const adminView    = document.getElementById('adminView');
+const loginForm    = document.getElementById('loginForm');
+const loginError   = document.getElementById('loginError');
+const logoutBtn    = document.getElementById('logoutBtn');
+const prodList     = document.getElementById('prodList');
+const formSection  = document.getElementById('formSection');
+const prodForm     = document.getElementById('prodForm');
+const newProdBtn   = document.getElementById('newProdBtn');
+const cancelBtn    = document.getElementById('cancelFormBtn');
+const formTitle    = document.getElementById('formTitle');
 const varContainer = document.getElementById('varContainer');
-const addVarBtn   = document.getElementById('addVarBtn');
+const addVarBtn    = document.getElementById('addVarBtn');
 const imagePreview = document.getElementById('imagePreview');
-const imageInput  = document.getElementById('imageInput');
+const imageInput   = document.getElementById('imageInput');
 const uploadProgress = document.getElementById('uploadProgress');
 
-let editingId     = null;
-let products      = [];
-let uploadedUrl   = '';
+let editingId  = null;
+let products   = [];
+let uploadedUrl = '';
 
 // ---- Auth ----
 onAuthStateChanged(auth, user => {
   if (user) {
-    loginView.hidden  = true;
-    adminView.hidden  = false;
+    loginView.style.display  = 'none';
+    adminView.style.display  = 'flex';
     loadProducts();
   } else {
-    loginView.hidden  = false;
-    adminView.hidden  = true;
+    loginView.style.display  = 'flex';
+    adminView.style.display  = 'none';
   }
 });
 
-loginForm?.addEventListener('submit', async e => {
+loginForm.addEventListener('submit', async e => {
   e.preventDefault();
   const email    = loginForm.querySelector('[name="email"]').value.trim();
   const password = loginForm.querySelector('[name="password"]').value;
   const btn      = loginForm.querySelector('[type="submit"]');
 
   loginError.textContent = '';
-  btn.disabled    = true;
-  btn.innerHTML   = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
+  btn.disabled   = true;
+  btn.innerHTML  = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
     const msgs = {
-      'auth/user-not-found':     'Usuário não encontrado. Crie-o em Firebase → Authentication → Usuários.',
-      'auth/wrong-password':     'Senha incorreta.',
-      'auth/invalid-email':      'E-mail inválido.',
-      'auth/invalid-credential': 'E-mail ou senha incorretos.',
-      'auth/too-many-requests':  'Muitas tentativas. Aguarde alguns minutos.',
-      'auth/unauthorized-domain':'Domínio não autorizado no Firebase. Adicione-o em Authentication → Settings → Domínios autorizados.',
-      'auth/network-request-failed': 'Erro de rede. Verifique sua conexão.',
+      'auth/user-not-found':        'Usuário não encontrado. Crie-o em Firebase → Authentication → Usuários.',
+      'auth/wrong-password':        'Senha incorreta.',
+      'auth/invalid-email':         'E-mail inválido.',
+      'auth/invalid-credential':    'E-mail ou senha incorretos.',
+      'auth/too-many-requests':     'Muitas tentativas. Aguarde alguns minutos.',
+      'auth/unauthorized-domain':   'Domínio não autorizado. Adicione-o em Firebase → Authentication → Settings → Domínios autorizados.',
+      'auth/network-request-failed':'Erro de rede. Verifique sua conexão.',
     };
     loginError.textContent = msgs[err.code] || `Erro (${err.code}): ${err.message}`;
   } finally {
     btn.disabled  = false;
     btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Entrar';
-  }
-});
   }
 });
 
@@ -83,13 +81,12 @@ logoutBtn?.addEventListener('click', () => signOut(auth));
 // ---- Carregar produtos ----
 async function loadProducts() {
   prodList.innerHTML = `<div class="admin-loading"><i class="fas fa-spinner fa-spin"></i> Carregando...</div>`;
-
   try {
-    const snap = await getDocs(query(collection(db, 'products'), orderBy('createdAt', 'desc')));
+    const snap = await getDocs(collection(db, 'products'));
     products   = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderList();
   } catch (err) {
-    prodList.innerHTML = `<p class="admin-error">Erro ao carregar produtos: ${err.message}</p>`;
+    prodList.innerHTML = `<p class="admin-error">Erro ao carregar: ${err.message}</p>`;
   }
 }
 
@@ -115,15 +112,12 @@ function renderList() {
         <span class="prod-admin-price">${fmt(p.basePrice || 0)}</span>
         <span class="prod-admin-status ${p.active ? 'status--active' : 'status--inactive'}">
           ${p.active ? 'Ativo' : 'Inativo'}
+          ${p.isReadyToShip ? ' · <span style="color:#27ae60">Pronta Entrega</span>' : ''}
         </span>
       </div>
       <div class="prod-admin-card__actions">
-        <button class="btn-edit" data-id="${p.id}" title="Editar">
-          <i class="fas fa-edit"></i>
-        </button>
-        <button class="btn-delete" data-id="${p.id}" title="Excluir">
-          <i class="fas fa-trash-alt"></i>
-        </button>
+        <button class="btn-edit"   data-id="${p.id}" title="Editar"><i class="fas fa-edit"></i></button>
+        <button class="btn-delete" data-id="${p.id}" title="Excluir"><i class="fas fa-trash-alt"></i></button>
       </div>
     </div>`).join('');
 
@@ -140,7 +134,7 @@ function categoryLabel(cat) {
   return map[cat] || cat;
 }
 
-// ---- Abrir formulário ----
+// ---- Formulário ----
 newProdBtn?.addEventListener('click', () => openForm(null));
 cancelBtn?.addEventListener('click', closeForm);
 
@@ -176,7 +170,7 @@ function openForm(id) {
 
 function closeForm() {
   formSection.hidden = true;
-  editingId = null;
+  editingId   = null;
   uploadedUrl = '';
 }
 
@@ -217,10 +211,8 @@ imageInput?.addEventListener('change', async () => {
 addVarBtn?.addEventListener('click', () => addVariationGroup());
 
 function addVariationGroup(data = null) {
-  const idx = varContainer.children.length;
   const div = document.createElement('div');
-  div.className   = 'var-group';
-  div.dataset.idx = idx;
+  div.className = 'var-group';
 
   div.innerHTML = `
     <div class="var-group__header">
@@ -251,10 +243,8 @@ function addOptionRow(optsEl, data = null) {
   const row = document.createElement('div');
   row.className = 'var-opt-row';
   row.innerHTML = `
-    <input type="text"   class="opt-label"  placeholder="Rótulo (ex: Rosa)"
-           value="${data?.label || ''}" />
-    <input type="number" class="opt-adjust" placeholder="Ajuste R$" step="0.01"
-           value="${data?.priceAdjust ?? 0}" />
+    <input type="text"   class="opt-label"  placeholder="Rótulo (ex: Rosa)" value="${data?.label || ''}" />
+    <input type="number" class="opt-adjust" placeholder="Ajuste R$" step="0.01" value="${data?.priceAdjust ?? 0}" />
     <button type="button" class="btn-remove-opt" title="Remover"><i class="fas fa-times"></i></button>`;
   row.querySelector('.btn-remove-opt').addEventListener('click', () => row.remove());
   optsEl.appendChild(row);
@@ -262,7 +252,7 @@ function addOptionRow(optsEl, data = null) {
 
 function collectVariations() {
   return Array.from(varContainer.querySelectorAll('.var-group')).map(g => ({
-    name: g.querySelector('.var-name').value.trim(),
+    name:    g.querySelector('.var-name').value.trim(),
     options: Array.from(g.querySelectorAll('.var-opt-row')).map(r => ({
       label:       r.querySelector('.opt-label').value.trim(),
       priceAdjust: parseFloat(r.querySelector('.opt-adjust').value) || 0
@@ -279,15 +269,15 @@ prodForm?.addEventListener('submit', async e => {
   saveBtn.textContent = 'Salvando...';
 
   const data = {
-    name:        prodForm.querySelector('[name="name"]').value.trim(),
-    category:    prodForm.querySelector('[name="category"]').value,
-    description: prodForm.querySelector('[name="description"]').value.trim(),
-    basePrice:   parseFloat(prodForm.querySelector('[name="basePrice"]').value) || 0,
-    active:         prodForm.querySelector('[name="active"]').checked,
-    isReadyToShip:  prodForm.querySelector('[name="isReadyToShip"]').checked,
-    image:          uploadedUrl,
-    variations:  collectVariations(),
-    updatedAt:   serverTimestamp()
+    name:          prodForm.querySelector('[name="name"]').value.trim(),
+    category:      prodForm.querySelector('[name="category"]').value,
+    description:   prodForm.querySelector('[name="description"]').value.trim(),
+    basePrice:     parseFloat(prodForm.querySelector('[name="basePrice"]').value) || 0,
+    active:        prodForm.querySelector('[name="active"]').checked,
+    isReadyToShip: prodForm.querySelector('[name="isReadyToShip"]').checked,
+    image:         uploadedUrl,
+    variations:    collectVariations(),
+    updatedAt:     serverTimestamp()
   };
 
   try {
