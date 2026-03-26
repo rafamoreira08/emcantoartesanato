@@ -51,12 +51,30 @@ loginForm?.addEventListener('submit', async e => {
   e.preventDefault();
   const email    = loginForm.querySelector('[name="email"]').value.trim();
   const password = loginForm.querySelector('[name="password"]').value;
+  const btn      = loginForm.querySelector('[type="submit"]');
+
   loginError.textContent = '';
+  btn.disabled    = true;
+  btn.innerHTML   = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
-  } catch {
-    loginError.textContent = 'E-mail ou senha incorretos.';
+  } catch (err) {
+    const msgs = {
+      'auth/user-not-found':     'Usuário não encontrado. Crie-o em Firebase → Authentication → Usuários.',
+      'auth/wrong-password':     'Senha incorreta.',
+      'auth/invalid-email':      'E-mail inválido.',
+      'auth/invalid-credential': 'E-mail ou senha incorretos.',
+      'auth/too-many-requests':  'Muitas tentativas. Aguarde alguns minutos.',
+      'auth/unauthorized-domain':'Domínio não autorizado no Firebase. Adicione-o em Authentication → Settings → Domínios autorizados.',
+      'auth/network-request-failed': 'Erro de rede. Verifique sua conexão.',
+    };
+    loginError.textContent = msgs[err.code] || `Erro (${err.code}): ${err.message}`;
+  } finally {
+    btn.disabled  = false;
+    btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Entrar';
+  }
+});
   }
 });
 
@@ -142,7 +160,8 @@ function openForm(id) {
     prodForm.querySelector('[name="category"]').value    = p.category || '';
     prodForm.querySelector('[name="description"]').value = p.description || '';
     prodForm.querySelector('[name="basePrice"]').value   = p.basePrice || '';
-    prodForm.querySelector('[name="active"]').checked    = p.active !== false;
+    prodForm.querySelector('[name="active"]').checked        = p.active !== false;
+    prodForm.querySelector('[name="isReadyToShip"]').checked = p.isReadyToShip === true;
     uploadedUrl = p.image || '';
     if (p.image) { imagePreview.src = p.image; imagePreview.hidden = false; }
     (p.variations || []).forEach(v => addVariationGroup(v));
@@ -264,8 +283,9 @@ prodForm?.addEventListener('submit', async e => {
     category:    prodForm.querySelector('[name="category"]').value,
     description: prodForm.querySelector('[name="description"]').value.trim(),
     basePrice:   parseFloat(prodForm.querySelector('[name="basePrice"]').value) || 0,
-    active:      prodForm.querySelector('[name="active"]').checked,
-    image:       uploadedUrl,
+    active:         prodForm.querySelector('[name="active"]').checked,
+    isReadyToShip:  prodForm.querySelector('[name="isReadyToShip"]').checked,
+    image:          uploadedUrl,
     variations:  collectVariations(),
     updatedAt:   serverTimestamp()
   };
