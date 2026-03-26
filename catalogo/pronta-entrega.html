@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Centros de mesa e sousplats artesanais — Em Canto Artesanato." />
-  <title>Centros de Mesa | Em Canto Artesanato</title>
+  <meta name="description" content="Peças de pronta entrega — Em Canto Artesanato. Disponíveis imediatamente!" />
+  <title>Pronta Entrega | Em Canto Artesanato</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,8 +14,9 @@
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/catalogo.css" />
 </head>
-<body data-category="centros-de-mesa">
+<body data-category="pronta-entrega">
 
+  <!-- HEADER -->
   <header class="header" id="header">
     <nav class="nav container">
       <a href="../index.html" class="nav__logo">
@@ -39,7 +40,7 @@
         <li><a href="bolsas.html" class="nav__link">Bolsas</a></li>
         <li><a href="centros-de-mesa.html" class="nav__link">Centros de Mesa</a></li>
         <li class="nav__item--has-dropdown">
-          <button class="nav__dropdown-toggle" type="button">
+          <button class="nav__link nav__dropdown-toggle" type="button">
             Pronta Entrega <i class="fas fa-chevron-down nav__dropdown-arrow"></i>
           </button>
           <ul class="nav__dropdown">
@@ -59,32 +60,51 @@
     </nav>
   </header>
 
+  <!-- HERO DA CATEGORIA -->
   <section class="cat-hero">
     <div class="container cat-hero__content">
       <a href="../index.html" class="cat-hero__back">
         <i class="fas fa-arrow-left"></i> Voltar ao Início
       </a>
-      <i class="fas fa-seedling cat-hero__icon"></i>
-      <p class="section__eyebrow">Criações exclusivas</p>
-      <h1 class="section__title">Centros de Mesa <em>& Sousplats</em></h1>
+      <i class="fas fa-box-open cat-hero__icon" style="color:#27ae60"></i>
+      <p class="section__eyebrow">Disponível imediatamente</p>
+      <h1 class="section__title">Pronta <em>Entrega</em></h1>
       <p class="cat-hero__subtitle">
-        Arranjos que transformam qualquer mesa em algo especial, com uma proposta única e personalizada.
+        Peças prontas para sair agora mesmo — sem espera, direto para você!
       </p>
     </div>
   </section>
 
+  <!-- PRODUTOS -->
   <section class="catalogo-section">
     <div class="container">
+
+      <!-- Filtros de categoria -->
+      <div class="pe-filter-bar" id="peFilterBar">
+        <button class="pe-filter-btn" data-cat="todos">
+          <i class="fas fa-th"></i> Ver tudo
+        </button>
+        <button class="pe-filter-btn" data-cat="colares">
+          <i class="fas fa-gem"></i> Colares
+        </button>
+        <button class="pe-filter-btn" data-cat="bolsas">
+          <i class="fas fa-shopping-bag"></i> Bolsas
+        </button>
+        <button class="pe-filter-btn" data-cat="centros-de-mesa">
+          <i class="fas fa-seedling"></i> Centros de Mesa e Sousplats
+        </button>
+      </div>
+
       <div id="produtosGrid">
         <div class="catalog-loading" id="catalogLoading">
           <i class="fas fa-spinner fa-spin"></i>
           <span>Carregando produtos...</span>
         </div>
         <div class="catalog-empty hidden" id="catalogEmpty">
-          <i class="fas fa-seedling"></i>
-          <h3>Em breve!</h3>
-          <p>Estamos preparando peças incríveis para você. Fale com a Sônia pelo WhatsApp.</p>
-          <a href="https://wa.me/5531991236334?text=Olá%20Sônia!%20Tenho%20interesse%20em%20Centros%20de%20Mesa." target="_blank" class="btn btn--whatsapp" style="margin-top:.5rem">
+          <i class="fas fa-box-open"></i>
+          <h3>Nenhuma peça de pronta entrega no momento</h3>
+          <p>Em breve teremos peças disponíveis! Enquanto isso, fale com a Sônia para uma encomenda.</p>
+          <a href="https://wa.me/5531991236334?text=Olá%20Sônia!%20Tenho%20interesse%20em%20peças%20de%20pronta%20entrega." target="_blank" class="btn btn--whatsapp" style="margin-top:.5rem">
             <i class="fab fa-whatsapp"></i> Falar com a Sônia
           </a>
         </div>
@@ -92,6 +112,7 @@
     </div>
   </section>
 
+  <!-- WhatsApp Floating -->
   <a href="https://wa.me/5531991236334" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
     <span class="whatsapp-float__tooltip">Fale comigo!</span>

@@ -29,11 +29,26 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   });
 
   // Fecha menu ao clicar num link
-  $$('.nav__link').forEach(link => {
+  $$('.nav__link, .nav__dropdown-link').forEach(link => {
     link.addEventListener('click', () => {
       navToggle.classList.remove('open');
       navList.classList.remove('open');
     });
+  });
+
+  // Dropdown "Pronta Entrega"
+  $$('.nav__item--has-dropdown').forEach(item => {
+    const btn = item.querySelector('.nav__dropdown-toggle');
+    btn?.addEventListener('click', e => {
+      e.stopPropagation();
+      item.classList.toggle('open');
+      $$('.nav__item--has-dropdown').forEach(other => {
+        if (other !== item) other.classList.remove('open');
+      });
+    });
+  });
+  document.addEventListener('click', () => {
+    $$('.nav__item--has-dropdown.open').forEach(i => i.classList.remove('open'));
   });
 
   // Highlight do link ativo conforme seção visível

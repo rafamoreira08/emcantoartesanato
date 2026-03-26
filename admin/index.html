@@ -131,11 +131,18 @@
               <textarea id="prodDesc" name="description" placeholder="Descreva a peça..."></textarea>
             </div>
 
-            <!-- Ativo -->
+            <!-- Ativo + Pronta Entrega -->
             <div class="form-group full">
               <div class="toggle-group">
                 <input type="checkbox" id="prodActive" name="active" checked />
                 <label for="prodActive">Produto ativo (visível no site)</label>
+              </div>
+              <div class="toggle-group" style="margin-top:.6rem">
+                <input type="checkbox" id="prodReadyToShip" name="isReadyToShip" />
+                <label for="prodReadyToShip">
+                  <i class="fas fa-box-open" style="color:#27ae60;margin-right:.3rem"></i>
+                  Pronta entrega (disponível imediatamente)
+                </label>
               </div>
             </div>
           </div>

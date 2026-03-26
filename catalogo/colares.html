@@ -16,7 +16,6 @@
 </head>
 <body data-category="colares">
 
-  <!-- HEADER -->
   <header class="header" id="header">
     <nav class="nav container">
       <a href="../index.html" class="nav__logo">
@@ -34,9 +33,22 @@
       </button>
 
       <ul class="nav__list" id="navList">
-        <li><a href="../index.html#inicio" class="nav__link">Início</a></li>
+        <li><a href="../index.html" class="nav__link">Início</a></li>
         <li><a href="../index.html#sobre" class="nav__link">Sobre</a></li>
-        <li><a href="../index.html#catalogo" class="nav__link">Catálogo</a></li>
+        <li><a href="colares.html" class="nav__link">Colares</a></li>
+        <li><a href="bolsas.html" class="nav__link">Bolsas</a></li>
+        <li><a href="centros-de-mesa.html" class="nav__link">Centros de Mesa</a></li>
+        <li class="nav__item--has-dropdown">
+          <button class="nav__dropdown-toggle" type="button">
+            Pronta Entrega <i class="fas fa-chevron-down nav__dropdown-arrow"></i>
+          </button>
+          <ul class="nav__dropdown">
+            <li><a href="pronta-entrega.html" class="nav__dropdown-link"><i class="fas fa-th"></i> Ver tudo</a></li>
+            <li><a href="pronta-entrega.html?cat=colares" class="nav__dropdown-link"><i class="fas fa-gem"></i> Colares</a></li>
+            <li><a href="pronta-entrega.html?cat=bolsas" class="nav__dropdown-link"><i class="fas fa-shopping-bag"></i> Bolsas</a></li>
+            <li><a href="pronta-entrega.html?cat=centros-de-mesa" class="nav__dropdown-link"><i class="fas fa-seedling"></i> Centros de Mesa</a></li>
+          </ul>
+        </li>
         <li><a href="../index.html#contato" class="nav__link">Contato</a></li>
         <li>
           <a href="https://wa.me/5531991236334?text=Olá%20Sônia!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20uma%20encomenda." target="_blank" class="btn btn--whatsapp nav__cta">
@@ -47,11 +59,10 @@
     </nav>
   </header>
 
-  <!-- HERO DA CATEGORIA -->
   <section class="cat-hero">
     <div class="container cat-hero__content">
-      <a href="../index.html#catalogo" class="cat-hero__back">
-        <i class="fas fa-arrow-left"></i> Voltar ao Catálogo
+      <a href="../index.html" class="cat-hero__back">
+        <i class="fas fa-arrow-left"></i> Voltar ao Início
       </a>
       <i class="fas fa-gem cat-hero__icon"></i>
       <p class="section__eyebrow">Criações exclusivas</p>
@@ -62,7 +73,6 @@
     </div>
   </section>
 
-  <!-- PRODUTOS -->
   <section class="catalogo-section">
     <div class="container">
       <div id="produtosGrid">
@@ -73,7 +83,7 @@
         <div class="catalog-empty hidden" id="catalogEmpty">
           <i class="fas fa-gem"></i>
           <h3>Em breve!</h3>
-          <p>Estamos preparando peças incríveis para você. Volte em breve ou fale com a Sônia pelo WhatsApp.</p>
+          <p>Estamos preparando peças incríveis para você. Fale com a Sônia pelo WhatsApp.</p>
           <a href="https://wa.me/5531991236334?text=Olá%20Sônia!%20Tenho%20interesse%20em%20Colares%20Artesanais." target="_blank" class="btn btn--whatsapp" style="margin-top:.5rem">
             <i class="fab fa-whatsapp"></i> Falar com a Sônia
           </a>
@@ -82,8 +92,7 @@
     </div>
   </section>
 
-  <!-- WhatsApp Floating -->
-  <a href="https://wa.me/5531991236334?text=Olá%20Sônia!%20Vim%20pelo%20site%20e%20tenho%20interesse%20em%20colares." target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+  <a href="https://wa.me/5531991236334" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
     <span class="whatsapp-float__tooltip">Fale comigo!</span>
   </a>
