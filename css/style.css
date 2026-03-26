@@ -279,7 +279,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* Mobile: dropdown vira lista acordeão */
 @media (max-width: 768px) {
   .nav__item--has-dropdown { width: 180px; }
-  .nav__dropdown-toggle { width: 100%; justify-content: space-between; padding: .75rem 1.5rem; border-radius: var(--radius); }
+  .nav__dropdown-toggle { width: 100%; justify-content: center; gap: .4rem; padding: .75rem 1.5rem; border-radius: var(--radius); }
   .nav__dropdown {
     position: static;
     transform: none;
