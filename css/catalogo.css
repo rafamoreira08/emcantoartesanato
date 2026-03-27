@@ -150,10 +150,13 @@
   aspect-ratio: 4/3;
   overflow: hidden;
   background: var(--bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .produto-card__img img {
   width: 100%; height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform .4s ease;
 }
 .produto-card:hover .produto-card__img img { transform: scale(1.04); }
@@ -176,7 +179,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  gap: .5rem;
+  gap: .6rem;
 }
 .produto-card__name {
   font-family: var(--font-title);
@@ -191,17 +194,55 @@
   line-height: 1.5;
   flex: 1;
 }
+
+/* Variações (cor, tamanho, etc.) */
+.prod-variations {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+.prod-variations__label {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.prod-variations__opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+}
+.var-btn {
+  padding: .3rem .85rem;
+  border-radius: 50px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: var(--font-body);
+}
+.var-btn:hover { border-color: var(--blue-mid); color: var(--blue-mid); }
+.var-btn--active { border-color: var(--blue-dark); background: var(--blue-dark); color: var(--white); }
+
+/* Preço + botão sempre na base do card */
+.produto-card__footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  padding-top: .4rem;
+  border-top: 1px solid var(--border);
+}
 .produto-card__price {
   font-family: var(--font-title);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--blue-dark);
 }
-
-.btn-add-cart {
-  margin-top: auto;
-}
-
 @media (max-width: 600px) {
   #produtosGrid { grid-template-columns: 1fr; }
 }

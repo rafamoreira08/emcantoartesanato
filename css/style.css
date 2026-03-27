@@ -386,6 +386,44 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   margin: 0 auto 2rem;
   line-height: 1.7;
 }
+.hero__categories {
+  display: flex;
+  gap: .75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+.hero__cat-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .65rem 1.4rem;
+  border-radius: 50px;
+  background: var(--white);
+  border: 2px solid var(--border);
+  color: var(--blue-dark);
+  font-size: .9rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
+}
+.hero__cat-btn:hover {
+  border-color: var(--blue-mid);
+  background: var(--blue-mid);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.hero__cat-btn--highlight {
+  background: var(--blue-dark);
+  border-color: var(--blue-dark);
+  color: var(--white);
+}
+.hero__cat-btn--highlight:hover {
+  background: var(--blue-mid);
+  border-color: var(--blue-mid);
+}
 .hero__actions {
   display: flex;
   gap: 1rem;
