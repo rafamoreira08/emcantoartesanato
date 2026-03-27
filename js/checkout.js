@@ -3,11 +3,17 @@
    ============================== */
 import { initCart, getCart, getCartTotal, clearCart, fmt } from './cart.js';
 
+// URL do Cloudflare Worker (altere após o deploy do worker)
+const FRETE_WORKER_URL = 'https://frete-emcanto.rafamoreira08.workers.dev';
+
+// Frete escolhido pelo usuário
+let freteEscolhido = null;
+
 // ---- Renderizar resumo do pedido ----
 function renderSummary() {
-  const list    = document.getElementById('checkoutItems');
-  const total   = document.getElementById('checkoutTotal');
-  const cart    = getCart();
+  const list  = document.getElementById('checkoutItems');
+  const total = document.getElementById('checkoutTotal');
+  const cart  = getCart();
 
   if (!list) return;
 
@@ -54,34 +60,115 @@ async function lookupCep(cep) {
     document.getElementById('cidade').value   = data.localidade || '';
     document.getElementById('estado').value   = data.uf         || '';
 
-    if (statusEl) { statusEl.textContent = ''; }
+    if (statusEl) statusEl.textContent = '';
     document.getElementById('numero')?.focus();
+
+    // Limpa frete anterior ao trocar CEP
+    freteEscolhido = null;
+    const res2 = document.getElementById('freteResult');
+    if (res2) res2.innerHTML = '';
 
   } catch {
     if (statusEl) { statusEl.textContent = 'Erro ao buscar CEP.'; statusEl.className = 'cep-status cep-status--error'; }
   }
 }
 
-// ---- Calcular frete (placeholder — Melhor Envio em breve) ----
+// ---- Nome amigável das transportadoras ----
+function serviceIcon(id) {
+  const icons = { 1: '📦', 2: '⚡', 3: '📦', 17: '📦' }; // PAC, SEDEX...
+  return icons[id] || '🚚';
+}
+
+// ---- Renderizar opções de frete ----
+function renderOpcoesFrete(opcoes, res) {
+  const validas = opcoes.filter(o => !o.error && o.price);
+
+  if (validas.length === 0) {
+    res.innerHTML = `<p class="frete-msg frete-msg--error">Não foi possível calcular o frete para este CEP. Combine por WhatsApp.</p>`;
+    return;
+  }
+
+  res.innerHTML = `
+    <p class="frete-label">Escolha uma opção de envio:</p>
+    <div class="frete-opcoes">
+      ${validas.map((o, i) => `
+        <label class="frete-opcao">
+          <input type="radio" name="freteOpcao" value="${i}" data-price="${o.price}" data-name="${o.name}" data-prazo="${o.delivery_time}" />
+          <span class="frete-opcao__info">
+            <span class="frete-opcao__nome">${serviceIcon(o.id)} ${o.name}</span>
+            <span class="frete-opcao__prazo">${o.delivery_time} dias úteis</span>
+          </span>
+          <strong class="frete-opcao__preco">${fmt(parseFloat(o.price))}</strong>
+        </label>`).join('')}
+    </div>`;
+
+  res.querySelectorAll('input[name="freteOpcao"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      freteEscolhido = {
+        nome:  radio.dataset.name,
+        preco: parseFloat(radio.dataset.price),
+        prazo: radio.dataset.prazo,
+      };
+      updateFreteTotal();
+    });
+  });
+}
+
+function updateFreteTotal() {
+  const freteEl = document.getElementById('checkoutFrete');
+  const totalEl = document.getElementById('checkoutTotal');
+  if (!freteEl || !totalEl) return;
+
+  if (freteEscolhido) {
+    freteEl.textContent = fmt(freteEscolhido.preco);
+    totalEl.textContent = fmt(getCartTotal() + freteEscolhido.preco);
+  }
+}
+
+// ---- Calcular frete via Cloudflare Worker ----
 function bindFreteBtn() {
   const btn = document.getElementById('calcularFreteBtn');
   const res = document.getElementById('freteResult');
   if (!btn || !res) return;
 
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', async () => {
     const cep = document.getElementById('cep')?.value.replace(/\D/g, '');
     if (!cep || cep.length !== 8) {
       res.innerHTML = `<p class="frete-msg frete-msg--error">Preencha o CEP para calcular o frete.</p>`;
       return;
     }
-    res.innerHTML = `
-      <div class="frete-placeholder">
-        <i class="fas fa-truck"></i>
-        <div>
-          <strong>Cálculo de frete em breve</strong>
-          <span>A integração com Melhor Envio será ativada em breve. O frete será combinado por WhatsApp.</span>
-        </div>
-      </div>`;
+
+    const cart          = getCart();
+    const totalItens    = cart.reduce((s, i) => s + i.qty, 0);
+    const valorDeclarado = getCartTotal();
+
+    res.innerHTML = `<p class="frete-msg"><i class="fas fa-spinner fa-spin"></i> Calculando frete...</p>`;
+    btn.disabled = true;
+
+    try {
+      const response = await fetch(FRETE_WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cep, totalItens, valorDeclarado }),
+      });
+
+      const data = await response.json();
+
+      if (!Array.isArray(data)) {
+        throw new Error(data.error || 'Resposta inesperada');
+      }
+
+      renderOpcoesFrete(data, res);
+
+    } catch (err) {
+      res.innerHTML = `
+        <p class="frete-msg frete-msg--error">
+          Não foi possível calcular o frete agora. O valor será combinado por WhatsApp.
+        </p>`;
+      console.error('Frete error:', err);
+    } finally {
+      btn.disabled = false;
+    }
   });
 }
 
@@ -94,16 +181,16 @@ function buildWhatsAppMsg(form) {
     `• ${i.qty}x ${i.name}${i.variation ? ` (${i.variation})` : ''} — ${fmt(i.price * i.qty)}`
   ).join('\n');
 
-  const nome       = form.querySelector('[name="nome"]').value.trim();
-  const telefone   = form.querySelector('[name="telefone"]').value.trim();
-  const email      = form.querySelector('[name="email"]').value.trim();
-  const cep        = form.querySelector('[name="cep"]').value.trim();
-  const endereco   = form.querySelector('[name="endereco"]').value.trim();
-  const numero     = form.querySelector('[name="numero"]').value.trim();
+  const nome        = form.querySelector('[name="nome"]').value.trim();
+  const telefone    = form.querySelector('[name="telefone"]').value.trim();
+  const email       = form.querySelector('[name="email"]').value.trim();
+  const cep         = form.querySelector('[name="cep"]').value.trim();
+  const endereco    = form.querySelector('[name="endereco"]').value.trim();
+  const numero      = form.querySelector('[name="numero"]').value.trim();
   const complemento = form.querySelector('[name="complemento"]').value.trim();
-  const bairro     = form.querySelector('[name="bairro"]').value.trim();
-  const cidade     = form.querySelector('[name="cidade"]').value.trim();
-  const estado     = form.querySelector('[name="estado"]').value.trim();
+  const bairro      = form.querySelector('[name="bairro"]').value.trim();
+  const cidade      = form.querySelector('[name="cidade"]').value.trim();
+  const estado      = form.querySelector('[name="estado"]').value.trim();
 
   const enderecoFull = [
     `${endereco}, ${numero}`,
@@ -111,6 +198,14 @@ function buildWhatsAppMsg(form) {
     `${bairro} — ${cidade} / ${estado}`,
     `CEP: ${cep}`
   ].filter(Boolean).join('\n');
+
+  const freteInfo = freteEscolhido
+    ? `🚚 *Frete (${freteEscolhido.nome}, ${freteEscolhido.prazo} dias úteis):* ${fmt(freteEscolhido.preco)}`
+    : `🚚 *Frete:* A combinar`;
+
+  const totalFinal = freteEscolhido
+    ? `💳 *Total com frete:* ${fmt(total + freteEscolhido.preco)}`
+    : `💰 *Subtotal:* ${fmt(total)}`;
 
   return [
     `*Novo Pedido — Em Canto Artesanato*`,
@@ -126,10 +221,11 @@ function buildWhatsAppMsg(form) {
     enderecoFull,
     ``,
     `💰 *Subtotal:* ${fmt(total)}`,
-    `🚚 *Frete:* A combinar`,
+    freteInfo,
+    totalFinal,
     ``,
     `_(Pedido feito pelo site emcantoartesanato.com.br)_`
-  ].filter(s => s !== null && s !== undefined).join('\n');
+  ].filter(s => s !== null && s !== undefined && s !== '').join('\n');
 }
 
 // ---- Submit ----
