@@ -143,7 +143,6 @@ function renderCard(p) {
         <div class="produto-card__img">
           <img src="${imgSrc}"
                alt="${p.name}"
-               style="width:100%;height:auto;display:block;max-height:none;object-fit:unset;"
                onerror="this.src='https://via.placeholder.com/400x600?text=Foto'" />
         </div>
         <span class="produto-card__badge">${categoryLabel(category === 'pronta-entrega' ? p.category : category)}</span>
