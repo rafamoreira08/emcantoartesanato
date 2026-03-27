@@ -605,7 +605,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .produto-card {
   background: var(--white);
   border-radius: var(--radius-lg);
-  overflow: hidden;
   box-shadow: var(--shadow-sm);
   transition: all var(--transition);
   border: 1px solid var(--border);

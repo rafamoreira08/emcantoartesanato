@@ -105,11 +105,11 @@ async function loadProducts() {
   }
 }
 
-// ---- Normaliza URL do Cloudinary: garante imagem original sem crop ----
-function cloudinaryFit(url) {
+// ---- Normaliza URL do Cloudinary: remove transformações que possam cortar ----
+function cloudinaryOriginal(url) {
   if (!url || !url.includes('res.cloudinary.com')) return url;
-  // Injeta c_fit,w_1200,q_auto,f_auto após /upload/ para servir imagem inteira
-  return url.replace('/upload/', '/upload/c_fit,w_1200,q_auto,f_auto/');
+  // Remove qualquer bloco de transformação já inserido anteriormente
+  return url.replace(/\/upload\/[^/]+\//, '/upload/');
 }
 
 // ---- Renderizar card de produto ----
@@ -135,7 +135,7 @@ function renderCard(p) {
     ? `<span class="produto-card__badge-pe"><i class="fas fa-box-open"></i> Pronta Entrega</span>`
     : '';
 
-  const imgSrc = cloudinaryFit(p.image) || 'https://via.placeholder.com/400x600?text=Em+breve';
+  const imgSrc = cloudinaryOriginal(p.image) || 'https://via.placeholder.com/400x600?text=Em+breve';
 
   return `
     <article class="produto-card" data-id="${p.id}" data-base="${p.basePrice || 0}">
@@ -143,6 +143,7 @@ function renderCard(p) {
         <div class="produto-card__img">
           <img src="${imgSrc}"
                alt="${p.name}"
+               style="width:100%;height:auto;display:block;max-height:none;object-fit:unset;"
                onerror="this.src='https://via.placeholder.com/400x600?text=Foto'" />
         </div>
         <span class="produto-card__badge">${categoryLabel(category === 'pronta-entrega' ? p.category : category)}</span>

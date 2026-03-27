@@ -135,11 +135,14 @@
 .produto-card {
   background: var(--white);
   border-radius: var(--radius-lg);
-  overflow: hidden;
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   transition: transform var(--transition), box-shadow var(--transition);
+}
+/* Garante que cantos arredondados se aplicam à imagem do topo */
+.produto-card .produto-card__img img {
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 .produto-card:hover {
   transform: translateY(-4px);
