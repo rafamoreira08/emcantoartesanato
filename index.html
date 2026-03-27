@@ -192,10 +192,9 @@
           <div class="produto-card__body">
             <h3 class="produto-card__name">Colares e Chokers Artesanais</h3>
             <p class="produto-card__desc">Peças confeccionadas com cordões tecidos em crochê, combinados a resinas, pedras e metais selecionados. Cada criação é única — marcada por personalidade e identidade própria.</p>
-            <button class="btn btn--card btn--add-test"
-              data-id="teste-colar-1" data-name="Colar Artesanal (Teste)" data-price="89.90" data-cat="colares">
-              <i class="fas fa-cart-plus"></i> Adicionar ao Carrinho
-            </button>
+            <a href="https://wa.me/5531991236334?text=Olá%20Sônia!%20Vim%20pelo%20site%20e%20tenho%20interesse%20em%20Colares%20e%20Chokers." target="_blank" class="btn btn--card btn--whatsapp">
+              <i class="fab fa-whatsapp"></i> Tenho Interesse
+            </a>
           </div>
         </article>
 
@@ -210,10 +209,9 @@
           <div class="produto-card__body">
             <h3 class="produto-card__name">Bolsas Artesanais</h3>
             <p class="produto-card__desc">Bolsas confeccionadas artesanalmente com muito cuidado e detalhes que encantam. Estilo e exclusividade em cada costura.</p>
-            <button class="btn btn--card btn--add-test"
-              data-id="teste-bolsa-1" data-name="Bolsa Artesanal (Teste)" data-price="149.90" data-cat="bolsas">
-              <i class="fas fa-cart-plus"></i> Adicionar ao Carrinho
-            </button>
+            <a href="https://wa.me/5531991236334?text=Olá%20Sônia!%20Vim%20pelo%20site%20e%20tenho%20interesse%20em%20Bolsas." target="_blank" class="btn btn--card btn--whatsapp">
+              <i class="fab fa-whatsapp"></i> Tenho Interesse
+            </a>
           </div>
         </article>
 
@@ -228,10 +226,9 @@
           <div class="produto-card__body">
             <h3 class="produto-card__name">Centros de Mesa / Sousplats</h3>
             <p class="produto-card__desc">Arranjos artesanais que transformam qualquer mesa em algo especial. Perfeitos para deixar a sua mesa com uma proposta única e personalizada.</p>
-            <button class="btn btn--card btn--add-test"
-              data-id="teste-centro-1" data-name="Centro de Mesa (Teste)" data-price="199.90" data-cat="centros-de-mesa">
-              <i class="fas fa-cart-plus"></i> Adicionar ao Carrinho
-            </button>
+            <a href="https://wa.me/5531991236334?text=Olá%20Sônia!%20Vim%20pelo%20site%20e%20tenho%20interesse%20em%20Centros%20de%20Mesa." target="_blank" class="btn btn--card btn--whatsapp">
+              <i class="fab fa-whatsapp"></i> Tenho Interesse
+            </a>
           </div>
         </article>
 
@@ -442,6 +439,7 @@
             <li><a href="#catalogo">Catálogo</a></li>
             <li><a href="#como-encomendar">Como Encomendar</a></li>
             <li><a href="#contato">Contato</a></li>
+            <li><a href="rastrear.html"><i class="fas fa-map-marker-alt"></i> Rastrear Pedido</a></li>
           </ul>
         </div>
 
@@ -490,21 +488,8 @@
 
   <script src="js/main.js"></script>
   <script type="module">
-    import { initCart, addToCart } from './js/cart.js';
+    import { initCart } from './js/cart.js';
     initCart();
-
-    // Botões de teste — remover após cadastrar produtos reais no admin
-    document.querySelectorAll('.btn--add-test').forEach(btn => {
-      btn.addEventListener('click', () => {
-        addToCart({
-          id:       btn.dataset.id,
-          name:     btn.dataset.name,
-          price:    parseFloat(btn.dataset.price),
-          image:    btn.dataset.image || '',
-          category: btn.dataset.cat,
-        });
-      });
-    });
-</script>
+  </script>
 </body>
 </html>

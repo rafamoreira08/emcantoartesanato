@@ -8,10 +8,22 @@ import { collection, getDocs, addDoc,
          updateDoc, deleteDoc, doc,
          serverTimestamp }                 from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 
+const fmt = val => val?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) ?? '';
+
+const STATUS_INFO = {
+  'pedido-realizado':     { label: 'Pedido Realizado',     icon: 'fa-shopping-cart',  color: '#3A85C7' },
+  'pagamento-confirmado': { label: 'Pagamento Confirmado', icon: 'fa-check-circle',   color: '#27ae60' },
+  'em-producao':          { label: 'Em Produção',          icon: 'fa-cut',            color: '#f39c12' },
+  'despachado':           { label: 'Despachado',           icon: 'fa-truck',          color: '#9b59b6' },
+  'entregue':             { label: 'Entregue',             icon: 'fa-gift',           color: '#27ae60' },
+};
+const STATUS_FLOW = {
+  'pronta-entrega': ['pedido-realizado', 'pagamento-confirmado', 'despachado', 'entregue'],
+  'encomenda':      ['pedido-realizado', 'pagamento-confirmado', 'em-producao', 'despachado', 'entregue'],
+};
+
 const CLOUDINARY_CLOUD  = 'dmd3guxrq';
 const CLOUDINARY_PRESET = 'emcanto_produtos';
-
-const fmt = val => val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
 // ---- Elementos ----
 const loginView    = document.getElementById('loginView');
@@ -41,6 +53,8 @@ onAuthStateChanged(auth, user => {
     loginView.style.display  = 'none';
     adminView.style.display  = 'flex';
     loadProducts();
+    loadOrders();
+    initTabs();
   } else {
     loginView.style.display  = 'flex';
     adminView.style.display  = 'none';
@@ -307,3 +321,202 @@ async function deleteProduct(id) {
     alert(`Erro ao excluir: ${err.message}`);
   }
 }
+
+// ============================================================
+// ABAS
+// ============================================================
+function initTabs() {
+  document.querySelectorAll('.admin-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.dataset.tab;
+      document.getElementById('tabProdutos').style.display = tab === 'produtos' ? 'block' : 'none';
+      document.getElementById('tabPedidos').style.display  = tab === 'pedidos'  ? 'block' : 'none';
+    });
+  });
+  document.getElementById('refreshOrdersBtn')?.addEventListener('click', loadOrders);
+}
+
+// ============================================================
+// PEDIDOS
+// ============================================================
+let orders = [];
+let currentOrder = null;
+
+async function loadOrders() {
+  const listEl = document.getElementById('orderList');
+  listEl.innerHTML = `<div class="admin-loading"><i class="fas fa-spinner fa-spin"></i> Carregando...</div>`;
+
+  try {
+    const snap = await getDocs(collection(db, 'orders'));
+    orders = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    orders.sort((a, b) => {
+      const ta = a.createdAt?.toDate?.() ?? new Date(0);
+      const tb = b.createdAt?.toDate?.() ?? new Date(0);
+      return tb - ta;
+    });
+    renderOrders();
+  } catch (err) {
+    listEl.innerHTML = `<p class="admin-error">Erro ao carregar pedidos: ${err.message}</p>`;
+  }
+}
+
+const STATUS_LABEL_COLOR = {
+  'pedido-realizado':     '#3A85C7',
+  'pagamento-confirmado': '#27ae60',
+  'em-producao':          '#f39c12',
+  'despachado':           '#9b59b6',
+  'entregue':             '#27ae60',
+};
+
+function renderOrders() {
+  const listEl  = document.getElementById('orderList');
+  const badgeEl = document.getElementById('ordersBadge');
+  const pending = orders.filter(o => o.status !== 'entregue').length;
+
+  if (badgeEl) {
+    badgeEl.textContent    = pending;
+    badgeEl.style.display  = pending > 0 ? 'inline-flex' : 'none';
+  }
+
+  if (orders.length === 0) {
+    listEl.innerHTML = `<div class="admin-empty"><i class="fas fa-receipt"></i><p>Nenhum pedido recebido ainda.</p></div>`;
+    return;
+  }
+
+  listEl.innerHTML = orders.map(o => {
+    const info  = STATUS_INFO[o.status] || { label: o.status, icon: 'fa-circle' };
+    const color = STATUS_LABEL_COLOR[o.status] || '#6B7A8D';
+    const dateStr = o.createdAt?.toDate
+      ? o.createdAt.toDate().toLocaleDateString('pt-BR')
+      : '';
+    const typeBadge = o.type === 'pronta-entrega'
+      ? `<span style="background:#E8F5E9;color:#27ae60;padding:.2rem .6rem;border-radius:50px;font-size:.72rem;font-weight:700">⚡ Pronta Entrega</span>`
+      : `<span style="background:#EBF5FF;color:#3A85C7;padding:.2rem .6rem;border-radius:50px;font-size:.72rem;font-weight:700">✂️ Encomenda</span>`;
+    return `
+      <div class="order-admin-card" data-code="${o.code}">
+        <div class="order-admin-card__left">
+          <strong class="order-code">${o.code}</strong>
+          ${typeBadge}
+          <span class="order-customer">${o.customer?.name || '—'}</span>
+          <span class="order-date">${dateStr}</span>
+        </div>
+        <div class="order-admin-card__right">
+          <span class="order-status-pill" style="background:${color}20;color:${color}">
+            <i class="fas ${info.icon}"></i> ${info.label}
+          </span>
+          <strong class="order-total">${fmt(o.total || 0)}</strong>
+          <button class="btn-edit" data-code="${o.code}" title="Ver detalhes">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+      </div>`;
+  }).join('');
+
+  listEl.querySelectorAll('[data-code]').forEach(el => {
+    el.addEventListener('click', () => openOrderDetail(el.dataset.code));
+  });
+}
+
+function openOrderDetail(code) {
+  const order = orders.find(o => o.code === code);
+  if (!order) return;
+  currentOrder = order;
+
+  document.getElementById('detailCode').textContent = code;
+
+  // Cliente
+  const c = order.customer || {};
+  document.getElementById('detailCustomer').innerHTML = `
+    <p style="font-size:.88rem"><strong>${c.name || '—'}</strong></p>
+    <p style="font-size:.82rem;color:var(--text-light)">${c.phone || ''} ${c.email ? '· ' + c.email : ''}</p>`;
+
+  // Itens
+  document.getElementById('detailItems').innerHTML = (order.items || []).map(i =>
+    `<li style="font-size:.85rem;margin-bottom:.2rem">• ${i.qty}x ${i.name}${i.variation ? ` (${i.variation})` : ''} — ${fmt(i.price * i.qty)}</li>`
+  ).join('');
+
+  // Endereço
+  const a = order.address || {};
+  document.getElementById('detailAddress').innerHTML =
+    `<p style="font-size:.85rem;color:var(--text-light);line-height:1.6">${a.endereco}, ${a.numero}${a.complemento ? ', ' + a.complemento : ''}<br>${a.bairro} — ${a.cidade}/${a.estado}<br>CEP: ${a.cep}</p>`;
+
+  // Select de status
+  const flow = STATUS_FLOW[order.type] || STATUS_FLOW['encomenda'];
+  const sel  = document.getElementById('detailStatusSel');
+  sel.innerHTML = flow.map(s => {
+    const inf = STATUS_INFO[s] || { label: s };
+    return `<option value="${s}" ${s === order.status ? 'selected' : ''}>${inf.label}</option>`;
+  }).join('');
+
+  // Código de rastreio atual
+  document.getElementById('detailTrackingCode').value = order.trackingCode || '';
+  document.getElementById('detailNote').value = '';
+
+  // Mostrar campo rastreio se status for despachado
+  const showTracking = () => {
+    document.getElementById('trackingCodeGroup').style.display =
+      sel.value === 'despachado' || sel.value === 'entregue' ? 'block' : 'none';
+  };
+  sel.onchange = showTracking;
+  showTracking();
+
+  document.getElementById('orderDetail').style.display = 'block';
+  document.getElementById('orderDetail').scrollIntoView({ behavior: 'smooth' });
+}
+
+document.getElementById('closeOrderBtn')?.addEventListener('click', () => {
+  document.getElementById('orderDetail').style.display = 'none';
+  currentOrder = null;
+});
+
+document.getElementById('saveOrderStatusBtn')?.addEventListener('click', async () => {
+  if (!currentOrder) return;
+
+  const newStatus     = document.getElementById('detailStatusSel').value;
+  const trackingCode  = document.getElementById('detailTrackingCode').value.trim().toUpperCase();
+  const note          = document.getElementById('detailNote').value.trim();
+  const info          = STATUS_INFO[newStatus] || { label: newStatus };
+
+  const newEntry = {
+    status: newStatus,
+    label:  info.label,
+    note,
+    ts: new Date().toISOString(),
+  };
+
+  // Mantém timeline existente + adiciona nova entrada
+  const existingTimeline = currentOrder.timeline || [];
+  const updatedTimeline  = [...existingTimeline, newEntry];
+
+  const btn = document.getElementById('saveOrderStatusBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando...';
+
+  try {
+    await updateDoc(doc(db, 'orders', currentOrder.code), {
+      status:       newStatus,
+      trackingCode: trackingCode || currentOrder.trackingCode || '',
+      timeline:     updatedTimeline,
+    });
+
+    // Atualizar localmente
+    const idx = orders.findIndex(o => o.code === currentOrder.code);
+    if (idx !== -1) {
+      orders[idx].status       = newStatus;
+      orders[idx].trackingCode = trackingCode || orders[idx].trackingCode || '';
+      orders[idx].timeline     = updatedTimeline;
+      currentOrder = orders[idx];
+    }
+
+    renderOrders();
+    document.getElementById('orderDetail').style.display = 'none';
+    currentOrder = null;
+  } catch (err) {
+    alert(`Erro ao salvar: ${err.message}`);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-save"></i> Salvar Status';
+  }
+});
