@@ -4,7 +4,7 @@
 import { initCart, getCart, getCartTotal, clearCart, fmt } from './cart.js';
 
 // URL do Cloudflare Worker (altere após o deploy do worker)
-const FRETE_WORKER_URL = 'https://frete-emcanto.SEU-USUARIO.workers.dev';
+const FRETE_WORKER_URL = 'https://frete-emcanto.rafamoreira08.workers.dev';
 
 // Frete escolhido pelo usuário
 let freteEscolhido = null;
