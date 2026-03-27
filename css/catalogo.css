@@ -149,11 +149,12 @@
 .produto-card__img {
   width: 100%;
   background: var(--bg-soft);
-  overflow: hidden;
 }
 .produto-card__img img {
   width: 100%;
-  height: auto;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: unset !important;
   display: block;
   transition: transform .4s ease;
 }
