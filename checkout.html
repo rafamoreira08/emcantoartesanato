@@ -226,6 +226,27 @@
       margin-top: .5rem;
     }
 
+    /* Confirmação do pedido */
+    .order-confirm { text-align: center; padding: 2.5rem 2rem; }
+    .order-confirm__icon { font-size: 3rem; color: #27ae60; margin-bottom: 1rem; }
+    .order-confirm h2 { font-size: 1.4rem; color: var(--blue-dark); margin-bottom: .5rem; }
+    .order-confirm p { color: var(--text-light); font-size: .9rem; margin-bottom: .75rem; }
+    .order-confirm__code {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--blue-dark);
+      background: var(--bg-soft);
+      border: 2px dashed var(--blue-mid);
+      border-radius: var(--radius);
+      padding: .75rem 1.5rem;
+      margin: .75rem auto;
+      display: inline-block;
+    }
+    .order-confirm__hint { font-size: .85rem !important; }
+    .order-confirm__hint a { color: var(--blue-mid); font-weight: 600; }
+    .order-confirm__wpp { color: #25D366 !important; font-weight: 600 !important; }
+
     @media (max-width: 900px) {
       .checkout-grid { grid-template-columns: 1fr; }
       .form-row-3 { grid-template-columns: 1fr 1fr; }
@@ -356,6 +377,19 @@
 
             </div>
           </form>
+
+          <!-- Confirmação após pedido -->
+          <div id="orderConfirmation" style="display:none" class="checkout-card order-confirm">
+            <div class="order-confirm__icon"><i class="fas fa-check-circle"></i></div>
+            <h2>Pedido registrado!</h2>
+            <p>Seu código de acompanhamento:</p>
+            <div class="order-confirm__code" id="orderCodeDisplay">EC26-XXXX</div>
+            <p class="order-confirm__hint">
+              Guarde este código. Acompanhe seu pedido em:<br>
+              <a href="rastrear.html"><i class="fas fa-map-marker-alt"></i> emcantoartesanato.com.br/rastrear.html</a>
+            </p>
+            <p class="order-confirm__wpp">Abrindo WhatsApp em instantes...</p>
+          </div>
         </div>
 
         <!-- Coluna direita: resumo -->
@@ -365,12 +399,16 @@
             <div id="checkoutItems"></div>
             <div class="checkout-totals">
               <div class="checkout-totals__row">
-                <span>Frete</span>
-                <span>A calcular</span>
-              </div>
-              <div class="checkout-totals__row total">
                 <span>Subtotal</span>
                 <span id="checkoutTotal">R$ 0,00</span>
+              </div>
+              <div class="checkout-totals__row">
+                <span>Frete</span>
+                <span id="checkoutFreteVal">A calcular</span>
+              </div>
+              <div class="checkout-totals__row total">
+                <span>Total</span>
+                <span id="checkoutGrandTotal">—</span>
               </div>
             </div>
           </div>
