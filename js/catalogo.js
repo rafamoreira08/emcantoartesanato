@@ -143,16 +143,18 @@ function renderCard(p) {
         <h3 class="produto-card__name">${p.name}</h3>
         <p class="produto-card__desc">${p.description || ''}</p>
         ${variationsHtml}
-        <p class="produto-card__price">
-          <span class="prod-price-display">${fmt(p.basePrice || 0)}</span>
-        </p>
-        <button class="btn btn--primary btn--full btn-add-cart"
-                data-id="${p.id}"
-                data-name="${p.name}"
-                data-image="${p.image || ''}"
-                data-price="${p.basePrice || 0}">
-          <i class="fas fa-shopping-bag"></i> Adicionar ao Carrinho
-        </button>
+        <div class="produto-card__footer">
+          <p class="produto-card__price">
+            <span class="prod-price-display">${fmt(p.basePrice || 0)}</span>
+          </p>
+          <button class="btn btn--primary btn--full btn-add-cart"
+                  data-id="${p.id}"
+                  data-name="${p.name}"
+                  data-image="${p.image || ''}"
+                  data-price="${p.basePrice || 0}">
+            <i class="fas fa-shopping-bag"></i> Adicionar ao Carrinho
+          </button>
+        </div>
       </div>
     </article>`;
 }
