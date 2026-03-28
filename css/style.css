@@ -398,22 +398,22 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .hero__categories {
   display: flex;
-  gap: .75rem;
+  gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 .hero__cat-btn {
   display: inline-flex;
   align-items: center;
-  gap: .5rem;
-  padding: .65rem 1.4rem;
+  gap: .6rem;
+  padding: .9rem 2rem;
   border-radius: 50px;
   background: var(--white);
-  border: 2px solid var(--border);
+  border: 2.5px solid var(--blue-dark);
   color: var(--blue-dark);
-  font-size: .9rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 700;
   text-decoration: none;
   box-shadow: var(--shadow-sm);
   transition: all var(--transition);
