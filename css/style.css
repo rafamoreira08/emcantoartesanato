@@ -380,14 +380,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   margin-bottom: 1.5rem;
 }
 .hero__title--sans {
-  font-family: 'Raleway', sans-serif;
-  font-weight: 700;
-  font-size: clamp(3.6rem, 9.5vw, 6.5rem);
-  letter-spacing: .12em;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: clamp(3.2rem, 8vw, 5.5rem);
+  letter-spacing: .28em;
   text-transform: none;
   color: var(--green);
   display: block;
-  margin-bottom: -.8rem;
+  margin-bottom: -.6rem;
 }
 .hero__title--script {
   font-family: 'Dancing Script', cursive;
@@ -869,7 +869,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   padding: 70px 0;
   background: var(--white);
 }
-.instagram__header { margin-bottom: 2rem; }
+.instagram__header { margin-bottom: 2rem; text-align: center; }
 .instagram__handle {
   display: flex;
   align-items: center;
