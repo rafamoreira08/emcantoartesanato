@@ -380,7 +380,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   text-transform: none;
   color: var(--green);
   display: block;
-  margin-bottom: -.2rem;
+  margin-bottom: -.8rem;
 }
 .hero__title--script {
   font-family: 'Dancing Script', cursive;
@@ -495,7 +495,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    SOBRE
    ============================ */
 .sobre {
-  padding: 100px 0;
+  padding: 60px 0;
   background: var(--white);
 }
 .sobre__grid {
@@ -613,7 +613,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    CATÁLOGO
    ============================ */
 .catalogo {
-  padding: 40px 0 100px;
+  padding: 40px 0 60px;
   background: var(--bg-soft);
 }
 
@@ -715,7 +715,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    COMO ENCOMENDAR
    ============================ */
 .como-encomendar {
-  padding: 100px 0;
+  padding: 70px 0;
   background: linear-gradient(135deg, var(--blue-dark) 0%, #1E3A6E 100%);
   color: var(--white);
   position: relative;
@@ -855,7 +855,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    INSTAGRAM
    ============================ */
 .instagram {
-  padding: 100px 0;
+  padding: 70px 0;
   background: var(--white);
 }
 .instagram__header { margin-bottom: 2rem; }
@@ -926,7 +926,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    CONTATO
    ============================ */
 .contato {
-  padding: 80px 0;
+  padding: 60px 0;
   background: var(--bg-soft);
 }
 .contato__clean {
