@@ -156,13 +156,20 @@ function renderCard(p) {
           <p class="produto-card__price">
             <span class="prod-price-display">${fmt(p.basePrice || 0)}</span>
           </p>
-          <button class="btn btn--primary btn--full btn-add-cart"
-                  data-id="${p.id}"
-                  data-name="${p.name}"
-                  data-image="${p.image || ''}"
-                  data-price="${p.basePrice || 0}">
-            <i class="fas fa-shopping-bag"></i> Adicionar ao Carrinho
-          </button>
+          ${category === 'pronta-entrega'
+            ? `<button class="btn btn--primary btn--full btn-add-cart"
+                       data-id="${p.id}"
+                       data-name="${p.name}"
+                       data-image="${p.image || ''}"
+                       data-price="${p.basePrice || 0}">
+                 <i class="fas fa-shopping-bag"></i> Adicionar ao Carrinho
+               </button>`
+            : `<a href="https://wa.me/5531991236334?text=Olá%20Sônia!%20Tenho%20interesse%20em%20${encodeURIComponent(p.name)}."
+                  target="_blank"
+                  class="btn btn--whatsapp btn--full">
+                 <i class="fab fa-whatsapp"></i> Faça sua Encomenda
+               </a>`
+          }
         </div>
       </div>
     </article>`;
