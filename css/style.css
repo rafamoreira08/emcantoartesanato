@@ -369,25 +369,26 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: block;
 }
 .hero__title {
-  line-height: 1.15;
-  margin-bottom: 1.25rem;
+  line-height: 1;
+  margin-bottom: 1.5rem;
 }
 .hero__title--sans {
   font-family: 'Raleway', sans-serif;
-  font-weight: 300;
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  letter-spacing: .18em;
-  text-transform: uppercase;
+  font-weight: 700;
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  letter-spacing: .04em;
+  text-transform: none;
   color: var(--green);
   display: block;
+  margin-bottom: -.2rem;
 }
 .hero__title--script {
   font-family: 'Dancing Script', cursive;
-  font-weight: 700;
-  font-size: clamp(3.5rem, 9vw, 6rem);
+  font-weight: 400;
+  font-size: clamp(3.2rem, 8vw, 5.5rem);
   color: var(--green);
   display: block;
-  line-height: 1.1;
+  line-height: 1.15;
 }
 .hero__subtitle {
   font-size: clamp(1rem, 2vw, 1.2rem);
@@ -398,25 +399,29 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .hero__categories {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 1.5rem;
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: 1rem;
+  width: 100%;
 }
 .hero__cat-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: .6rem;
   padding: .9rem 2rem;
   border-radius: 50px;
   background: var(--white);
   border: 2.5px solid var(--blue-dark);
   color: var(--blue-dark);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 700;
   text-decoration: none;
   box-shadow: var(--shadow-sm);
   transition: all var(--transition);
+  width: 100%;
+  max-width: 320px;
 }
 .hero__cat-btn:hover {
   border-color: var(--blue-mid);
@@ -424,6 +429,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: var(--white);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
+}
+.hero__action-btn {
+  width: 100%;
+  max-width: 320px;
+  justify-content: center;
 }
 .hero__cat-btn--highlight {
   background: var(--blue-dark);
@@ -436,10 +446,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .hero__actions {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 2.5rem;
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: 2rem;
+  width: 100%;
 }
 .hero__badges {
   display: flex;
