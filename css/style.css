@@ -369,16 +369,25 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: block;
 }
 .hero__title {
-  font-family: 'Dancing Script', cursive;
-  font-size: clamp(3.2rem, 8vw, 5.5rem);
-  font-weight: 700;
-  color: var(--blue-dark);
   line-height: 1.15;
   margin-bottom: 1.25rem;
 }
-.hero__title em {
-  font-style: normal;
+.hero__title--sans {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--blue-dark);
+  display: block;
+}
+.hero__title--script {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700;
+  font-size: clamp(3.5rem, 9vw, 6rem);
   color: var(--blue-mid);
+  display: block;
+  line-height: 1.1;
 }
 .hero__subtitle {
   font-size: clamp(1rem, 2vw, 1.2rem);
