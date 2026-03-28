@@ -380,8 +380,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   margin-bottom: 1.5rem;
 }
 .hero__title--sans {
-  font-family: 'Nunito', sans-serif;
-  font-weight: 900;
+  font-family: 'Jost', sans-serif;
+  font-weight: 800;
   font-size: clamp(3.2rem, 8vw, 5.5rem);
   letter-spacing: .10em;
   text-transform: none;
