@@ -385,7 +385,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-family: 'Dancing Script', cursive;
   font-weight: 700;
   font-size: clamp(3.5rem, 9vw, 6rem);
-  color: var(--blue-mid);
+  color: var(--blue-dark);
   display: block;
   line-height: 1.1;
 }
