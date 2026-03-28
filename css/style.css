@@ -336,23 +336,23 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     linear-gradient(135deg, rgba(240,247,255,.90) 0%, rgba(253,248,245,.90) 50%, rgba(238,245,255,.90) 100%),
     url('../images/hero-bg.jpg') center / cover no-repeat;
   position: relative;
-  overflow: hidden;
 }
 
-/* Flores decorativas SVG via pseudo-elementos */
+/* Flores decorativas — contidas no próprio elemento para não precisar de overflow:hidden no hero */
 .hero__flowers {
   position: absolute;
   width: 320px; height: 320px;
   border-radius: 50%;
   pointer-events: none;
   opacity: .12;
+  overflow: hidden;
 }
 .hero__flowers--tl {
-  top: -80px; left: -80px;
+  top: -160px; left: -160px;
   background: radial-gradient(circle, var(--blue-light), var(--blue-dark));
 }
 .hero__flowers--br {
-  bottom: -80px; right: -80px;
+  bottom: -160px; right: -160px;
   background: radial-gradient(circle, var(--green-light), var(--green));
 }
 
@@ -383,7 +383,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-family: 'Nunito', sans-serif;
   font-weight: 900;
   font-size: clamp(3.2rem, 8vw, 5.5rem);
-  letter-spacing: .28em;
+  letter-spacing: .10em;
   text-transform: none;
   color: var(--green);
   display: block;
