@@ -628,6 +628,60 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 /* ============================
+   VITRINE DESLIZANTE
+   ============================ */
+.vitrine {
+  overflow: hidden;
+  padding: 1.5rem 0;
+  background: var(--bg-soft);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.vitrine__track-wrap {
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.vitrine__track {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  animation: vitrine-scroll 35s linear infinite;
+}
+
+.vitrine__track:hover {
+  animation-play-state: paused;
+}
+
+.vitrine__foto {
+  width: 180px;
+  height: 180px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.vitrine__foto:hover {
+  transform: scale(1.04);
+  box-shadow: var(--shadow-md);
+}
+
+.vitrine__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@keyframes vitrine-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ============================
    CATÁLOGO
    ============================ */
 .catalogo {

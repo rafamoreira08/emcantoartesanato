@@ -14,7 +14,7 @@
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-  <link rel="stylesheet" href="css/style.css?v=14" />
+  <link rel="stylesheet" href="css/style.css?v=15" />
 </head>
 <body>
 
@@ -115,6 +115,15 @@
     <div class="hero__scroll-hint">
       <span>Role para baixo</span>
       <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- ====== VITRINE DESLIZANTE ====== -->
+  <section class="vitrine" id="vitrine" aria-label="Vitrine de peças">
+    <div class="vitrine__track-wrap">
+      <div class="vitrine__track" id="vitrineFotos">
+        <!-- populado por JS via Firebase -->
+      </div>
     </div>
   </section>
 
@@ -432,5 +441,6 @@
     import { initCart } from './js/cart.js';
     initCart();
   </script>
+  <script type="module" src="js/vitrine.js"></script>
 </body>
 </html>
