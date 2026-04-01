@@ -763,8 +763,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   flex-direction: column;
   flex: 1;
 }
+.produto-card__desc {
+  flex: 1;
+  margin-bottom: 1.25rem;
+}
 .produto-card__body .btn {
   margin-top: auto;
+  align-self: stretch;
+  justify-content: center;
 }
 .produto-card__name {
   font-family: var(--font-title);
