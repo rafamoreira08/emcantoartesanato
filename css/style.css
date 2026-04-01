@@ -703,6 +703,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   box-shadow: var(--shadow-sm);
   transition: all var(--transition);
   border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
 }
 .produto-card:hover {
   transform: translateY(-6px);
@@ -755,7 +757,15 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .produto-card__badge--yellow { background: #E07B00; }
 .produto-card__badge--navy   { background: #7B1FA2; }
 
-.produto-card__body { padding: 1.25rem; }
+.produto-card__body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.produto-card__body .btn {
+  margin-top: auto;
+}
 .produto-card__name {
   font-family: var(--font-title);
   font-size: 1.1rem;
