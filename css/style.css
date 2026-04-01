@@ -33,12 +33,17 @@
 
 /* --- RESET --- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  overflow-x: hidden; /* impede scroll horizontal no nível raiz */
+}
 body {
   font-family: var(--font-body);
   color: var(--text);
   background: var(--white);
   overflow-x: hidden;
+  max-width: 100%;
   line-height: 1.6;
 }
 a { text-decoration: none; color: inherit; }
@@ -388,6 +393,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: var(--green);
   display: block;
   margin-bottom: -.6rem;
+  margin-right: -.10em; /* compensa o espaço extra do letter-spacing no último char */
+  max-width: 100%;
 }
 .hero__title--script {
   font-family: 'Dancing Script', cursive;
@@ -618,6 +625,60 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   border-color: var(--blue-dark);
   color: var(--white);
   box-shadow: var(--shadow-sm);
+}
+
+/* ============================
+   VITRINE DESLIZANTE
+   ============================ */
+.vitrine {
+  overflow: hidden;
+  padding: 1.5rem 0;
+  background: var(--bg-soft);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.vitrine__track-wrap {
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.vitrine__track {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  animation: vitrine-scroll 35s linear infinite;
+}
+
+.vitrine__track:hover {
+  animation-play-state: paused;
+}
+
+.vitrine__foto {
+  width: 180px;
+  height: 180px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.vitrine__foto:hover {
+  transform: scale(1.04);
+  box-shadow: var(--shadow-md);
+}
+
+.vitrine__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@keyframes vitrine-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* ============================
