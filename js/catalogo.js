@@ -243,12 +243,16 @@ function bindCardEvents() {
       car.dataset.idx = next;
     }
 
-    let autoTimer = setInterval(() => goTo((parseInt(car.dataset.idx)||0) + 1), 5000);
-    const resetAuto = () => { clearInterval(autoTimer); autoTimer = setInterval(() => goTo((parseInt(car.dataset.idx)||0) + 1), 5000); };
+    let autoTimer = setInterval(() => goTo((parseInt(car.dataset.idx)||0) + 1), 4000);
+    const stopAuto  = () => clearInterval(autoTimer);
+    const startAuto = () => { stopAuto(); autoTimer = setInterval(() => goTo((parseInt(car.dataset.idx)||0) + 1), 4000); };
 
-    car.querySelector('.pcarousel__btn--prev')?.addEventListener('click', e => { e.preventDefault(); resetAuto(); goTo((parseInt(car.dataset.idx)||0) - 1); });
-    car.querySelector('.pcarousel__btn--next')?.addEventListener('click', e => { e.preventDefault(); resetAuto(); goTo((parseInt(car.dataset.idx)||0) + 1); });
-    dots.forEach((dot, i) => dot.addEventListener('click', e => { e.preventDefault(); resetAuto(); goTo(i); }));
+    car.addEventListener('mouseenter', stopAuto);
+    car.addEventListener('mouseleave', startAuto);
+
+    car.querySelector('.pcarousel__btn--prev')?.addEventListener('click', e => { e.preventDefault(); startAuto(); goTo((parseInt(car.dataset.idx)||0) - 1); });
+    car.querySelector('.pcarousel__btn--next')?.addEventListener('click', e => { e.preventDefault(); startAuto(); goTo((parseInt(car.dataset.idx)||0) + 1); });
+    dots.forEach((dot, i) => dot.addEventListener('click', e => { e.preventDefault(); startAuto(); goTo(i); }));
   });
 
   grid.querySelectorAll('.var-btn').forEach(btn => {

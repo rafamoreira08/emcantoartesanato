@@ -59,6 +59,7 @@ const prodList     = document.getElementById('prodList');
 const formSection  = document.getElementById('formSection');
 const prodForm     = document.getElementById('prodForm');
 const newProdBtn   = document.getElementById('newProdBtn');
+const saveOrderBtn = document.getElementById('saveOrderBtn');
 const cancelBtn    = document.getElementById('cancelFormBtn');
 const formTitle    = document.getElementById('formTitle');
 const varContainer  = document.getElementById('varContainer');
@@ -248,6 +249,14 @@ function categoryLabel(cat) {
 // ---- Formulário ----
 newProdBtn?.addEventListener('click', () => openForm(null));
 cancelBtn?.addEventListener('click', closeForm);
+saveOrderBtn?.addEventListener('click', async () => {
+  const btn = saveOrderBtn;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando…';
+  await saveOrder();
+  btn.disabled = false;
+  btn.innerHTML = '<i class="fas fa-sort"></i> Salvar Ordem';
+});
 
 function openForm(id) {
   editingId    = id;
