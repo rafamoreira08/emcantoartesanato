@@ -133,6 +133,7 @@ async function loadProducts() {
 
 // ---- Renderizar lista ----
 function renderList() {
+  products.sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
   if (products.length === 0) {
     prodList.innerHTML = `
       <div class="admin-empty">
