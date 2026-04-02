@@ -145,6 +145,81 @@
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
 }
+/* ---- Carrossel de fotos por variação ---- */
+.pcarousel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--bg-soft);
+}
+.pcarousel__track { width: 100%; height: 100%; position: relative; }
+.pcarousel__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .35s ease;
+  pointer-events: none;
+}
+.pcarousel__slide--active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.pcarousel__slide img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
+}
+.pcarousel__caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,.55));
+  color: #fff;
+  padding: .4rem .75rem .55rem;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+}
+.pcarousel__btn {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,.88);
+  color: var(--blue-dark);
+  border: none;
+  border-radius: 50%;
+  width: 34px; height: 34px;
+  font-size: 1.35rem;
+  line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: background .2s, transform .2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,.18);
+}
+.pcarousel__btn:hover { background: #fff; transform: translateY(-50%) scale(1.1); }
+.pcarousel__btn--prev { left: 8px; }
+.pcarousel__btn--next { right: 8px; }
+.pcarousel__dots {
+  position: absolute;
+  bottom: 8px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 5px;
+  z-index: 3;
+}
+.pcarousel__dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.5);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background .2s, transform .2s;
+}
+.pcarousel__dot--active {
+  background: #fff;
+  transform: scale(1.35);
+}
+
 .produto-card__img-wrap { position: relative; }
 .produto-card__img {
   width: 100%;

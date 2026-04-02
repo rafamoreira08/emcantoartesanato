@@ -112,9 +112,49 @@ function cloudinaryOriginal(url) {
   return url.replace(/\/upload\/[^/]+\//, '/upload/');
 }
 
+// ---- Carrossel de fotos por variação ----
+function renderCarousel(photos, p) {
+  const badge = `<span class="produto-card__badge">${categoryLabel(category === 'pronta-entrega' ? p.category : category)}</span>`;
+  const prontaBadge = p.isReadyToShip
+    ? `<span class="produto-card__badge-pe"><i class="fas fa-box-open"></i> Pronta Entrega</span>` : '';
+
+  const slides = photos.map((ph, i) => {
+    const caption = [ph.color, ph.thread].filter(Boolean).join(' · ');
+    return `
+      <div class="pcarousel__slide${i === 0 ? ' pcarousel__slide--active' : ''}">
+        <img src="${cloudinaryOriginal(ph.url)}"
+             alt="${caption || p.name}"
+             loading="${i === 0 ? 'eager' : 'lazy'}"
+             onerror="this.src='https://via.placeholder.com/400x400?text=Foto'" />
+        ${caption ? `<div class="pcarousel__caption">${caption}</div>` : ''}
+      </div>`;
+  }).join('');
+
+  const dots = photos.map((_, i) =>
+    `<button class="pcarousel__dot${i === 0 ? ' pcarousel__dot--active' : ''}" data-goto="${i}" aria-label="Foto ${i+1}"></button>`
+  ).join('');
+
+  return `
+    <div class="produto-card__img-wrap">
+      <div class="pcarousel" data-idx="0">
+        <div class="pcarousel__track">${slides}</div>
+        <button class="pcarousel__btn pcarousel__btn--prev" aria-label="Anterior">&#8249;</button>
+        <button class="pcarousel__btn pcarousel__btn--next" aria-label="Próxima">&#8250;</button>
+        <div class="pcarousel__dots">${dots}</div>
+      </div>
+      ${badge}${prontaBadge}
+    </div>`;
+}
+
 // ---- Renderizar card de produto ----
 function renderCard(p) {
+  const photos        = (p.photos || []).filter(ph => ph.url);
+  const hasCarousel   = photos.length > 1;
   const hasVariations = p.variations?.length > 0;
+  const catLabel      = categoryLabel(category === 'pronta-entrega' ? p.category : category);
+
+  const prontaBadge = p.isReadyToShip
+    ? `<span class="produto-card__badge-pe"><i class="fas fa-box-open"></i> Pronta Entrega</span>` : '';
 
   const variationsHtml = hasVariations
     ? p.variations.map((v, vi) => `
@@ -131,23 +171,21 @@ function renderCard(p) {
         </div>`).join('')
     : '';
 
-  const prontaBadge = p.isReadyToShip
-    ? `<span class="produto-card__badge-pe"><i class="fas fa-box-open"></i> Pronta Entrega</span>`
-    : '';
-
-  const imgSrc = cloudinaryOriginal(p.image) || 'https://via.placeholder.com/400x600?text=Em+breve';
+  const imgSection = hasCarousel
+    ? renderCarousel(photos, p)
+    : `<div class="produto-card__img-wrap">
+        <div class="produto-card__img">
+          <img src="${cloudinaryOriginal(photos[0]?.url || p.image) || 'https://via.placeholder.com/400x400?text=Em+breve'}"
+               alt="${p.name}"
+               onerror="this.src='https://via.placeholder.com/400x400?text=Foto'" />
+        </div>
+        <span class="produto-card__badge">${catLabel}</span>
+        ${prontaBadge}
+       </div>`;
 
   return `
     <article class="produto-card" data-id="${p.id}" data-base="${p.basePrice || 0}">
-      <div class="produto-card__img-wrap">
-        <div class="produto-card__img">
-          <img src="${imgSrc}"
-               alt="${p.name}"
-               onerror="this.src='https://via.placeholder.com/400x600?text=Foto'" />
-        </div>
-        <span class="produto-card__badge">${categoryLabel(category === 'pronta-entrega' ? p.category : category)}</span>
-        ${prontaBadge}
-      </div>
+      ${imgSection}
       <div class="produto-card__body">
         <h3 class="produto-card__name">${p.name}</h3>
         <p class="produto-card__desc">${p.description || ''}</p>
@@ -160,7 +198,7 @@ function renderCard(p) {
             ? `<button class="btn btn--primary btn--full btn-add-cart"
                        data-id="${p.id}"
                        data-name="${p.name}"
-                       data-image="${p.image || ''}"
+                       data-image="${photos[0]?.url || p.image || ''}"
                        data-price="${p.basePrice || 0}">
                  <i class="fas fa-shopping-bag"></i> Adicionar ao Carrinho
                </button>`
@@ -187,6 +225,28 @@ function categoryLabel(cat) {
 
 // ---- Eventos dos cards ----
 function bindCardEvents() {
+
+  // Carrossel
+  grid.querySelectorAll('.pcarousel').forEach(car => {
+    const slides = car.querySelectorAll('.pcarousel__slide');
+    const dots   = car.querySelectorAll('.pcarousel__dot');
+    if (slides.length < 2) return;
+
+    function goTo(idx) {
+      const cur = parseInt(car.dataset.idx) || 0;
+      slides[cur].classList.remove('pcarousel__slide--active');
+      dots[cur]?.classList.remove('pcarousel__dot--active');
+      const next = (idx + slides.length) % slides.length;
+      slides[next].classList.add('pcarousel__slide--active');
+      dots[next]?.classList.add('pcarousel__dot--active');
+      car.dataset.idx = next;
+    }
+
+    car.querySelector('.pcarousel__btn--prev')?.addEventListener('click', e => { e.preventDefault(); goTo((parseInt(car.dataset.idx)||0) - 1); });
+    car.querySelector('.pcarousel__btn--next')?.addEventListener('click', e => { e.preventDefault(); goTo((parseInt(car.dataset.idx)||0) + 1); });
+    dots.forEach((dot, i) => dot.addEventListener('click', e => { e.preventDefault(); goTo(i); }));
+  });
+
   grid.querySelectorAll('.var-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const card = btn.closest('.produto-card');

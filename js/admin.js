@@ -37,8 +37,10 @@ const prodForm     = document.getElementById('prodForm');
 const newProdBtn   = document.getElementById('newProdBtn');
 const cancelBtn    = document.getElementById('cancelFormBtn');
 const formTitle    = document.getElementById('formTitle');
-const varContainer = document.getElementById('varContainer');
-const addVarBtn    = document.getElementById('addVarBtn');
+const varContainer  = document.getElementById('varContainer');
+const addVarBtn     = document.getElementById('addVarBtn');
+const photoGallery  = document.getElementById('photoGallery');
+const addPhotoBtn   = document.getElementById('addPhotoBtn');
 const imagePreview = document.getElementById('imagePreview');
 const imageInput   = document.getElementById('imageInput');
 const uploadProgress = document.getElementById('uploadProgress');
@@ -156,9 +158,10 @@ function openForm(id) {
   editingId    = id;
   uploadedUrl  = '';
   prodForm.reset();
-  varContainer.innerHTML = '';
-  imagePreview.src       = '';
-  imagePreview.hidden    = true;
+  varContainer.innerHTML  = '';
+  if (photoGallery) photoGallery.innerHTML = '';
+  imagePreview.src        = '';
+  imagePreview.hidden     = true;
 
   if (id) {
     const p = products.find(x => x.id === id);
@@ -173,6 +176,7 @@ function openForm(id) {
     uploadedUrl = p.image || '';
     if (p.image) { imagePreview.src = p.image; imagePreview.hidden = false; }
     (p.variations || []).forEach(v => addVariationGroup(v));
+    (p.photos     || []).forEach(ph => addPhotoEntry(ph));
   } else {
     formTitle.textContent = 'Novo Produto';
     prodForm.querySelector('[name="active"]').checked = true;
@@ -221,7 +225,80 @@ imageInput?.addEventListener('change', async () => {
   }
 });
 
-// ---- Variações ----
+// ---- Fotos de Variação ----
+addPhotoBtn?.addEventListener('click', () => addPhotoEntry());
+
+function addPhotoEntry(data = null) {
+  const entry = document.createElement('div');
+  entry.className = 'photo-entry';
+  const uid = `pf_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+
+  entry.innerHTML = `
+    <div class="photo-entry__thumb">
+      <input type="file" id="${uid}" accept="image/*" class="photo-file-input" />
+      <label for="${uid}" class="photo-file-label">
+        <i class="fas fa-camera"></i><span>Upload</span>
+      </label>
+      <img class="photo-preview-img" alt="preview" />
+      <span class="photo-status"></span>
+    </div>
+    <div class="photo-entry__fields">
+      <input type="text" class="photo-color"  placeholder="Cor (ex: Rosa Claro)" value="${data?.color  || ''}" />
+      <input type="text" class="photo-thread" placeholder="Fio (ex: Algodão)"    value="${data?.thread || ''}" />
+    </div>
+    <button type="button" class="btn-remove-photo" title="Remover"><i class="fas fa-times"></i></button>`;
+
+  const fileInput  = entry.querySelector('.photo-file-input');
+  const previewImg = entry.querySelector('.photo-preview-img');
+  const statusEl   = entry.querySelector('.photo-status');
+  const fileLabel  = entry.querySelector('.photo-file-label');
+
+  if (data?.url) {
+    fileInput.dataset.url   = data.url;
+    previewImg.src          = data.url;
+    previewImg.style.display = 'block';
+    fileLabel.style.display  = 'none';
+  }
+
+  fileInput.addEventListener('change', async () => {
+    const file = fileInput.files[0];
+    if (!file) return;
+    statusEl.textContent = 'Enviando…';
+    statusEl.style.color = '#6B7A8D';
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('upload_preset', CLOUDINARY_PRESET);
+    try {
+      const res  = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, { method:'POST', body:fd });
+      const json = await res.json();
+      if (!json.secure_url) throw new Error(json.error?.message || 'Erro');
+      fileInput.dataset.url    = json.secure_url;
+      previewImg.src           = json.secure_url;
+      previewImg.style.display = 'block';
+      fileLabel.style.display  = 'none';
+      statusEl.textContent     = '✓ Enviado';
+      statusEl.style.color     = '#27ae60';
+    } catch (err) {
+      statusEl.textContent = `Erro: ${err.message}`;
+      statusEl.style.color = '#e74c3c';
+    }
+  });
+
+  entry.querySelector('.btn-remove-photo').addEventListener('click', () => entry.remove());
+  photoGallery.appendChild(entry);
+}
+
+function collectPhotos() {
+  return Array.from(photoGallery?.querySelectorAll('.photo-entry') || [])
+    .map(e => ({
+      url:    e.querySelector('.photo-file-input').dataset.url || '',
+      color:  e.querySelector('.photo-color').value.trim(),
+      thread: e.querySelector('.photo-thread').value.trim(),
+    }))
+    .filter(ph => ph.url);
+}
+
+// ---- Variações de Preço ----
 addVarBtn?.addEventListener('click', () => addVariationGroup());
 
 function addVariationGroup(data = null) {
@@ -291,6 +368,7 @@ prodForm?.addEventListener('submit', async e => {
     isReadyToShip: prodForm.querySelector('[name="isReadyToShip"]').checked,
     image:         uploadedUrl,
     variations:    collectVariations(),
+    photos:        collectPhotos(),
     updatedAt:     serverTimestamp()
   };
 
