@@ -207,6 +207,18 @@ input, textarea, select { font-family: inherit; }
 .prod-admin-card:hover { box-shadow: 0 6px 24px rgba(26,45,94,.14); }
 .prod-admin-card--inactive { opacity: .55; }
 
+.drag-handle {
+  color: var(--text-light);
+  cursor: grab;
+  padding: 0 .25rem;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  user-select: none;
+}
+.drag-handle:active { cursor: grabbing; }
+.prod-admin-card.dragging { opacity: .4; box-shadow: none; }
+.prod-admin-card.drag-over { border: 2px dashed var(--blue-mid); background: #EBF5FF; }
+
 .prod-admin-card img {
   width: 72px; height: 72px;
   object-fit: cover;
