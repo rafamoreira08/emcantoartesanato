@@ -146,6 +146,7 @@ function renderList() {
     <div class="prod-admin-card ${p.active ? '' : 'prod-admin-card--inactive'}" data-id="${p.id}" draggable="true">
       <div class="drag-handle" title="Arraste para reordenar"><i class="fas fa-grip-vertical"></i></div>
       <img src="${p.image || 'https://via.placeholder.com/80x80?text=Foto'}" alt="${p.name}"
+           draggable="false"
            onerror="this.src='https://via.placeholder.com/80x80?text=Foto'" />
       <div class="prod-admin-card__info">
         <strong>${p.name}</strong>
@@ -217,9 +218,26 @@ async function saveOrder() {
   });
   try {
     await batch.commit();
+    showOrderToast('Ordem salva!', true);
   } catch (err) {
     console.error('Erro ao salvar ordem:', err);
+    showOrderToast('Erro ao salvar ordem', false);
   }
+}
+
+function showOrderToast(msg, ok) {
+  let t = document.getElementById('orderToast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'orderToast';
+    t.style.cssText = 'position:fixed;bottom:1.5rem;right:1.5rem;padding:.6rem 1.2rem;border-radius:8px;font-size:.9rem;font-weight:600;color:#fff;z-index:9999;transition:opacity .4s;pointer-events:none;';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.background = ok ? '#27ae60' : '#c0392b';
+  t.style.opacity = '1';
+  clearTimeout(t._hide);
+  t._hide = setTimeout(() => { t.style.opacity = '0'; }, 2500);
 }
 
 function categoryLabel(cat) {

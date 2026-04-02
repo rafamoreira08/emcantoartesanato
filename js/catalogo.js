@@ -243,9 +243,12 @@ function bindCardEvents() {
       car.dataset.idx = next;
     }
 
-    car.querySelector('.pcarousel__btn--prev')?.addEventListener('click', e => { e.preventDefault(); goTo((parseInt(car.dataset.idx)||0) - 1); });
-    car.querySelector('.pcarousel__btn--next')?.addEventListener('click', e => { e.preventDefault(); goTo((parseInt(car.dataset.idx)||0) + 1); });
-    dots.forEach((dot, i) => dot.addEventListener('click', e => { e.preventDefault(); goTo(i); }));
+    let autoTimer = setInterval(() => goTo((parseInt(car.dataset.idx)||0) + 1), 5000);
+    const resetAuto = () => { clearInterval(autoTimer); autoTimer = setInterval(() => goTo((parseInt(car.dataset.idx)||0) + 1), 5000); };
+
+    car.querySelector('.pcarousel__btn--prev')?.addEventListener('click', e => { e.preventDefault(); resetAuto(); goTo((parseInt(car.dataset.idx)||0) - 1); });
+    car.querySelector('.pcarousel__btn--next')?.addEventListener('click', e => { e.preventDefault(); resetAuto(); goTo((parseInt(car.dataset.idx)||0) + 1); });
+    dots.forEach((dot, i) => dot.addEventListener('click', e => { e.preventDefault(); resetAuto(); goTo(i); }));
   });
 
   grid.querySelectorAll('.var-btn').forEach(btn => {
