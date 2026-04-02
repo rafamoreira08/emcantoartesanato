@@ -354,6 +354,87 @@ input[type="checkbox"] {
 .upload-progress--ok { color: #27ae60; }
 .upload-progress--error { color: #e74c3c; }
 
+/* Fotos de Variação */
+.photos-section {
+  background: #F8FBFF;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-top: 1.25rem;
+}
+.photos-section h4 { color: var(--blue-dark); font-size: .9rem; margin-bottom: .3rem; }
+
+.photo-entry {
+  display: grid;
+  grid-template-columns: 90px 1fr 28px;
+  gap: .75rem;
+  align-items: start;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .75rem;
+  margin-bottom: .6rem;
+}
+.photo-entry__thumb {
+  position: relative;
+  width: 90px; height: 90px;
+}
+.photo-file-label {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: .25rem;
+  width: 100%; height: 100%;
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: .68rem;
+  color: var(--text-light);
+  background: var(--bg);
+  transition: border-color .2s;
+}
+.photo-file-label:hover { border-color: var(--blue-mid); }
+.photo-file-label i { font-size: 1.2rem; }
+.photo-file-input { display: none; }
+.photo-preview-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  display: none;
+}
+.photo-status {
+  display: block;
+  font-size: .65rem;
+  text-align: center;
+  margin-top: .2rem;
+}
+.photo-entry__fields {
+  display: flex; flex-direction: column; gap: .5rem;
+  padding-top: .15rem;
+}
+.photo-entry__fields input {
+  padding: .5rem .75rem;
+  border: 1.5px solid var(--border);
+  border-radius: 7px;
+  font-size: .85rem;
+  outline: none;
+  transition: border-color .2s;
+  width: 100%;
+  font-family: inherit;
+  color: var(--blue-dark);
+  background: var(--bg);
+}
+.photo-entry__fields input:focus { border-color: var(--blue-mid); background: var(--white); }
+.btn-remove-photo {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #FFEBEB;
+  color: #e74c3c;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem;
+  transition: background .2s;
+}
+.btn-remove-photo:hover { background: #FFD0D0; }
+
 /* Variações */
 .variations-section {
   margin-top: 1.25rem;
