@@ -25,6 +25,30 @@ const STATUS_FLOW = {
 const CLOUDINARY_CLOUD  = 'dmd3guxrq';
 const CLOUDINARY_PRESET = 'emcanto_produtos';
 
+// ---- Compressão de imagem (client-side, antes do upload) ----
+// Reduz para máx. 1200px e converte para JPEG ~82% — de ~30 MB para ~300-500 KB
+async function compressImage(file, maxPx = 1200, quality = 0.82) {
+  return new Promise(resolve => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let { width, height } = img;
+      if (width > maxPx || height > maxPx) {
+        if (width >= height) { height = Math.round(height * maxPx / width); width = maxPx; }
+        else                 { width  = Math.round(width  * maxPx / height); height = maxPx; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width  = width;
+      canvas.height = height;
+      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+      canvas.toBlob(blob => resolve(blob || file), 'image/jpeg', quality);
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(file); };
+    img.src = url;
+  });
+}
+
 // ---- Elementos ----
 const loginView    = document.getElementById('loginView');
 const adminView    = document.getElementById('adminView');
@@ -197,11 +221,15 @@ imageInput?.addEventListener('change', async () => {
   const file = imageInput.files[0];
   if (!file) return;
 
-  uploadProgress.textContent = 'Enviando imagem...';
+  uploadProgress.textContent = 'Comprimindo imagem...';
   uploadProgress.className   = 'upload-progress';
 
+  const compressed = await compressImage(file);
+
+  uploadProgress.textContent = 'Enviando imagem...';
+
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append('file', compressed, 'foto.jpg');
   formData.append('upload_preset', CLOUDINARY_PRESET);
 
   try {
@@ -263,10 +291,12 @@ function addPhotoEntry(data = null) {
   fileInput.addEventListener('change', async () => {
     const file = fileInput.files[0];
     if (!file) return;
-    statusEl.textContent = 'Enviando…';
+    statusEl.textContent = 'Comprimindo…';
     statusEl.style.color = '#6B7A8D';
+    const compressed = await compressImage(file);
+    statusEl.textContent = 'Enviando…';
     const fd = new FormData();
-    fd.append('file', file);
+    fd.append('file', compressed, 'foto.jpg');
     fd.append('upload_preset', CLOUDINARY_PRESET);
     try {
       const res  = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, { method:'POST', body:fd });
