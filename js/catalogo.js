@@ -120,7 +120,8 @@ function renderCarousel(photos, p) {
     ? `<span class="produto-card__badge-pe"><i class="fas fa-box-open"></i> Pronta Entrega</span>` : '';
 
   const slides = photos.map((ph, i) => {
-    const caption = [ph.color, ph.thread].filter(Boolean).join(' · ');
+    const captionParts = [ph.color ? `Cor: ${ph.color}` : '', ph.thread ? `Fio: ${ph.thread}` : ''].filter(Boolean);
+    const caption = captionParts.join('\n');
     return `
       <div class="pcarousel__slide${i === 0 ? ' pcarousel__slide--active' : ''}">
         <img src="${cloudinaryOriginal(ph.url)}"
