@@ -115,7 +115,6 @@ function cloudinaryOriginal(url) {
 
 // ---- Carrossel de fotos por variação ----
 function renderCarousel(photos, p) {
-  const badge = `<span class="produto-card__badge">${categoryLabel(category === 'pronta-entrega' ? p.category : category)}</span>`;
   const prontaBadge = p.isReadyToShip
     ? `<span class="produto-card__badge-pe"><i class="fas fa-box-open"></i> Pronta Entrega</span>` : '';
 
@@ -144,7 +143,7 @@ function renderCarousel(photos, p) {
         <button class="pcarousel__btn pcarousel__btn--next" aria-label="Próxima">&#8250;</button>
         <div class="pcarousel__dots">${dots}</div>
       </div>
-      ${badge}${prontaBadge}
+      ${prontaBadge}
     </div>`;
 }
 
@@ -181,7 +180,6 @@ function renderCard(p) {
                alt="${p.name}"
                onerror="this.src='https://via.placeholder.com/400x400?text=Foto'" />
         </div>
-        <span class="produto-card__badge">${catLabel}</span>
         ${prontaBadge}
        </div>`;
 
