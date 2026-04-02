@@ -81,7 +81,8 @@ async function loadProducts() {
 
     let products = snap.docs
       .map(d => ({ id: d.id, ...d.data() }))
-      .filter(p => p.active);
+      .filter(p => p.active)
+      .sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
 
     // filtro de sub-categoria na pronta-entrega
     if (category === 'pronta-entrega' && catFilter) {

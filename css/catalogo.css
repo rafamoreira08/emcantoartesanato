@@ -50,9 +50,13 @@
 
 #produtosGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
   margin-top: 2.5rem;
+}
+
+@media (max-width: 560px) {
+  #produtosGrid { grid-template-columns: 1fr; }
 }
 
 /* ---- Estado de loading ---- */

@@ -6,7 +6,7 @@ import { signInWithEmailAndPassword,
          signOut, onAuthStateChanged }     from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
 import { collection, getDocs, addDoc,
          updateDoc, deleteDoc, doc,
-         serverTimestamp }                 from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+         writeBatch, serverTimestamp }     from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 
 const fmt = val => val?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) ?? '';
 
@@ -143,7 +143,8 @@ function renderList() {
   }
 
   prodList.innerHTML = products.map(p => `
-    <div class="prod-admin-card ${p.active ? '' : 'prod-admin-card--inactive'}">
+    <div class="prod-admin-card ${p.active ? '' : 'prod-admin-card--inactive'}" data-id="${p.id}" draggable="true">
+      <div class="drag-handle" title="Arraste para reordenar"><i class="fas fa-grip-vertical"></i></div>
       <img src="${p.image || 'https://via.placeholder.com/80x80?text=Foto'}" alt="${p.name}"
            onerror="this.src='https://via.placeholder.com/80x80?text=Foto'" />
       <div class="prod-admin-card__info">
@@ -167,6 +168,58 @@ function renderList() {
   prodList.querySelectorAll('.btn-delete').forEach(btn =>
     btn.addEventListener('click', () => deleteProduct(btn.dataset.id))
   );
+
+  initDragSort();
+}
+
+// ---- Drag & Drop para reordenação ----
+function initDragSort() {
+  const list = prodList;
+  let dragEl = null;
+
+  list.querySelectorAll('.prod-admin-card').forEach(card => {
+    card.addEventListener('dragstart', e => {
+      dragEl = card;
+      e.dataTransfer.effectAllowed = 'move';
+      setTimeout(() => card.classList.add('dragging'), 0);
+    });
+
+    card.addEventListener('dragend', async () => {
+      card.classList.remove('dragging');
+      list.querySelectorAll('.drag-over').forEach(c => c.classList.remove('drag-over'));
+      await saveOrder();
+      dragEl = null;
+    });
+
+    card.addEventListener('dragover', e => {
+      e.preventDefault();
+      if (!dragEl || card === dragEl) return;
+      card.classList.add('drag-over');
+      const cards  = [...list.querySelectorAll('.prod-admin-card')];
+      const dragIdx = cards.indexOf(dragEl);
+      const overIdx = cards.indexOf(card);
+      list.insertBefore(dragEl, dragIdx < overIdx ? card.nextSibling : card);
+    });
+
+    card.addEventListener('dragleave', () => card.classList.remove('drag-over'));
+  });
+}
+
+async function saveOrder() {
+  const cards = [...prodList.querySelectorAll('.prod-admin-card')];
+  const batch = writeBatch(db);
+  cards.forEach((card, idx) => {
+    const id = card.dataset.id;
+    if (!id) return;
+    batch.update(doc(db, 'products', id), { order: idx });
+    const prod = products.find(p => p.id === id);
+    if (prod) prod.order = idx;
+  });
+  try {
+    await batch.commit();
+  } catch (err) {
+    console.error('Erro ao salvar ordem:', err);
+  }
 }
 
 function categoryLabel(cat) {
