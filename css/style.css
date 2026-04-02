@@ -164,18 +164,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   object-fit: contain;
 }
 .nav__logo-text {
-  font-family: var(--font-title);
+  font-family: 'Jost', sans-serif;
   font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--blue-dark);
-  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: .08em;
+  color: var(--green);
+  line-height: 1.1;
 }
 .nav__logo-text span {
   display: block;
-  font-family: var(--font-script);
-  font-size: 1rem;
-  color: var(--blue-mid);
-  font-weight: 500;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--green);
 }
 
 /* Logo fallback — se imagem não carregar */
