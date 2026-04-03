@@ -190,10 +190,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   gap: .25rem;
 }
 .nav__link {
-  font-family: 'Jost', sans-serif;
-  font-size: .9rem;
-  font-weight: 700;
-  letter-spacing: .04em;
+  font-family: 'Playfair Display', serif;
+  font-size: .95rem;
+  font-weight: 600;
   color: var(--text);
   padding: .5rem .75rem;
   border-radius: 8px;
