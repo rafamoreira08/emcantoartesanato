@@ -4,7 +4,7 @@
 
 /* ---- Hero da categoria ---- */
 .cat-hero {
-  padding: 50px 0 35px;
+  padding: 18px 0 14px;
   background: linear-gradient(135deg, #F0F7FF 0%, #FDF8F5 100%);
   text-align: center;
   position: relative;
@@ -25,23 +25,23 @@
   font-size: .85rem;
   font-weight: 600;
   color: var(--text-light);
-  margin-bottom: 1.5rem;
+  margin-bottom: .5rem;
   transition: color var(--transition);
 }
 .cat-hero__back:hover { color: var(--blue-mid); }
 .cat-hero__icon {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   color: var(--blue-mid);
-  margin-bottom: .35rem;
+  margin-bottom: .2rem;
   display: block;
 }
 .cat-hero .section__title {
   font-size: clamp(1.2rem, 3vw, 1.6rem);
-  margin-bottom: .5rem;
+  margin-bottom: .25rem;
 }
 .cat-hero .section__eyebrow {
-  font-size: .95rem;
-  margin-bottom: .2rem;
+  font-size: .9rem;
+  margin-bottom: .15rem;
 }
 .cat-hero__subtitle {
   max-width: 520px;
@@ -52,7 +52,7 @@
 
 /* ---- Grid de produtos ---- */
 .catalogo-section {
-  padding: 60px 0 100px;
+  padding: 30px 0 80px;
   background: var(--bg-cream);
 }
 
