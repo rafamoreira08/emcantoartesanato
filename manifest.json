@@ -1,0 +1,17 @@
+{
+  "name": "Em Canto Artesanato",
+  "short_name": "Em Canto",
+  "description": "Peças artesanais únicas feitas à mão por Sônia Lima",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#4A7A3C",
+  "icons": [
+    {
+      "src": "images/logo_fundo_transparente.png",
+      "sizes": "790x790",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
