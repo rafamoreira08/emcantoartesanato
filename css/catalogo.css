@@ -30,10 +30,18 @@
 }
 .cat-hero__back:hover { color: var(--blue-mid); }
 .cat-hero__icon {
-  font-size: 2.5rem;
+  font-size: 1.6rem;
   color: var(--blue-mid);
-  margin-bottom: .75rem;
+  margin-bottom: .35rem;
   display: block;
+}
+.cat-hero .section__title {
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  margin-bottom: .5rem;
+}
+.cat-hero .section__eyebrow {
+  font-size: .95rem;
+  margin-bottom: .2rem;
 }
 .cat-hero__subtitle {
   max-width: 520px;
