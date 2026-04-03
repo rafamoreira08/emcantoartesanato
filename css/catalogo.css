@@ -36,7 +36,6 @@
   display: block;
 }
 .cat-hero .section__title {
-  font-size: clamp(1.2rem, 3vw, 1.6rem);
   margin-bottom: .25rem;
 }
 .cat-hero .section__eyebrow {
