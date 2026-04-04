@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { ShoppingBag } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
+import { ShoppingBag, ChevronLeft, ChevronRight } from 'lucide-react'
 import type { Product } from '../types/product'
 import { cloudinaryUrl } from '../lib/products'
 
@@ -9,17 +9,62 @@ export default function ProductCard({ product }: Props) {
   const photos = (product.photos || []).filter(p => p.url)
   const images = photos.length > 0 ? photos.map(p => p.url) : [product.image]
   const [idx, setIdx] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
+  const [progress, setProgress] = useState(100)
+  const timerRef = useRef<NodeJS.Timeout>()
+  const progressRef = useRef<NodeJS.Timeout>()
+
+  const startAutoPlay = () => {
+    timerRef.current = setInterval(() => {
+      setIdx(current => (current + 1) % images.length)
+      setProgress(100)
+    }, 5000)
+  }
+
+  const stopAutoPlay = () => {
+    if (timerRef.current) clearInterval(timerRef.current)
+  }
+
+  const resetProgress = () => {
+    setProgress(100)
+    if (progressRef.current) clearInterval(progressRef.current)
+
+    progressRef.current = setInterval(() => {
+      setProgress(p => Math.max(0, p - (100 / 50))) // 50 ticks for smooth animation
+    }, 100)
+  }
 
   // Auto-advance carousel every 5 seconds
   useEffect(() => {
     if (images.length <= 1) return
 
-    const timer = setInterval(() => {
-      setIdx(current => (current + 1) % images.length)
-    }, 5000)
+    startAutoPlay()
+    resetProgress()
 
-    return () => clearInterval(timer)
+    return () => {
+      stopAutoPlay()
+      if (progressRef.current) clearInterval(progressRef.current)
+    }
   }, [images.length])
+
+  // Handle hover pause/resume
+  useEffect(() => {
+    if (isHovered) {
+      stopAutoPlay()
+    } else {
+      startAutoPlay()
+      resetProgress()
+    }
+  }, [isHovered])
+
+  // Handle manual navigation
+  const goToSlide = (newIdx: number) => {
+    setIdx(newIdx)
+    resetProgress()
+  }
+
+  const prevSlide = () => goToSlide((idx - 1 + images.length) % images.length)
+  const nextSlide = () => goToSlide((idx + 1) % images.length)
 
   const fmt = (v: number) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 
@@ -29,8 +74,12 @@ export default function ProductCard({ product }: Props) {
 
   return (
     <article className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-border hover:border-green/30 hover:shadow-md transition-all duration-300">
-      {/* Image */}
-      <div className="relative aspect-square overflow-hidden bg-cream">
+      {/* Image Carousel */}
+      <div
+        className="relative aspect-square overflow-hidden bg-cream"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <img
           key={idx}
           src={cloudinaryUrl(images[idx], 600, 600)}
@@ -41,21 +90,54 @@ export default function ProductCard({ product }: Props) {
 
         {/* Pronta entrega badge */}
         {product.isReadyToShip && (
-          <span className="absolute top-3 left-3 bg-green text-white font-sans text-xs font-600 px-3 py-1 rounded-full">
+          <span className="absolute top-3 left-3 bg-green text-white font-sans text-xs font-600 px-3 py-1 rounded-full z-10">
             Pronta Entrega
           </span>
         )}
 
-        {/* Thumbnail strip for multiple photos */}
+        {/* Navigation arrows - show on hover or if multiple images */}
         {images.length > 1 && (
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+          <>
+            <button
+              onClick={prevSlide}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100"
+              aria-label="Imagem anterior"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100"
+              aria-label="Próxima imagem"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </>
+        )}
+
+        {/* Dot indicators */}
+        {images.length > 1 && (
+          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
             {images.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setIdx(i)}
-                className={`w-1.5 h-1.5 rounded-full transition-all ${i === idx ? 'bg-white scale-125' : 'bg-white/60'}`}
+                onClick={() => goToSlide(i)}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === idx ? 'bg-white w-6' : 'bg-white/60 w-1.5 hover:bg-white/80'
+                }`}
+                aria-label={`Ir para slide ${i + 1}`}
               />
             ))}
+          </div>
+        )}
+
+        {/* Progress bar */}
+        {images.length > 1 && (
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
+            <div
+              className="h-full bg-green transition-all"
+              style={{ width: `${progress}%` }}
+            />
           </div>
         )}
       </div>
