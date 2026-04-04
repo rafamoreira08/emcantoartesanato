@@ -10,14 +10,14 @@ export default function ProductCard({ product }: Props) {
   const images = photos.length > 0 ? photos.map(p => p.url) : [product.image]
   const [idx, setIdx] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
-  const [progress, setProgress] = useState(100)
+  const [progress, setProgress] = useState(0)
   const timerRef = useRef<NodeJS.Timeout>()
   const progressRef = useRef<NodeJS.Timeout>()
 
   const startAutoPlay = () => {
     timerRef.current = setInterval(() => {
       setIdx(current => (current + 1) % images.length)
-      setProgress(100)
+      setProgress(0)
     }, 5000)
   }
 
@@ -25,12 +25,16 @@ export default function ProductCard({ product }: Props) {
     if (timerRef.current) clearInterval(timerRef.current)
   }
 
-  const resetProgress = () => {
-    setProgress(100)
+  const stopProgress = () => {
     if (progressRef.current) clearInterval(progressRef.current)
+  }
+
+  const resetProgress = () => {
+    setProgress(0)
+    stopProgress()
 
     progressRef.current = setInterval(() => {
-      setProgress(p => Math.max(0, p - (100 / 50))) // 50 ticks for smooth animation
+      setProgress(p => Math.min(100, p + (100 / 50))) // 50 ticks for smooth animation (0 to 100)
     }, 100)
   }
 
@@ -43,7 +47,7 @@ export default function ProductCard({ product }: Props) {
 
     return () => {
       stopAutoPlay()
-      if (progressRef.current) clearInterval(progressRef.current)
+      stopProgress()
     }
   }, [images.length])
 
@@ -51,6 +55,7 @@ export default function ProductCard({ product }: Props) {
   useEffect(() => {
     if (isHovered) {
       stopAutoPlay()
+      stopProgress()
     } else {
       startAutoPlay()
       resetProgress()
