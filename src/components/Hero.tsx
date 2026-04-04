@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom'
 export default function Hero() {
   return (
     <section className="min-h-screen flex items-center pt-16 bg-cream overflow-hidden relative">
-      {/* Logo watermark */}
-      <div className="absolute top-1/2 right-0 transform -translate-y-1/2 -translate-x-12 opacity-5 pointer-events-none z-0">
+      {/* Logo watermark — positioned behind the text on the left, over cream background */}
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 opacity-[0.07] pointer-events-none z-0">
         <img
           src="/images/logo_fundo_transparente.png"
           alt=""
-          className="w-80 h-80 object-contain"
+          className="w-[32rem] h-[32rem] object-contain"
         />
       </div>
 
