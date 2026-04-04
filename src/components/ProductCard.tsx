@@ -93,6 +93,14 @@ export default function ProductCard({ product }: Props) {
           onError={e => { (e.target as HTMLImageElement).src = '/images/logo_fundo_transparente.png' }}
         />
 
+        {/* Photo specs overlay */}
+        {photos.length > 0 && (photos[idx]?.color || photos[idx]?.thread) && (
+          <div className="absolute bottom-20 left-0 right-0 bg-black/50 text-white px-4 py-3 text-center font-sans text-sm">
+            {photos[idx]?.color && <div>Cor: {photos[idx].color}</div>}
+            {photos[idx]?.thread && <div>Fio: {photos[idx].thread}</div>}
+          </div>
+        )}
+
         {/* Pronta entrega badge */}
         {product.isReadyToShip && (
           <span className="absolute top-3 left-3 bg-green text-white font-sans text-xs font-600 px-3 py-1 rounded-full z-10">
