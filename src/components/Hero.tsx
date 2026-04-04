@@ -4,20 +4,19 @@ import { Link } from 'react-router-dom'
 export default function Hero() {
   return (
     <section className="min-h-screen flex items-center pt-16 bg-cream overflow-hidden relative">
-      {/* Logo watermark — positioned behind the text on the left, over cream background */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 opacity-[0.07] pointer-events-none z-0">
-        <img
-          src="/images/logo_fundo_transparente.png"
-          alt=""
-          className="w-[32rem] h-[32rem] object-contain"
-        />
-      </div>
-
       <div className="max-w-6xl mx-auto px-6 w-full relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center py-20">
 
           {/* Left — text */}
-          <div className="flex flex-col gap-8">
+          <div className="relative flex flex-col gap-8">
+            {/* Logo watermark — centered behind the title */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-[0.08] pointer-events-none">
+              <img
+                src="/images/logo_fundo_transparente.png"
+                alt=""
+                className="w-[28rem] h-[28rem] object-contain"
+              />
+            </div>
             <div className="flex flex-col gap-3">
               <span className="font-sans text-sm font-500 text-green tracking-[0.2em] uppercase">
                 by Sônia Lima · Artesanato de Luxo
