@@ -93,11 +93,14 @@ export default function ProductCard({ product }: Props) {
           onError={e => { (e.target as HTMLImageElement).src = '/images/logo_fundo_transparente.png' }}
         />
 
-        {/* Photo specs overlay */}
+        {/* Photo specs overlay with gradient */}
         {photos.length > 0 && (photos[idx]?.color || photos[idx]?.thread) && (
-          <div className="absolute bottom-20 left-0 right-0 bg-black/50 text-white px-4 py-3 text-center font-sans text-sm">
-            {photos[idx]?.color && <div>Cor: {photos[idx].color}</div>}
-            {photos[idx]?.thread && <div>Fio: {photos[idx].thread}</div>}
+          <div className="absolute inset-0 bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
+        )}
+        {photos.length > 0 && (photos[idx]?.color || photos[idx]?.thread) && (
+          <div className="absolute bottom-12 left-4 text-white font-sans text-sm leading-snug">
+            {photos[idx]?.color && <div className="font-500">Cor: {photos[idx].color}</div>}
+            {photos[idx]?.thread && <div className="font-500">Fio: {photos[idx].thread}</div>}
           </div>
         )}
 
