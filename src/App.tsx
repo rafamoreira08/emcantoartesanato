@@ -10,7 +10,7 @@ import ProntaEntrega from './pages/ProntaEntrega'
 
 export default function App() {
   return (
-    <BrowserRouter basename="/emcantoartesanato">
+    <BrowserRouter basename="">
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1">
