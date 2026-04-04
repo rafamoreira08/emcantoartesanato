@@ -19,9 +19,9 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 shrink-0" onClick={() => setOpen(false)}>
-          <img src="/images/logo_fundo_transparente.png" alt="Em Canto Artesanato" className="h-10 w-10 object-contain" />
-          <span className="leading-tight">
+        <Link to="/" className="flex items-center gap-4 shrink-0" onClick={() => setOpen(false)}>
+          <img src="/images/logo_fundo_transparente.png" alt="Em Canto Artesanato" className="h-14 w-14 object-contain" />
+          <span className="leading-tight hidden sm:block">
             <span className="block font-sans font-800 text-green tracking-widest text-[0.9rem] uppercase">em canto</span>
             <span className="script text-green text-[1.1rem] -mt-1 block">artesanato</span>
           </span>

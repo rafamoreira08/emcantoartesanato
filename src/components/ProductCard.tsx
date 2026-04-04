@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ShoppingBag } from 'lucide-react'
 import type { Product } from '../types/product'
 import { cloudinaryUrl } from '../lib/products'
@@ -9,6 +9,17 @@ export default function ProductCard({ product }: Props) {
   const photos = (product.photos || []).filter(p => p.url)
   const images = photos.length > 0 ? photos.map(p => p.url) : [product.image]
   const [idx, setIdx] = useState(0)
+
+  // Auto-advance carousel every 5 seconds
+  useEffect(() => {
+    if (images.length <= 1) return
+
+    const timer = setInterval(() => {
+      setIdx(current => (current + 1) % images.length)
+    }, 5000)
+
+    return () => clearInterval(timer)
+  }, [images.length])
 
   const fmt = (v: number) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 
@@ -21,9 +32,10 @@ export default function ProductCard({ product }: Props) {
       {/* Image */}
       <div className="relative aspect-square overflow-hidden bg-cream">
         <img
+          key={idx}
           src={cloudinaryUrl(images[idx], 600, 600)}
           alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500 animate-fade-in"
           onError={e => { (e.target as HTMLImageElement).src = '/images/logo_fundo_transparente.png' }}
         />
 
