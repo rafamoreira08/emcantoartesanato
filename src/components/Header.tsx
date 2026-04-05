@@ -3,11 +3,12 @@ import { Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 
 const nav = [
-  { label: 'Início',         to: '/' },
-  { label: 'Bolsas',         to: '/bolsas' },
-  { label: 'Colares',        to: '/colares' },
-  { label: 'Mesa Posta',     to: '/mesa-posta' },
-  { label: 'Pronta Entrega', to: '/pronta-entrega' },
+  { label: 'Início',           to: '/' },
+  { label: 'Bolsas',           to: '/bolsas' },
+  { label: 'Colares',          to: '/colares' },
+  { label: 'Mesa Posta',       to: '/mesa-posta' },
+  { label: 'Pronta Entrega',   to: '/pronta-entrega' },
+  { label: 'Rastreio',         to: '/rastreio' },
 ]
 
 export default function Header() {

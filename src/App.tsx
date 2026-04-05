@@ -7,6 +7,8 @@ import Bolsas from './pages/Bolsas'
 import Colares from './pages/Colares'
 import MesaPosta from './pages/MesaPosta'
 import ProntaEntrega from './pages/ProntaEntrega'
+import Rastreio from './pages/Rastreio'
+import Admin from './pages/Admin'
 
 export default function App() {
   return (
@@ -20,6 +22,8 @@ export default function App() {
             <Route path="/colares"        element={<Colares />} />
             <Route path="/mesa-posta"     element={<MesaPosta />} />
             <Route path="/pronta-entrega" element={<ProntaEntrega />} />
+            <Route path="/rastreio"       element={<Rastreio />} />
+            <Route path="/admin"          element={<Admin />} />
           </Routes>
         </main>
         <Footer />
