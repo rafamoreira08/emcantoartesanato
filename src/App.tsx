@@ -12,7 +12,7 @@ import Admin from './pages/Admin'
 
 export default function App() {
   return (
-    <BrowserRouter basename="">
+    <BrowserRouter basename="/emcantoartesanato">
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1">
