@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
@@ -12,7 +12,7 @@ import Admin from './pages/Admin'
 
 export default function App() {
   return (
-    <BrowserRouter basename="/emcantoartesanato">
+    <HashRouter>
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1">
@@ -29,6 +29,6 @@ export default function App() {
         <Footer />
         <WhatsAppButton />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
