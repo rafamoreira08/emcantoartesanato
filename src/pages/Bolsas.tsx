@@ -1,13 +1,19 @@
+import CategoryHero from '../components/CategoryHero'
 import ProductGrid from '../components/ProductGrid'
 
 export default function Bolsas() {
   return (
-    <div className="pt-16">
+    <>
+      <CategoryHero
+        title="Bolsas Artesanais"
+        subtitle="Criações exclusivas em crochê, unindo o cuidado artesanal à sofisticação contemporânea. Confeccionadas à mão com fios selecionados — cada bolsa é uma peça única que complementa qualquer estilo."
+        icon="👜"
+      />
       <ProductGrid
         category="bolsas"
-        title="Bolsas Artesanais"
-        subtitle="Confeccionadas à mão com fios de alta qualidade — crochê, tricô e ráfia. Estilo e exclusividade em cada costura."
+        title=""
+        subtitle=""
       />
-    </div>
+    </>
   )
 }
