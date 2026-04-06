@@ -57,7 +57,6 @@ export default function Admin() {
     showToast('Produto excluído')
   }
 
-  // Drag and drop
   const onDragStart = (i: number) => setDragIdx(i)
   const onDragOver = (e: React.DragEvent, i: number) => {
     e.preventDefault()
@@ -79,114 +78,119 @@ export default function Admin() {
   }
 
   return (
-    <div className="pt-24 pb-16 min-h-screen bg-cream">
-      <div className="max-w-5xl mx-auto px-6">
-
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <p className="font-sans text-xs text-green tracking-[0.2em] uppercase mb-1">Gestão</p>
-            <h1 className="font-serif text-3xl font-700 text-ink">Painel Admin</h1>
-          </div>
-          <button
-            onClick={saveOrder}
-            disabled={saving}
-            className="flex items-center gap-2 bg-green text-white px-5 py-2.5 rounded-xl font-sans text-sm font-600 hover:bg-green-dark disabled:opacity-50 transition-colors"
-          >
-            <Save size={16} />
-            {saving ? 'Salvando...' : 'Salvar Ordem'}
-          </button>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
-          {[
-            { label: 'Total de produtos', value: products.length },
-            { label: 'Ativos', value: products.filter(p => p.active).length },
-            { label: 'Pronta entrega', value: products.filter(p => p.isReadyToShip).length },
-          ].map(s => (
-            <div key={s.label} className="bg-white rounded-2xl p-5 border border-border text-center">
-              <p className="font-serif text-3xl font-700 text-green">{s.value}</p>
-              <p className="font-sans text-xs text-muted mt-1">{s.label}</p>
+    <>
+      {/* Hero Section */}
+      <section className="pt-20 pb-12 bg-gradient-to-b from-cream to-white border-b border-border">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex items-start gap-4">
+            <div className="text-4xl">⚙️</div>
+            <div>
+              <p className="font-sans text-xs text-green tracking-[0.2em] uppercase mb-2">Gestão</p>
+              <h1 className="font-serif text-4xl lg:text-5xl font-700 text-ink mb-4">Painel Admin</h1>
+              <p className="font-sans text-lg text-muted leading-relaxed max-w-2xl">
+                Gerencie seus produtos, organize a ordem de exibição e controle quais itens aparecem no catálogo.
+              </p>
             </div>
-          ))}
-        </div>
-
-        {/* Product list */}
-        {loading ? (
-          <div className="flex justify-center py-16">
-            <div className="w-8 h-8 border-2 border-green border-t-transparent rounded-full animate-spin" />
           </div>
-        ) : (
-          <div className="bg-white rounded-2xl border border-border overflow-hidden">
-            <div className="px-6 py-4 border-b border-border flex items-center gap-2">
-              <Package size={18} className="text-green" />
-              <h2 className="font-sans text-sm font-600 text-ink">Produtos ({products.length})</h2>
-              <p className="font-sans text-xs text-muted ml-auto">Arraste para reordenar</p>
+        </div>
+      </section>
+
+      {/* Admin Panel */}
+      <div className="min-h-screen bg-cream py-12">
+        <div className="max-w-6xl mx-auto px-6">
+          {/* Toolbar */}
+          <div className="flex items-center justify-between mb-8">
+            <button
+              onClick={saveOrder}
+              disabled={saving}
+              className="flex items-center gap-2 bg-green text-white px-5 py-2.5 rounded-xl font-sans text-sm font-600 hover:bg-green-dark disabled:opacity-50 transition-colors"
+            >
+              <Save size={16} />
+              {saving ? 'Salvando...' : 'Salvar Ordem'}
+            </button>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-4 mb-8">
+            {[
+              { label: 'Total de produtos', value: products.length },
+              { label: 'Ativos', value: products.filter(p => p.active).length },
+              { label: 'Pronta entrega', value: products.filter(p => p.isReadyToShip).length },
+            ].map(s => (
+              <div key={s.label} className="bg-white rounded-2xl p-5 border border-border text-center">
+                <p className="font-serif text-3xl font-700 text-green">{s.value}</p>
+                <p className="font-sans text-xs text-muted mt-1">{s.label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Product list */}
+          {loading ? (
+            <div className="flex justify-center py-16">
+              <div className="w-8 h-8 border-2 border-green border-t-transparent rounded-full animate-spin" />
             </div>
+          ) : (
+            <div className="bg-white rounded-2xl border border-border overflow-hidden">
+              <div className="px-6 py-4 border-b border-border flex items-center gap-2">
+                <Package size={18} className="text-green" />
+                <h2 className="font-sans text-sm font-600 text-ink">Produtos ({products.length})</h2>
+                <p className="font-sans text-xs text-muted ml-auto">Arraste para reordenar</p>
+              </div>
 
-            <div className="divide-y divide-border">
-              {products.map((p, i) => (
-                <div
-                  key={p.id}
-                  draggable
-                  onDragStart={() => onDragStart(i)}
-                  onDragOver={e => onDragOver(e, i)}
-                  onDragEnd={onDragEnd}
-                  className={`flex items-center gap-4 px-6 py-4 transition-colors ${
-                    dragIdx === i ? 'bg-green/5' : 'hover:bg-cream/50'
-                  } ${!p.active ? 'opacity-50' : ''}`}
-                >
-                  {/* Drag handle */}
-                  <div className="cursor-grab text-muted">
-                    <GripVertical size={18} />
-                  </div>
-
-                  {/* Thumb */}
-                  <div className="w-12 h-12 rounded-xl overflow-hidden bg-cream flex-shrink-0">
-                    {thumb(p) && (
-                      <img src={thumb(p)} alt={p.name} className="w-full h-full object-cover" />
-                    )}
-                  </div>
-
-                  {/* Info */}
-                  <div className="flex-1 min-w-0">
-                    <p className="font-sans text-sm font-600 text-ink truncate">{p.name}</p>
-                    <div className="flex items-center gap-2 mt-0.5">
-                      <span className="font-sans text-xs text-muted capitalize">{p.category}</span>
-                      {p.isReadyToShip && (
-                        <span className="font-sans text-xs bg-green/10 text-green px-2 py-0.5 rounded-full">Pronta Entrega</span>
+              <div className="divide-y divide-border">
+                {products.map((p, i) => (
+                  <div
+                    key={p.id}
+                    draggable
+                    onDragStart={() => onDragStart(i)}
+                    onDragOver={e => onDragOver(e, i)}
+                    onDragEnd={onDragEnd}
+                    className={`flex items-center gap-4 px-6 py-4 transition-colors ${
+                      dragIdx === i ? 'bg-green/5' : 'hover:bg-cream/50'
+                    } ${!p.active ? 'opacity-50' : ''}`}
+                  >
+                    <div className="cursor-grab text-muted">
+                      <GripVertical size={18} />
+                    </div>
+                    <div className="w-12 h-12 rounded-xl overflow-hidden bg-cream flex-shrink-0">
+                      {thumb(p) && (
+                        <img src={thumb(p)} alt={p.name} className="w-full h-full object-cover" />
                       )}
                     </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-sans text-sm font-600 text-ink truncate">{p.name}</p>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <span className="font-sans text-xs text-muted capitalize">{p.category}</span>
+                        {p.isReadyToShip && (
+                          <span className="font-sans text-xs bg-green/10 text-green px-2 py-0.5 rounded-full">Pronta Entrega</span>
+                        )}
+                      </div>
+                    </div>
+                    <p className="font-sans text-sm font-600 text-ink hidden sm:block">
+                      {p.basePrice?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                    </p>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => toggleActive(p)}
+                        className={`p-2 rounded-lg transition-colors ${p.active ? 'text-green hover:bg-green/10' : 'text-muted hover:bg-border'}`}
+                        title={p.active ? 'Ocultar' : 'Ativar'}
+                      >
+                        {p.active ? <Eye size={16} /> : <EyeOff size={16} />}
+                      </button>
+                      <button
+                        onClick={() => deleteProduct(p)}
+                        className="p-2 rounded-lg text-muted hover:text-red-500 hover:bg-red-50 transition-colors"
+                        title="Excluir"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
                   </div>
-
-                  {/* Price */}
-                  <p className="font-sans text-sm font-600 text-ink hidden sm:block">
-                    {p.basePrice?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                  </p>
-
-                  {/* Actions */}
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => toggleActive(p)}
-                      className={`p-2 rounded-lg transition-colors ${p.active ? 'text-green hover:bg-green/10' : 'text-muted hover:bg-border'}`}
-                      title={p.active ? 'Ocultar' : 'Ativar'}
-                    >
-                      {p.active ? <Eye size={16} /> : <EyeOff size={16} />}
-                    </button>
-                    <button
-                      onClick={() => deleteProduct(p)}
-                      className="p-2 rounded-lg text-muted hover:text-red-500 hover:bg-red-50 transition-colors"
-                      title="Excluir"
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* Toast */}
@@ -197,6 +201,6 @@ export default function Admin() {
           {toast.msg}
         </div>
       )}
-    </div>
+    </>
   )
 }
