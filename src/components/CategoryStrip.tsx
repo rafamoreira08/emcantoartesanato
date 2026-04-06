@@ -77,8 +77,8 @@ export default function CategoryStrip({ category, title, description, ctaLink, c
 
         {/* Header */}
         <div className="mb-8">
-          <p className="font-sans text-sm font-600 text-green tracking-[0.2em] uppercase mb-2">Coleções</p>
-          <h2 className="font-sans font-800 text-3xl lg:text-4xl text-blue-900 tracking-widest lowercase mb-3">{title}</h2>
+          <p className="font-sans text-sm font-600 text-green tracking-[0.2em] uppercase mb-3">Coleções</p>
+          <h2 className="font-sans font-800 text-5xl lg:text-7xl text-blue-900 tracking-widest lowercase leading-none mb-4">{title}</h2>
           {description && (
             <p className="font-sans text-lg text-muted leading-relaxed max-w-2xl">
               {description}
@@ -170,9 +170,10 @@ export default function CategoryStrip({ category, title, description, ctaLink, c
           {/* CTA button — full width below carousel */}
           <Link
             to={ctaLink}
-            className="mt-6 flex items-center justify-center gap-3 w-full bg-blue-900 text-white py-4 rounded-2xl font-sans text-sm font-600 tracking-widest uppercase hover:bg-blue-800 transition-colors"
+            className="mt-6 flex items-center justify-between w-full border-2 border-blue-900 text-blue-900 py-5 px-8 rounded-2xl font-sans text-sm font-800 tracking-widest uppercase hover:bg-blue-900 hover:text-white transition-all duration-300 group"
           >
-            {ctaLabel} <ArrowRight size={16} />
+            <span>{ctaLabel}</span>
+            <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-300" />
           </Link>
         </div>
       </div>
