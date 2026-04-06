@@ -77,8 +77,8 @@ export default function CategoryStrip({ category, title, description, ctaLink, c
 
         {/* Header */}
         <div className="mb-8">
-          <p className="font-sans text-xs text-green tracking-[0.2em] uppercase mb-1">Coleção</p>
-          <h2 className="font-serif text-3xl lg:text-4xl font-700 text-ink mb-3">{title}</h2>
+          <p className="font-sans text-sm font-600 text-green tracking-[0.2em] uppercase mb-2">Coleções</p>
+          <h2 className="font-sans font-800 text-3xl lg:text-4xl text-blue-900 tracking-widest lowercase mb-3">{title}</h2>
           {description && (
             <p className="font-sans text-lg text-muted leading-relaxed max-w-2xl">
               {description}
