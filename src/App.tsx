@@ -41,4 +41,3 @@ const router = createHashRouter([
 export default function App() {
   return <RouterProvider router={router} />
 }
-// MARCA_UNICA_2026
