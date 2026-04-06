@@ -11,13 +11,11 @@ export default function Hero() {
           <div className="flex flex-col gap-8">
             {/* Brand name — prominent */}
             <div className="flex flex-col gap-2">
-              <div className="flex items-baseline gap-2">
-                <p className="font-sans text-sm font-500 text-green tracking-[0.2em] uppercase">by Sônia Lima</p>
-              </div>
               <h1 className="font-serif text-6xl lg:text-7xl text-ink leading-[1.1] font-700">
                 <em className="text-green not-italic">em canto</em><br />
                 artesanato
               </h1>
+              <p className="font-sans text-sm font-500 text-green tracking-[0.2em] uppercase">by Sônia Lima</p>
               <p className="font-sans text-sm text-muted tracking-widest uppercase">Artesanato de Luxo</p>
             </div>
 
