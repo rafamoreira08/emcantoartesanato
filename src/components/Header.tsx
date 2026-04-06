@@ -23,8 +23,8 @@ export default function Header() {
         <Link to="/" className="flex items-center gap-4 shrink-0" onClick={() => setOpen(false)}>
           <img src="/images/logo_fundo_transparente.png" alt="Em Canto Artesanato" className="h-14 w-14 object-contain" />
           <span className="leading-tight hidden sm:block">
-            <span className="block font-sans font-800 text-green tracking-widest text-[0.9rem] uppercase">em canto</span>
-            <span className="script text-green text-[1.1rem] -mt-1 block">artesanato</span>
+            <span className="block font-sans font-800 text-blue-900 tracking-widest text-[0.9rem]">em canto</span>
+            <span className="script text-blue-400 text-[1.1rem] -mt-1 block">artesanato</span>
           </span>
         </Link>
 
