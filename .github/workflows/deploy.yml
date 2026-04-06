@@ -41,13 +41,13 @@ jobs:
           git fetch origin main
           git checkout main
 
+          # Copy new assets
           cp dist/assets/$JS_FILE assets/
           cp dist/assets/$CSS_FILE assets/
 
-          # Update index.html with new asset hashes
-          sed -i "s|src=\"./assets/index-[^\"]*\.js\"|src=\"./assets/$JS_FILE\"|" index.html
-          sed -i "s|href=\"./assets/index-[^\"]*\.css\"|href=\"./assets/$CSS_FILE\"|" index.html
+          # Copy production index.html (already has correct relative paths from vite base: './')
+          cp dist/index.html index.html
 
           git add assets/$JS_FILE assets/$CSS_FILE index.html
-          git diff --staged --quiet || git commit -m "Deploy: build from $(git rev-parse --short HEAD)"
+          git diff --staged --quiet || git commit -m "Deploy: automated build from $(git rev-parse --short ORIG_HEAD)"
           git push origin main
