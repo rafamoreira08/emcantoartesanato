@@ -108,9 +108,6 @@ export default function CategoryStrip({ category, title, description, ctaLink, c
               <div className="absolute bottom-4 left-4 right-4 text-white flex flex-col gap-3">
                 <div>
                   <p className="font-serif text-lg font-600 leading-tight">{current.name}</p>
-                  {current.description && (
-                    <p className="font-sans text-sm opacity-90 mt-1">{current.description}</p>
-                  )}
                 </div>
                 <Link
                   to={ctaLink}
