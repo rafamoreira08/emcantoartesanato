@@ -1,6 +1,6 @@
 interface Props {
   title: string
-  subtitle: string
+  subtitle?: string
   icon?: string
 }
 
@@ -13,7 +13,7 @@ export default function CategoryHero({ title, subtitle, icon }: Props) {
           <div>
             <p className="font-sans text-xs text-green tracking-[0.2em] uppercase mb-2">Nosso Catálogo</p>
             <h1 className="font-serif text-4xl lg:text-5xl font-700 text-ink mb-4">{title}</h1>
-            <p className="font-sans text-lg text-muted leading-relaxed max-w-2xl">{subtitle}</p>
+            {subtitle && <p className="font-sans text-lg text-muted leading-relaxed max-w-2xl">{subtitle}</p>}
           </div>
         </div>
       </div>
