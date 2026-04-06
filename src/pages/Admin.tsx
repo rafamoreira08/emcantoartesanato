@@ -161,6 +161,29 @@ export default function Admin() {
     setForm(f => ({ ...f, image: url }))
   }
 
+  const addPhoto = () => {
+    setForm(f => ({ ...f, photos: [...(f.photos ?? []), { url: '', color: '', thread: '' }] }))
+  }
+
+  const removePhoto = (i: number) => {
+    setForm(f => ({ ...f, photos: (f.photos ?? []).filter((_, idx) => idx !== i) }))
+  }
+
+  const updatePhoto = (i: number, field: string, value: string) => {
+    setForm(f => {
+      const photos = [...(f.photos ?? [])]
+      photos[i] = { ...photos[i], [field]: value }
+      return { ...f, photos }
+    })
+  }
+
+  const uploadPhotoImage = async (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const url = await uploadImage(file)
+    updatePhoto(i, 'url', url)
+  }
+
   const saveProduct = async (e: React.FormEvent) => {
     e.preventDefault()
     setSaving(true)
@@ -450,6 +473,53 @@ export default function Admin() {
                   <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={uploading} />
                 </label>
               </div>
+              {/* Photos with Cor + Fio */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="font-sans text-xs text-muted uppercase tracking-wider">Fotos — Cor e Fio</label>
+                  <button type="button" onClick={addPhoto}
+                    className="flex items-center gap-1 font-sans text-xs text-green hover:text-green-dark font-600">
+                    <Plus size={14} /> Adicionar foto
+                  </button>
+                </div>
+                <div className="flex flex-col gap-3">
+                  {(form.photos ?? []).map((photo, i) => (
+                    <div key={i} className="border border-border rounded-xl p-4 flex flex-col gap-3">
+                      <div className="flex items-center gap-3">
+                        {photo.url && (
+                          <img src={cloudinaryUrl(photo.url, 80, 80)} alt="" className="w-14 h-14 object-cover rounded-lg flex-shrink-0" />
+                        )}
+                        <label className="flex-1 flex items-center gap-2 cursor-pointer border border-dashed border-border rounded-lg px-3 py-2 hover:border-green transition-colors">
+                          <Upload size={14} className="text-muted flex-shrink-0" />
+                          <span className="font-sans text-xs text-muted">{uploading ? 'Enviando...' : photo.url ? 'Trocar imagem' : 'Escolher imagem'}</span>
+                          <input type="file" accept="image/*" className="hidden" onChange={e => uploadPhotoImage(e, i)} disabled={uploading} />
+                        </label>
+                        <button type="button" onClick={() => removePhoto(i)} className="text-muted hover:text-red-500 transition-colors flex-shrink-0">
+                          <X size={16} />
+                        </button>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <label className="font-sans text-xs text-muted mb-1 block">Cor</label>
+                          <input type="text" value={photo.color ?? ''} onChange={e => updatePhoto(i, 'color', e.target.value)}
+                            placeholder="ex: preta" className="w-full border border-border rounded-lg px-3 py-2 font-sans text-sm focus:outline-none focus:border-green" />
+                        </div>
+                        <div>
+                          <label className="font-sans text-xs text-muted mb-1 block">Fio</label>
+                          <input type="text" value={photo.thread ?? ''} onChange={e => updatePhoto(i, 'thread', e.target.value)}
+                            placeholder="ex: ráfia" className="w-full border border-border rounded-lg px-3 py-2 font-sans text-sm focus:outline-none focus:border-green" />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  {(form.photos ?? []).length === 0 && (
+                    <p className="font-sans text-xs text-muted text-center py-3 border border-dashed border-border rounded-xl">
+                      Nenhuma foto adicionada. Clique em "Adicionar foto" para incluir variações.
+                    </p>
+                  )}
+                </div>
+              </div>
+
               <div className="flex items-center gap-6">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" checked={form.active ?? true} onChange={e => setForm(f => ({ ...f, active: e.target.checked }))}
