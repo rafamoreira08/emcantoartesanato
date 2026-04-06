@@ -118,22 +118,25 @@ export default function CategoryStrip({ category, title, description, ctaLink, c
               </div>
             </div>
 
-            {/* Thumbnails */}
+            {/* Thumbnails — fixed set, never reorder */}
             <div className="flex gap-3 flex-1 overflow-hidden">
-              {products.filter((_, i) => i !== idx).slice(0, 4).map((p) => (
-                <div
-                  key={p.id}
-                  onClick={() => goTo(products.indexOf(p))}
-                  className="relative flex-shrink-0 w-32 lg:w-40 rounded-xl overflow-hidden aspect-square bg-border/30 cursor-pointer group opacity-70 hover:opacity-100 transition-opacity"
-                >
-                  <img
-                    src={cloudinaryUrl(thumb(p), 300, 300)}
-                    alt={p.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
-                </div>
-              ))}
+              {products.slice(0, 5).filter((_, i) => i !== idx % Math.min(5, products.length)).slice(0, 4).map((p) => {
+                const pIdx = products.indexOf(p)
+                return (
+                  <div
+                    key={p.id}
+                    onClick={() => goTo(pIdx)}
+                    className="relative flex-shrink-0 w-32 lg:w-40 rounded-xl overflow-hidden aspect-square bg-border/30 cursor-pointer group opacity-70 hover:opacity-100 transition-opacity"
+                  >
+                    <img
+                      src={cloudinaryUrl(thumb(p), 300, 300)}
+                      alt={p.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                  </div>
+                )
+              })}
             </div>
           </div>
 

@@ -13,7 +13,7 @@ export default function Home() {
       <CategoryStrip
         category="bolsas"
         title="Bolsas Artesanais"
-        description="Bolsas artesanais feitas à mão em crochê ou tricô, com acabamento único e cheio de personalidade. Produzidas com fios de alta qualidade — sintéticos, algodão, malha, viscose ou ráfia — oferecem estilo e versatilidade. Disponíveis em diversas cores e combinações, são perfeitas para quem busca um acessório exclusivo e cheio de charme."
+        description="Peças confeccionadas com cordões tecidos em crochê, elaborados com fios especiais, combinados a resinas, pedras e metais cuidadosamente selecionados. Com fechos metálicos e acabamento refinado, cada criação é única — marcada por personalidade, autenticidade e identidade própria."
         ctaLink="/bolsas"
         ctaLabel="Ver todas as bolsas"
       />
@@ -22,7 +22,7 @@ export default function Home() {
       <CategoryStrip
         category="colares"
         title="Colares e Chokers"
-        description="Peças confeccionadas com cordões tecidos em crochê, elaborados com fios de poliéster, polipropileno ou viscose combinados a resinas, pedras e metais cuidadosamente selecionados. Com fechos metálicos e acabamento refinado, cada criação é única — marcada por personalidade, autenticidade e identidade própria."
+        description="Peças confeccionadas com cordões tecidos em crochê, elaborados com fios especiais, combinados a resinas, pedras e metais cuidadosamente selecionados. Com fechos metálicos e acabamento refinado, cada criação é única — marcada por personalidade, autenticidade e identidade própria."
         ctaLink="/colares"
         ctaLabel="Ver todos os colares"
       />

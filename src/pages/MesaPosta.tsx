@@ -6,7 +6,6 @@ export default function MesaPosta() {
     <>
       <CategoryHero
         title="Mesa Posta"
-        subtitle="Peças decorativas em crochê que transformam sua mesa em um ambiente acolhedor e sofisticado. Perfeitas para dar um toque artesanal e único à sua decoração."
       />
       <ProductGrid
         category="centros-de-mesa"
