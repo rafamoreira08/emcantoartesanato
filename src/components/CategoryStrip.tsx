@@ -105,16 +105,8 @@ export default function CategoryStrip({ category, title, description, ctaLink, c
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
               {/* Info overlay */}
-              <div className="absolute bottom-4 left-4 right-4 text-white flex flex-col gap-3">
-                <div>
-                  <p className="font-serif text-lg font-600 leading-tight">{current.name}</p>
-                </div>
-                <Link
-                  to={ctaLink}
-                  className="inline-flex items-center justify-center gap-2 bg-white text-ink px-4 py-2 rounded-lg font-sans text-xs font-600 hover:bg-green hover:text-white transition-colors"
-                >
-                  {ctaLabel} <ArrowRight size={14} />
-                </Link>
+              <div className="absolute bottom-4 left-4 right-4 text-white">
+                <p className="font-serif text-lg font-600 leading-tight">{current.name}</p>
               </div>
             </div>
 
@@ -174,6 +166,14 @@ export default function CategoryStrip({ category, title, description, ctaLink, c
               />
             ))}
           </div>
+
+          {/* CTA button — full width below carousel */}
+          <Link
+            to={ctaLink}
+            className="mt-6 flex items-center justify-center gap-3 w-full bg-blue-900 text-white py-4 rounded-2xl font-sans text-sm font-600 tracking-widest uppercase hover:bg-blue-800 transition-colors"
+          >
+            {ctaLabel} <ArrowRight size={16} />
+          </Link>
         </div>
       </div>
     </section>
