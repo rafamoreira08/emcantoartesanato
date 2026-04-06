@@ -13,7 +13,7 @@ export default function Home() {
       <CategoryStrip
         category="bolsas"
         title="Bolsas Artesanais"
-        description="Criações exclusivas em crochê, unindo o cuidado artesanal à sofisticação contemporânea. Cada bolsa é feita à mão com fios selecionados, resultando em peças únicas que complementam qualquer estilo."
+        description="Bolsas artesanais feitas à mão em crochê ou tricô, com acabamento único e cheio de personalidade. Produzidas com fios de alta qualidade — sintéticos, algodão, malha, viscose ou ráfia — oferecem estilo e versatilidade. Disponíveis em diversas cores e combinações, são perfeitas para quem busca um acessório exclusivo e cheio de charme."
         ctaLink="/bolsas"
         ctaLabel="Ver todas as bolsas"
       />
@@ -22,7 +22,7 @@ export default function Home() {
       <CategoryStrip
         category="colares"
         title="Colares e Chokers"
-        description="Acessórios delicados em crochê que realçam a beleza do seu dia. Disponíveis em diversos fios e cores, cada peça é uma expressão de elegância e exclusividade."
+        description="Peças confeccionadas com cordões tecidos em crochê, elaborados com fios de poliéster, polipropileno ou viscose combinados a resinas, pedras e metais cuidadosamente selecionados. Com fechos metálicos e acabamento refinado, cada criação é única — marcada por personalidade, autenticidade e identidade própria."
         ctaLink="/colares"
         ctaLabel="Ver todos os colares"
       />
@@ -31,7 +31,7 @@ export default function Home() {
       <CategoryStrip
         category="centros-de-mesa"
         title="Mesa Posta"
-        description="Peças decorativas em crochê que transformam sua mesa em um ambiente acolhedor e sofisticado. Perfeitas para dar um toque artesanal e único à sua mesa."
+        description="Em breve — descrição da coleção Mesa Posta será adicionada em breve."
         ctaLink="/mesa-posta"
         ctaLabel="Ver mesa posta completa"
       />
