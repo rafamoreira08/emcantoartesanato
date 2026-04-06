@@ -1,0 +1,53 @@
+name: Build and Deploy to Production
+
+on:
+  push:
+    branches:
+      - claude/artisan-shop-website-9osSn
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: claude/artisan-shop-website-9osSn
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          JS_FILE=$(ls dist/assets/index-*.js | xargs basename)
+          CSS_FILE=$(ls dist/assets/index-*.css | xargs basename)
+
+          git fetch origin main
+          git checkout main
+
+          cp dist/assets/$JS_FILE assets/
+          cp dist/assets/$CSS_FILE assets/
+
+          # Update index.html with new asset hashes
+          sed -i "s|src=\"./assets/index-[^\"]*\.js\"|src=\"./assets/$JS_FILE\"|" index.html
+          sed -i "s|href=\"./assets/index-[^\"]*\.css\"|href=\"./assets/$CSS_FILE\"|" index.html
+
+          git add assets/$JS_FILE assets/$CSS_FILE index.html
+          git diff --staged --quiet || git commit -m "Deploy: build from $(git rev-parse --short HEAD)"
+          git push origin main
