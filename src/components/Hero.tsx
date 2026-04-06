@@ -8,24 +8,24 @@ export default function Hero() {
         <div className="grid lg:grid-cols-2 gap-16 items-center py-20">
 
           {/* Left — text */}
-          <div className="relative flex flex-col gap-8">
-            {/* Logo watermark — centered behind the title */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-[0.08] pointer-events-none">
-              <img
-                src="/images/logo_fundo_transparente.png"
-                alt=""
-                className="w-[28rem] h-[28rem] object-contain"
-              />
-            </div>
-            <div className="flex flex-col gap-3">
-              <span className="font-sans text-sm font-500 text-green tracking-[0.2em] uppercase">
-                by Sônia Lima · Artesanato de Luxo
-              </span>
-              <h1 className="font-serif text-5xl lg:text-6xl text-ink leading-[1.1] font-700">
-                A Arte de<br />
-                <em className="text-green not-italic script text-6xl lg:text-7xl">Moldar Fios</em><br />
-                em Peças de Design.
+          <div className="flex flex-col gap-8">
+            {/* Brand name — prominent */}
+            <div className="flex flex-col gap-2">
+              <div className="flex items-baseline gap-2">
+                <p className="font-sans text-sm font-500 text-green tracking-[0.2em] uppercase">by Sônia Lima</p>
+              </div>
+              <h1 className="font-serif text-6xl lg:text-7xl text-ink leading-[1.1] font-700">
+                <em className="text-green not-italic">em canto</em><br />
+                artesanato
               </h1>
+              <p className="font-sans text-sm text-muted tracking-widest uppercase">Artesanato de Luxo</p>
+            </div>
+
+            {/* Tagline — less prominent */}
+            <div className="flex flex-col gap-2">
+              <p className="font-serif text-lg text-ink leading-relaxed">
+                A Arte de <em className="text-green not-italic script text-2xl">Moldar Fios</em> em Peças de Design.
+              </p>
             </div>
 
             <p className="font-sans text-lg text-muted leading-relaxed max-w-md">
@@ -33,23 +33,13 @@ export default function Hero() {
               à sofisticação contemporânea. <span className="text-ink font-500">Exclusividade em cada ponto.</span>
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                to="/bolsas"
-                className="inline-flex items-center justify-center gap-3 bg-ink text-white px-8 py-4 rounded-full font-sans text-sm font-600 tracking-wide hover:bg-ink/80 transition-all duration-300 group"
-              >
-                Ver Coleção Exclusiva
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <a
-                href={`https://wa.me/5531991236334?text=${encodeURIComponent('Olá Sônia! Vim pelo site e gostaria de fazer uma encomenda.')}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 border border-border text-ink px-8 py-4 rounded-full font-sans text-sm font-500 hover:border-green hover:text-green transition-all duration-300"
-              >
-                Encomendar via WhatsApp
-              </a>
-            </div>
+            <Link
+              to="/bolsas"
+              className="inline-flex items-center justify-center gap-3 bg-ink text-white px-8 py-4 rounded-full font-sans text-sm font-600 tracking-wide hover:bg-ink/80 transition-all duration-300 group w-fit"
+            >
+              Ver Coleção Exclusiva
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
 
             {/* Social proof */}
             <div className="flex items-center gap-6 pt-4 border-t border-border">

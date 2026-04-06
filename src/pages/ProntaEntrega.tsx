@@ -1,13 +1,19 @@
+import CategoryHero from '../components/CategoryHero'
 import ProductGrid from '../components/ProductGrid'
 
 export default function ProntaEntrega() {
   return (
-    <div className="pt-16">
+    <>
+      <CategoryHero
+        title="Pronta Entrega"
+        subtitle="Peças já prontas para levar para casa. Seleção especial de bolsas, colares e itens de mesa — feitos com o mesmo cuidado artesanal, sem tempo de espera."
+        icon="⚡"
+      />
       <ProductGrid
         category="pronta-entrega"
-        title="Pronta Entrega"
-        subtitle="Peças prontas para sair agora mesmo — sem espera, direto para você."
+        title=""
+        subtitle=""
       />
-    </div>
+    </>
   )
 }

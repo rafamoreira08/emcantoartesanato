@@ -8,11 +8,12 @@ import type { Product } from '../types/product'
 interface Props {
   category: string
   title: string
+  description?: string
   ctaLink: string
   ctaLabel?: string
 }
 
-export default function CategoryStrip({ category, title, ctaLink, ctaLabel = 'Ver catálogo completo' }: Props) {
+export default function CategoryStrip({ category, title, description, ctaLink, ctaLabel = 'Ver catálogo completo' }: Props) {
   const [products, setProducts] = useState<Product[]>([])
   const [idx, setIdx] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
@@ -75,17 +76,14 @@ export default function CategoryStrip({ category, title, ctaLink, ctaLabel = 'Ve
       <div className="max-w-6xl mx-auto px-6">
 
         {/* Header */}
-        <div className="flex items-end justify-between mb-8">
-          <div>
-            <p className="font-sans text-xs text-green tracking-[0.2em] uppercase mb-1">Coleção</p>
-            <h2 className="font-serif text-3xl lg:text-4xl font-700 text-ink">{title}</h2>
-          </div>
-          <Link
-            to={ctaLink}
-            className="hidden sm:flex items-center gap-2 text-green font-sans text-sm font-600 hover:gap-3 transition-all"
-          >
-            {ctaLabel} <ArrowRight size={16} />
-          </Link>
+        <div className="mb-8">
+          <p className="font-sans text-xs text-green tracking-[0.2em] uppercase mb-1">Coleção</p>
+          <h2 className="font-serif text-3xl lg:text-4xl font-700 text-ink mb-3">{title}</h2>
+          {description && (
+            <p className="font-sans text-lg text-muted leading-relaxed max-w-2xl">
+              {description}
+            </p>
+          )}
         </div>
 
         {/* Carousel */}
@@ -105,13 +103,21 @@ export default function CategoryStrip({ category, title, ctaLink, ctaLabel = 'Ve
                 className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500 animate-fade-in"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 text-white">
-                <p className="font-serif text-lg font-600 leading-tight">{current.name}</p>
-                {current.basePrice && (
-                  <p className="font-sans text-sm opacity-80 mt-0.5">
-                    A partir de {current.basePrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                  </p>
-                )}
+
+              {/* Info overlay */}
+              <div className="absolute bottom-4 left-4 right-4 text-white flex flex-col gap-3">
+                <div>
+                  <p className="font-serif text-lg font-600 leading-tight">{current.name}</p>
+                  {current.description && (
+                    <p className="font-sans text-sm opacity-90 mt-1">{current.description}</p>
+                  )}
+                </div>
+                <Link
+                  to={ctaLink}
+                  className="inline-flex items-center justify-center gap-2 bg-white text-ink px-4 py-2 rounded-lg font-sans text-xs font-600 hover:bg-green hover:text-white transition-colors"
+                >
+                  {ctaLabel} <ArrowRight size={14} />
+                </Link>
               </div>
             </div>
 
@@ -168,16 +174,6 @@ export default function CategoryStrip({ category, title, ctaLink, ctaLabel = 'Ve
               />
             ))}
           </div>
-        </div>
-
-        {/* Mobile CTA */}
-        <div className="sm:hidden mt-6 flex justify-center">
-          <Link
-            to={ctaLink}
-            className="flex items-center gap-2 bg-ink text-white px-6 py-3 rounded-full font-sans text-sm font-600"
-          >
-            {ctaLabel} <ArrowRight size={16} />
-          </Link>
         </div>
       </div>
     </section>

@@ -1,13 +1,19 @@
+import CategoryHero from '../components/CategoryHero'
 import ProductGrid from '../components/ProductGrid'
 
 export default function Colares() {
   return (
-    <div className="pt-16">
+    <>
+      <CategoryHero
+        title="Colares e Chokers"
+        subtitle="Acessórios delicados em crochê que realçam a beleza do seu dia. Disponíveis em diversos fios e cores, cada peça é uma expressão de elegância e exclusividade."
+        icon="💎"
+      />
       <ProductGrid
         category="colares"
-        title="Colares e Chokers"
-        subtitle="Peças com cordões tecidos em crochê, combinados a resinas, pedras e metais selecionados. Personalidade em cada criação."
+        title=""
+        subtitle=""
       />
-    </div>
+    </>
   )
 }
