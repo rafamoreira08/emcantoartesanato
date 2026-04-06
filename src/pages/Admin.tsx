@@ -3,7 +3,7 @@ import { collection, getDocs, doc, updateDoc, deleteDoc, writeBatch } from 'fire
 import { db } from '../lib/firebase'
 import { cloudinaryUrl } from '../lib/products'
 import type { Product } from '../types/product'
-import { Trash2, GripVertical, Save, Eye, EyeOff, Package } from 'lucide-react'
+import { Trash2, GripVertical, Save, Eye, EyeOff, Package, Star } from 'lucide-react'
 
 export default function Admin() {
   const [products, setProducts] = useState<Product[]>([])
@@ -42,6 +42,17 @@ export default function Admin() {
       showToast('Erro ao salvar ordem', false)
     }
     setSaving(false)
+  }
+
+  const toggleFeatured = async (p: Product) => {
+    const batch = writeBatch(db)
+    products.forEach(x => {
+      if (x.isFeatured) batch.update(doc(db, 'products', x.id!), { isFeatured: false })
+    })
+    if (!p.isFeatured) batch.update(doc(db, 'products', p.id!), { isFeatured: true })
+    await batch.commit()
+    setProducts(prev => prev.map(x => ({ ...x, isFeatured: !p.isFeatured && x.id === p.id })))
+    showToast(p.isFeatured ? 'Destaque removido' : `"${p.name}" em destaque na home!`)
   }
 
   const toggleActive = async (p: Product) => {
@@ -170,6 +181,13 @@ export default function Admin() {
                       {p.basePrice?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                     </p>
                     <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => toggleFeatured(p)}
+                        className={`p-2 rounded-lg transition-colors ${p.isFeatured ? 'text-yellow-500 hover:bg-yellow-50' : 'text-muted hover:bg-border'}`}
+                        title={p.isFeatured ? 'Remover destaque' : 'Destacar na home'}
+                      >
+                        <Star size={16} fill={p.isFeatured ? 'currentColor' : 'none'} />
+                      </button>
                       <button
                         onClick={() => toggleActive(p)}
                         className={`p-2 rounded-lg transition-colors ${p.active ? 'text-green hover:bg-green/10' : 'text-muted hover:bg-border'}`}

@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where } from 'firebase/firestore'
+import { collection, getDocs, query, where, limit } from 'firebase/firestore'
 import { db } from './firebase'
 import type { Product } from '../types/product'
 
@@ -17,6 +17,13 @@ export async function fetchProducts(category?: string): Promise<Product[]> {
     .map(d => ({ id: d.id, ...d.data() } as Product))
     .filter(p => p.active)
     .sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999))
+}
+
+export async function fetchFeaturedProduct(): Promise<Product | null> {
+  const q = query(collection(db, 'products'), where('isFeatured', '==', true), limit(1))
+  const snap = await getDocs(q)
+  if (snap.empty) return null
+  return { id: snap.docs[0].id, ...snap.docs[0].data() } as Product
 }
 
 export function cloudinaryUrl(url: string, w = 800, h = 800) {
