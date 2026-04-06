@@ -20,5 +20,6 @@ export interface Product {
   variations?: ProductVariation[]
   active: boolean
   isReadyToShip: boolean
+  isFeatured?: boolean
   order?: number
 }
