@@ -29,10 +29,8 @@ export default function Hero() {
                 alt="Em Canto Artesanato"
                 className="w-72 lg:w-96 object-contain"
               />
-              <div className="text-center">
-                <p className="font-sans text-sm font-500 text-green tracking-[0.2em] uppercase leading-tight">by</p>
-                <p className="font-sans text-sm font-500 text-green tracking-[0.2em] uppercase leading-tight">Sônia Lima</p>
-              </div>
+              <p className="font-sans text-sm font-500 text-green tracking-[0.2em] uppercase leading-tight">by</p>
+              <p className="font-sans text-sm font-500 text-green tracking-[0.2em] uppercase leading-tight">Sônia Lima</p>
               <p className="font-sans text-sm text-muted tracking-widest uppercase">Artesanato de Luxo</p>
             </div>
 
