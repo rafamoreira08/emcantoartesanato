@@ -26,7 +26,7 @@ export default function Hero() {
             <img
               src="/images/logo_sem_fundo.png"
               alt="Em Canto Artesanato by Sônia Lima"
-              className="w-72 lg:w-96 object-contain"
+              className="w-full max-w-xs lg:max-w-sm object-contain mx-auto lg:mx-0"
             />
 
             <div className="flex flex-col gap-2">
