@@ -56,9 +56,6 @@ export default function ReadyToShipCard({ item }: Props) {
           <div>
             <p className="font-sans text-xs text-muted uppercase tracking-wider">Preço</p>
             <p className="font-serif text-xl font-700 text-ink">{fmt(item.finalPrice)}</p>
-            {(item.photo.priceAdjust ?? 0) !== 0 && (
-              <p className="font-sans text-xs text-muted">Base: {fmt(item.basePrice)}</p>
-            )}
           </div>
           <a
             href={`${WHATSAPP}?text=${msg}`}
