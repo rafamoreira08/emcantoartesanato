@@ -19,6 +19,25 @@ export async function fetchProducts(category?: string): Promise<Product[]> {
     .sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999))
 }
 
+export async function fetchReadyToShipVariations(): Promise<import('../types/product').ReadyToShipItem[]> {
+  const products = await fetchProducts('pronta-entrega')
+  const items: import('../types/product').ReadyToShipItem[] = []
+  for (const p of products) {
+    const readyPhotos = (p.photos ?? []).filter(ph => ph.url && ph.isReadyToShip)
+    for (const photo of readyPhotos) {
+      items.push({
+        productId: p.id!,
+        name: p.name,
+        description: p.description,
+        photo,
+        basePrice: p.basePrice,
+        finalPrice: p.basePrice + (photo.priceAdjust ?? 0),
+      })
+    }
+  }
+  return items
+}
+
 export async function fetchFeaturedProduct(): Promise<Product | null> {
   const q = query(collection(db, 'products'), where('isFeatured', '==', true), limit(1))
   const snap = await getDocs(q)

@@ -11,6 +11,15 @@ export interface ProductVariation {
   options: { label: string; priceAdjust: number }[]
 }
 
+export interface ReadyToShipItem {
+  productId: string
+  name: string
+  description: string
+  photo: ProductPhoto
+  basePrice: number
+  finalPrice: number
+}
+
 export interface Product {
   id: string
   name: string
