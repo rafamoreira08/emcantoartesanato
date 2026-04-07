@@ -22,18 +22,12 @@ export default function Hero() {
 
           {/* Left — text */}
           <div className="flex flex-col gap-8">
-            {/* Logo + tagline */}
-            <div className="flex flex-col gap-0">
-              <img
-                src="/images/logo_fundo_transparente.png"
-                alt="Em Canto Artesanato"
-                className="w-72 lg:w-96 object-contain"
-              />
-              <div className="flex flex-col gap-0 pl-6 mt-1">
-                <p className="font-sans text-sm font-500 text-green tracking-[0.2em] uppercase leading-tight">by</p>
-                <p className="font-sans text-sm font-500 text-green tracking-[0.2em] uppercase leading-tight">Sônia Lima</p>
-              </div>
-            </div>
+            {/* Logo + by Sônia Lima */}
+            <img
+              src="/images/logo_sem_fundo.png"
+              alt="Em Canto Artesanato by Sônia Lima"
+              className="w-72 lg:w-96 object-contain"
+            />
 
             <div className="flex flex-col gap-2">
               <p className="font-serif text-lg text-ink leading-relaxed">
