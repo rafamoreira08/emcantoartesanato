@@ -48,6 +48,10 @@ jobs:
           # Copy production index.html (already has correct relative paths from vite base: './')
           cp dist/index.html index.html
 
-          git add assets/$JS_FILE assets/$CSS_FILE index.html
+          # Sync images folder (from public/ via dist/)
+          mkdir -p images
+          cp -r dist/images/. images/
+
+          git add assets/$JS_FILE assets/$CSS_FILE index.html images/
           git diff --staged --quiet || git commit -m "Deploy: automated build from $(git rev-parse --short ORIG_HEAD)"
           git push origin main
