@@ -18,7 +18,7 @@ export default function Hero() {
   return (
     <section className="min-h-screen flex items-center pt-16 bg-cream overflow-hidden relative">
       <div className="max-w-6xl mx-auto px-6 w-full relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center py-20">
+        <div className="grid lg:grid-cols-2 gap-16 items-start py-20">
 
           {/* Left — text */}
           <div className="flex flex-col gap-8">

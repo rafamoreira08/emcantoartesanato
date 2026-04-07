@@ -22,9 +22,6 @@ export default function ProductGrid({ category, title, subtitle }: Props) {
   return (
     <section className="py-20 px-6 max-w-6xl mx-auto">
       <div className="mb-12">
-        <p className="font-sans text-sm text-green font-500 tracking-[0.2em] uppercase mb-2">
-          Criações exclusivas
-        </p>
         <h2 className="font-serif text-4xl lg:text-5xl text-ink font-700">{title}</h2>
         {subtitle && <p className="font-sans text-muted mt-3 max-w-lg leading-relaxed">{subtitle}</p>}
       </div>

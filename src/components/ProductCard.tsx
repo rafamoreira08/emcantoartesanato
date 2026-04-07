@@ -163,7 +163,7 @@ export default function ProductCard({ product }: Props) {
         <div>
           <h3 className="font-serif text-lg font-600 text-ink leading-snug">{product.name}</h3>
           {product.description && (
-            <p className="font-sans text-sm text-muted leading-relaxed mt-1 line-clamp-2">
+            <p className="font-sans text-sm text-muted leading-relaxed mt-1">
               {product.description}
             </p>
           )}
