@@ -172,7 +172,10 @@ export default function Admin() {
   const updatePhoto = (i: number, field: string, value: string) => {
     setForm(f => {
       const photos = [...(f.photos ?? [])]
-      photos[i] = { ...photos[i], [field]: value }
+      const parsed = field === 'isReadyToShip' ? value === 'true'
+                   : field === 'priceAdjust'   ? parseFloat(value) || 0
+                   : value
+      photos[i] = { ...photos[i], [field]: parsed }
       return { ...f, photos }
     })
   }
@@ -188,12 +191,14 @@ export default function Admin() {
     e.preventDefault()
     setSaving(true)
     try {
+      const isReadyToShip = (form.photos ?? []).some(p => p.isReadyToShip)
+      const data = { ...form, isReadyToShip }
       if (editingProduct) {
-        await updateDoc(doc(db, 'products', editingProduct.id!), { ...form })
+        await updateDoc(doc(db, 'products', editingProduct.id!), data)
         showToast('Produto atualizado!')
       } else {
         await addDoc(collection(db, 'products'), {
-          ...form,
+          ...data,
           order: products.length,
           isFeatured: false,
         })
@@ -509,6 +514,20 @@ export default function Admin() {
                           <input type="text" value={photo.thread ?? ''} onChange={e => updatePhoto(i, 'thread', e.target.value)}
                             placeholder="ex: ráfia" className="w-full border border-border rounded-lg px-3 py-2 font-sans text-sm focus:outline-none focus:border-green" />
                         </div>
+                        <div>
+                          <label className="font-sans text-xs text-muted mb-1 block">Diferença de preço (R$)</label>
+                          <input type="number" step="0.01" value={photo.priceAdjust ?? 0}
+                            onChange={e => updatePhoto(i, 'priceAdjust', e.target.value)}
+                            placeholder="0.00"
+                            className="w-full border border-border rounded-lg px-3 py-2 font-sans text-sm focus:outline-none focus:border-green" />
+                          <p className="font-sans text-xs text-muted mt-0.5">0 = mesmo preço · positivo = acréscimo</p>
+                        </div>
+                        <div className="flex items-center gap-2 pt-4">
+                          <input type="checkbox" id={`ship-${i}`} checked={photo.isReadyToShip ?? false}
+                            onChange={e => updatePhoto(i, 'isReadyToShip', String(e.target.checked))}
+                            className="w-4 h-4 accent-green" />
+                          <label htmlFor={`ship-${i}`} className="font-sans text-sm text-ink cursor-pointer">Pronta entrega</label>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -525,11 +544,6 @@ export default function Admin() {
                   <input type="checkbox" checked={form.active ?? true} onChange={e => setForm(f => ({ ...f, active: e.target.checked }))}
                     className="w-4 h-4 accent-green" />
                   <span className="font-sans text-sm text-ink">Visível no catálogo</span>
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" checked={form.isReadyToShip ?? false} onChange={e => setForm(f => ({ ...f, isReadyToShip: e.target.checked }))}
-                    className="w-4 h-4 accent-green" />
-                  <span className="font-sans text-sm text-ink">Pronta entrega</span>
                 </label>
               </div>
               <div className="flex gap-3 pt-2">

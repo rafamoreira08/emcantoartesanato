@@ -104,8 +104,8 @@ export default function ProductCard({ product }: Props) {
           </div>
         )}
 
-        {/* Pronta entrega badge */}
-        {product.isReadyToShip && (
+        {/* Pronta entrega badge — by variation */}
+        {photos[idx]?.isReadyToShip && (
           <span className="absolute top-3 left-3 bg-green text-white font-sans text-xs font-600 px-3 py-1 rounded-full z-10">
             Pronta Entrega
           </span>
@@ -171,8 +171,18 @@ export default function ProductCard({ product }: Props) {
 
         <div className="mt-auto flex items-center justify-between pt-3 border-t border-border">
           <div>
-            <p className="font-sans text-xs text-muted uppercase tracking-wider">A partir de</p>
-            <p className="font-serif text-xl font-700 text-ink">{fmt(product.basePrice)}</p>
+            {(photos[idx]?.priceAdjust ?? 0) !== 0 ? (
+              <>
+                <p className="font-sans text-xs text-muted uppercase tracking-wider">Esta variação</p>
+                <p className="font-serif text-xl font-700 text-ink">{fmt(product.basePrice + (photos[idx]?.priceAdjust ?? 0))}</p>
+                <p className="font-sans text-xs text-muted">Base: {fmt(product.basePrice)}</p>
+              </>
+            ) : (
+              <>
+                <p className="font-sans text-xs text-muted uppercase tracking-wider">A partir de</p>
+                <p className="font-serif text-xl font-700 text-ink">{fmt(product.basePrice)}</p>
+              </>
+            )}
           </div>
           <a
             href={`https://wa.me/5531991236334?text=${whatsappMsg}`}
