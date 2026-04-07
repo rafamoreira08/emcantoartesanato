@@ -23,15 +23,16 @@ export default function Hero() {
           {/* Left — text */}
           <div className="flex flex-col gap-8">
             {/* Logo + tagline */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-0">
               <img
                 src="/images/logo_fundo_transparente.png"
                 alt="Em Canto Artesanato"
                 className="w-72 lg:w-96 object-contain"
               />
-              <p className="font-sans text-sm font-500 text-green tracking-[0.2em] uppercase leading-tight">by</p>
-              <p className="font-sans text-sm font-500 text-green tracking-[0.2em] uppercase leading-tight">Sônia Lima</p>
-              <p className="font-sans text-sm text-muted tracking-widest uppercase">Artesanato de Luxo</p>
+              <div className="flex flex-col gap-0 pl-6 mt-1">
+                <p className="font-sans text-sm font-500 text-green tracking-[0.2em] uppercase leading-tight">by</p>
+                <p className="font-sans text-sm font-500 text-green tracking-[0.2em] uppercase leading-tight">Sônia Lima</p>
+              </div>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -46,7 +47,7 @@ export default function Hero() {
             </p>
 
             {/* Social proof */}
-            <div className="flex items-center gap-6 pt-4 border-t border-border">
+            <div className="flex items-center gap-6 pt-4">
               <div className="text-center">
                 <p className="font-serif text-2xl font-700 text-ink">100%</p>
                 <p className="font-sans text-xs text-muted uppercase tracking-wider">Feito à mão</p>
