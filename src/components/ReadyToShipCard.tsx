@@ -1,3 +1,4 @@
+/** Card de variação de produto disponível para pronta entrega */
 import { ShoppingBag } from 'lucide-react'
 import type { ReadyToShipItem } from '../types/product'
 import { cloudinaryUrl, WHATSAPP } from '../lib/products'

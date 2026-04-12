@@ -1,3 +1,4 @@
+/** Card de produto com carrossel de fotos e botão de encomenda */
 import { useState, useEffect, useRef } from 'react'
 import { ShoppingBag, ChevronLeft, ChevronRight } from 'lucide-react'
 import type { Product } from '../types/product'

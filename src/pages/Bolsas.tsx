@@ -1,3 +1,4 @@
+/** Catálogo de bolsas artesanais */
 import CategoryHero from '../components/CategoryHero'
 import ProductGrid from '../components/ProductGrid'
 

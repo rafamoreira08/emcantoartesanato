@@ -1,3 +1,4 @@
+/** Seção hero da home com logo, texto e produto em destaque */
 import { useState, useEffect } from 'react'
 import { fetchFeaturedProduct, cloudinaryUrl } from '../lib/products'
 import type { Product } from '../types/product'

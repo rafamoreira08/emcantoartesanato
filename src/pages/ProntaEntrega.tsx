@@ -1,3 +1,4 @@
+/** Página de variações disponíveis para pronta entrega */
 import { useState, useEffect } from 'react'
 import CategoryHero from '../components/CategoryHero'
 import ReadyToShipCard from '../components/ReadyToShipCard'

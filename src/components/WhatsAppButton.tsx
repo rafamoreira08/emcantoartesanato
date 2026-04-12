@@ -1,3 +1,4 @@
+/** Botão flutuante de contato direto via WhatsApp */
 export default function WhatsAppButton() {
   return (
     <a

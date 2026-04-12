@@ -1,3 +1,4 @@
+/** Grade de produtos filtrada por categoria do Firestore */
 import { useEffect, useState } from 'react'
 import { fetchProducts } from '../lib/products'
 import ProductCard from './ProductCard'

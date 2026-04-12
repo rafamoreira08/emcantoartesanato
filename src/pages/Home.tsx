@@ -1,3 +1,4 @@
+/** Página inicial com Hero, CategoryStrip e About */
 import Hero from '../components/Hero'
 import CategoryStrip from '../components/CategoryStrip'
 import About from '../components/About'

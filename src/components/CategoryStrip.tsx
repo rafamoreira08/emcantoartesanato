@@ -1,3 +1,4 @@
+/** Faixa de categoria com carrossel e CTA para página de catálogo */
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'

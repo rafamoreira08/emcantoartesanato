@@ -1,3 +1,4 @@
+/** Painel administrativo: login, CRUD de produtos e upload de fotos */
 import { useState, useEffect } from 'react'
 import {
   collection, getDocs, doc, updateDoc, deleteDoc,

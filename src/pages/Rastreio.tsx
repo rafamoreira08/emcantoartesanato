@@ -1,3 +1,4 @@
+/** Página de rastreio de pedidos */
 import { useState } from 'react'
 import { Search, Package, ExternalLink } from 'lucide-react'
 
