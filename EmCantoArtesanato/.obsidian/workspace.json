@@ -181,6 +181,9 @@
   },
   "active": "12f448fcd804c2e6",
   "lastOpenFiles": [
+    "Brand/DesignSystem.md",
+    "Brand/Logo.md",
+    "Brand/Sonia.md",
     "Produtos/MesaPosta.md",
     "Produtos/Colares.md",
     "Produtos/Bolsas.md",
@@ -203,7 +206,6 @@
     "Componentes/Footer.md",
     "Componentes/Header.md",
     "MAPA_VISUAL.md",
-    "Arquitetura/DIAGRAMAS.md",
-    "Arquitetura/README.md"
+    "Arquitetura/DIAGRAMAS.md"
   ]
 }
