@@ -1,3 +1,4 @@
+/** Rodapé com links de navegação e redes sociais */
 import { Instagram } from 'lucide-react'
 
 export default function Footer() {

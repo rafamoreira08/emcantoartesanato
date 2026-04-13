@@ -1,0 +1,211 @@
+{
+  "main": {
+    "id": "3fd91b83eaa4f318",
+    "type": "split",
+    "children": [
+      {
+        "id": "b6fa5eae3f5463ee",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "12f448fcd804c2e6",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Visualização em gráfico"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "78b73b8d2845472d",
+    "type": "split",
+    "children": [
+      {
+        "id": "145c71dbc1504e00",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7d6bc9e669182899",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Explorador de arquivos"
+            }
+          },
+          {
+            "id": "d33b05151e0cf2f6",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Procurar"
+            }
+          },
+          {
+            "id": "07f7ce38c5e1cb93",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Marcadores"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "7f4610e12e4f8bb9",
+    "type": "split",
+    "children": [
+      {
+        "id": "ed6f25ad172f4a99",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5bc24727b03dc1fa",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Arquitetura/README.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Links inversos para README"
+            }
+          },
+          {
+            "id": "71d074b263220aaf",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Arquitetura/README.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Links de saída para README"
+            }
+          },
+          {
+            "id": "ec804582baf4f3ae",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Etiquetas"
+            }
+          },
+          {
+            "id": "990a3868b79f6710",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Todas as propriedades"
+            }
+          },
+          {
+            "id": "21c929cc4c630673",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Arquitetura/README.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Sumário de README"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Abrir a troca rápida": false,
+      "graph:Abrir visualização em gráfico": false,
+      "canvas:Criar novo canvas": false,
+      "daily-notes:Abrir a nota de hoje": false,
+      "templates:Inserir modelo": false,
+      "command-palette:Abrir paleta de comandos": false,
+      "bases:Criar nova base": false
+    }
+  },
+  "active": "12f448fcd804c2e6",
+  "lastOpenFiles": [
+    "Brand/DesignSystem.md",
+    "Brand/Logo.md",
+    "Brand/Sonia.md",
+    "Produtos/MesaPosta.md",
+    "Produtos/Colares.md",
+    "Produtos/Bolsas.md",
+    "Páginas/Admin.md",
+    "Páginas/Rastreio.md",
+    "Páginas/ProntaEntrega.md",
+    "Páginas/MesaPosta.md",
+    "Páginas/Colares.md",
+    "Páginas/Bolsas.md",
+    "Páginas/Home.md",
+    "Componentes/ReadyToShipCard.md",
+    "Componentes/ScrollToTop.md",
+    "Componentes/WhatsAppButton.md",
+    "Componentes/About.md",
+    "Componentes/CategoryStrip.md",
+    "Componentes/ProductGrid.md",
+    "Componentes/ProductCard.md",
+    "Componentes/CategoryHero.md",
+    "Componentes/Hero.md",
+    "Componentes/Footer.md",
+    "Componentes/Header.md",
+    "MAPA_VISUAL.md",
+    "Arquitetura/DIAGRAMAS.md"
+  ]
+}

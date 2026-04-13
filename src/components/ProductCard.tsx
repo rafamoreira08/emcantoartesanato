@@ -1,3 +1,4 @@
+/** Card de produto com carrossel de fotos e botão de encomenda */
 import { useState, useEffect, useRef } from 'react'
 import { ShoppingBag, ChevronLeft, ChevronRight } from 'lucide-react'
 import type { Product } from '../types/product'
@@ -104,8 +105,8 @@ export default function ProductCard({ product }: Props) {
           </div>
         )}
 
-        {/* Pronta entrega badge */}
-        {product.isReadyToShip && (
+        {/* Pronta entrega badge — by variation */}
+        {photos[idx]?.isReadyToShip && (
           <span className="absolute top-3 left-3 bg-green text-white font-sans text-xs font-600 px-3 py-1 rounded-full z-10">
             Pronta Entrega
           </span>
@@ -163,7 +164,7 @@ export default function ProductCard({ product }: Props) {
         <div>
           <h3 className="font-serif text-lg font-600 text-ink leading-snug">{product.name}</h3>
           {product.description && (
-            <p className="font-sans text-sm text-muted leading-relaxed mt-1 line-clamp-2">
+            <p className="font-sans text-sm text-muted leading-relaxed mt-1">
               {product.description}
             </p>
           )}
@@ -171,8 +172,18 @@ export default function ProductCard({ product }: Props) {
 
         <div className="mt-auto flex items-center justify-between pt-3 border-t border-border">
           <div>
-            <p className="font-sans text-xs text-muted uppercase tracking-wider">A partir de</p>
-            <p className="font-serif text-xl font-700 text-ink">{fmt(product.basePrice)}</p>
+            {(photos[idx]?.priceAdjust ?? 0) !== 0 ? (
+              <>
+                <p className="font-sans text-xs text-muted uppercase tracking-wider">Esta variação</p>
+                <p className="font-serif text-xl font-700 text-ink">{fmt(product.basePrice + (photos[idx]?.priceAdjust ?? 0))}</p>
+                <p className="font-sans text-xs text-muted">Base: {fmt(product.basePrice)}</p>
+              </>
+            ) : (
+              <>
+                <p className="font-sans text-xs text-muted uppercase tracking-wider">A partir de</p>
+                <p className="font-serif text-xl font-700 text-ink">{fmt(product.basePrice)}</p>
+              </>
+            )}
           </div>
           <a
             href={`https://wa.me/5531991236334?text=${whatsappMsg}`}

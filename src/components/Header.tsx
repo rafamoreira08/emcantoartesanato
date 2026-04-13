@@ -1,3 +1,4 @@
+/** Cabeçalho do site com navegação principal e menu mobile */
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'

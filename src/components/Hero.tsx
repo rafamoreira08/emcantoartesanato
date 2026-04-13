@@ -1,3 +1,4 @@
+/** Seção hero da home com logo, texto e produto em destaque */
 import { useState, useEffect } from 'react'
 import { fetchFeaturedProduct, cloudinaryUrl } from '../lib/products'
 import type { Product } from '../types/product'
@@ -18,20 +19,16 @@ export default function Hero() {
   return (
     <section className="min-h-screen flex items-center pt-16 bg-cream overflow-hidden relative">
       <div className="max-w-6xl mx-auto px-6 w-full relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center py-20">
+        <div className="grid lg:grid-cols-2 gap-16 items-start py-20">
 
           {/* Left — text */}
           <div className="flex flex-col gap-8">
-            {/* Logo + tagline */}
-            <div className="flex flex-col gap-2">
-              <img
-                src="/images/logo_fundo_transparente.png"
-                alt="Em Canto Artesanato"
-                className="w-72 lg:w-96 object-contain"
-              />
-              <p className="font-sans text-sm font-500 text-green tracking-[0.2em] uppercase">by Sônia Lima</p>
-              <p className="font-sans text-sm text-muted tracking-widest uppercase">Artesanato de Luxo</p>
-            </div>
+            {/* Logo + by Sônia Lima */}
+            <img
+              src="/images/logo_sem_fundo.png"
+              alt="Em Canto Artesanato by Sônia Lima"
+              className="w-full max-w-xs lg:max-w-sm object-contain mx-auto lg:mx-0"
+            />
 
             <div className="flex flex-col gap-2">
               <p className="font-serif text-lg text-ink leading-relaxed">
@@ -45,7 +42,7 @@ export default function Hero() {
             </p>
 
             {/* Social proof */}
-            <div className="flex items-center gap-6 pt-4 border-t border-border">
+            <div className="flex items-center gap-6 pt-4">
               <div className="text-center">
                 <p className="font-serif text-2xl font-700 text-ink">100%</p>
                 <p className="font-sans text-xs text-muted uppercase tracking-wider">Feito à mão</p>

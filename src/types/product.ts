@@ -2,11 +2,22 @@ export interface ProductPhoto {
   url: string
   color?: string
   thread?: string
+  isReadyToShip?: boolean
+  priceAdjust?: number
 }
 
 export interface ProductVariation {
   name: string
   options: { label: string; priceAdjust: number }[]
+}
+
+export interface ReadyToShipItem {
+  productId: string
+  name: string
+  description: string
+  photo: ProductPhoto
+  basePrice: number
+  finalPrice: number
 }
 
 export interface Product {
