@@ -1,6 +1,21 @@
+---
+tags:
+  - brand
+  - design-system
+  - identity
+  - colors
+  - typography
+related:
+  - "[[Componentes/README|Componentes (usam design system)]]"
+  - "[[Produtos/README|Produtos (da Sônia)]]"
+  - "[[Páginas/README|Páginas]]"
+---
+
 # 👤 Brand & Identidade Visual
 
-Documentação da marca EmCanto e sua criadora Sônia Lima.
+Documentação da marca EmCanto e sua criadora [[#👨‍🎨-sônia-lima|Sônia Lima]].
+
+**Links Relacionados:** [[#🎨-design-system|Design System]] · [[#🎨-cores-brand|Cores]] · [[Componentes/README|Como aplicar nos componentes]]
 
 ---
 

@@ -1,6 +1,22 @@
+---
+tags:
+  - diagrams
+  - mermaid
+  - visualization
+  - flows
+  - architecture
+  - data-flow
+related:
+  - "[[README|Arquitetura Técnica]]"
+  - "[[../MAPA_VISUAL|Mapa Visual]]"
+  - "[[../Componentes/README|Componentes]]"
+---
+
 # 📊 Diagramas & Visualizações
 
 Representações visuais da arquitetura, fluxos e estruturas do projeto.
+
+**Links Relacionados:** [[../MAPA_VISUAL|🗺️ Mapa Visual]] · [[README|🏗️ Arquitetura Técnica]] · [[../INDEX|📚 Hub Central]]
 
 ---
 

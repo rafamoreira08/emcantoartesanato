@@ -1,6 +1,21 @@
+---
+tags:
+  - pages
+  - routes
+  - navigation
+  - react-router
+related:
+  - "[[Componentes/README|Componentes]]"
+  - "[[Produtos/README|Produtos]]"
+  - "[[Funções/README|Funções]]"
+  - "[[Arquitetura/README|Arquitetura]]"
+---
+
 # 📄 Páginas & Rotas
 
 Documentação das 7 rotas principais do projeto.
+
+**Links Relacionados:** [[Arquitetura/DIAGRAMAS#-mapa-de-rotas|Diagrama de Rotas]] · [[Arquitetura/README|App.tsx Router]] · [[Componentes/README|Componentes usados]]
 
 ---
 

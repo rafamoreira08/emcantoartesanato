@@ -1,8 +1,19 @@
+---
+tags:
+  - hub
+  - navigation
+  - architecture
+  - documentation
+created: 2026-04-13
+---
+
 # 🎨 EmCantoArtesanato - Knowledge Base
 
 Bem-vindo! Este é o vault documentado e pronto para usar.
 
 **Status:** ✅ Documentação Completa • **Última atualização:** 2026-04-13
+
+[[Arquitetura/DIAGRAMAS|📊 Ver Diagramas Mermaid]] · [[MAPA_VISUAL|🗺️ Ver Mapa Visual]] · [[Arquitetura/README|🏗️ Ver Arquitetura]]
 
 ---
 

@@ -1,6 +1,23 @@
+---
+tags:
+  - architecture
+  - technical
+  - stack
+  - firebase
+  - react
+  - vite
+related:
+  - "[[Páginas/README|Páginas]]"
+  - "[[Componentes/README|Componentes]]"
+  - "[[Funções/README|Funções]]"
+  - "[[Produtos/README|Modelo de Dados]]"
+---
+
 # 🏗️ Arquitetura do Projeto
 
 Visão geral técnica e fluxos de dados do EmCantoArtesanato.
+
+**Links Relacionados:** [[Arquitetura/DIAGRAMAS|Diagramas Mermaid]] · [[MAPA_VISUAL|Mapa Visual]] · [[Páginas/README|Rotas de Dados]]
 
 ---
 

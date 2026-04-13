@@ -1,6 +1,22 @@
+---
+tags:
+  - components
+  - react
+  - ui
+  - layout
+  - reusable
+related:
+  - "[[Páginas/README|Páginas]]"
+  - "[[Produtos/README|Produtos]]"
+  - "[[Arquitetura/README|Arquitetura]]"
+  - "[[Brand/README|Design System]]"
+---
+
 # 🎯 Componentes UI
 
 Documentação dos componentes React reutilizáveis do projeto.
+
+**Links Relacionados:** [[Arquitetura/DIAGRAMAS#-estrutura-de-componentes-hierarquia|Hierarquia de Componentes]] · [[Brand/README#-design-system|Design System]] · [[Páginas/README|Como usar nos Pages]]
 
 ---
 

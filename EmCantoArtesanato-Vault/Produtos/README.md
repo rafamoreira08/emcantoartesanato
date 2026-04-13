@@ -1,6 +1,23 @@
+---
+tags:
+  - products
+  - data-model
+  - catalog
+  - bolsas
+  - colares
+  - mesa-posta
+related:
+  - "[[Páginas/README|Páginas]]"
+  - "[[Componentes/README|Componentes de Produto]]"
+  - "[[Funções/README|Funções de Produto]]"
+  - "[[Brand/README|Brand]]"
+---
+
 # 🛍️ Produtos - Catálogo
 
-Documentação das 3 linhas de produtos de Sonia Lima.
+Documentação das 3 linhas de produtos de [[Brand/README|Sonia Lima]].
+
+**Links Relacionados:** [[Páginas/README#🎒-bolsas-catálogo|Página Bolsas]] · [[Páginas/README#💎-colares-catálogo|Página Colares]] · [[Funções/README#loadproducts|loadProducts()]]
 
 ---
 

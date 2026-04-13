@@ -1,6 +1,21 @@
+---
+tags:
+  - functions
+  - api
+  - firebase
+  - typescript
+  - backend
+related:
+  - "[[Páginas/README|Páginas (usam funções)]]"
+  - "[[Produtos/README|Modelo de Dados]]"
+  - "[[Arquitetura/README|Arquitetura Firebase]]"
+---
+
 # ⚙️ Funções Principais
 
 Documentação das funções críticas do projeto (principalmente Admin).
+
+**Links Relacionados:** [[Páginas/README#⚙️-admin-panel|Admin Panel]] · [[Arquitetura/README#-modelo-de-dados-firebase|Modelo Firebase]] · [[Páginas/README#📍-rastreio|Rastreamento]]
 
 ---
 
