@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "1774d3b2f8ae9dce",
+        "id": "b6fa5eae3f5463ee",
         "type": "tabs",
         "children": [
           {
-            "id": "e95e32be35b7e57c",
+            "id": "12f448fcd804c2e6",
             "type": "leaf",
             "state": {
               "type": "graph",
@@ -179,8 +179,29 @@
       "bases:Criar nova base": false
     }
   },
-  "active": "e95e32be35b7e57c",
+  "active": "12f448fcd804c2e6",
   "lastOpenFiles": [
+    "Produtos/MesaPosta.md",
+    "Produtos/Colares.md",
+    "Produtos/Bolsas.md",
+    "Páginas/Admin.md",
+    "Páginas/Rastreio.md",
+    "Páginas/ProntaEntrega.md",
+    "Páginas/MesaPosta.md",
+    "Páginas/Colares.md",
+    "Páginas/Bolsas.md",
+    "Páginas/Home.md",
+    "Componentes/ReadyToShipCard.md",
+    "Componentes/ScrollToTop.md",
+    "Componentes/WhatsAppButton.md",
+    "Componentes/About.md",
+    "Componentes/CategoryStrip.md",
+    "Componentes/ProductGrid.md",
+    "Componentes/ProductCard.md",
+    "Componentes/CategoryHero.md",
+    "Componentes/Hero.md",
+    "Componentes/Footer.md",
+    "Componentes/Header.md",
     "MAPA_VISUAL.md",
     "Arquitetura/DIAGRAMAS.md",
     "Arquitetura/README.md"
