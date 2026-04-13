@@ -3,7 +3,7 @@ name: Build and Deploy to Production
 on:
   push:
     branches:
-      - claude/artisan-shop-website-9osSn
+      - claude-improvements
 
 jobs:
   deploy:
@@ -15,7 +15,7 @@ jobs:
       - name: Checkout feature branch
         uses: actions/checkout@v4
         with:
-          ref: claude/artisan-shop-website-9osSn
+          ref: claude-improvements
           fetch-depth: 0
 
       - name: Setup Node.js
