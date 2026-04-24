@@ -95,13 +95,14 @@ export default function ProductCard({ product }: Props) {
         />
 
         {/* Photo specs overlay with gradient */}
-        {photos.length > 0 && (photos[idx]?.color || photos[idx]?.thread) && (
+        {photos.length > 0 && (photos[idx]?.color || photos[idx]?.thread || photos[idx]?.description) && (
           <div className="absolute inset-0 bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
         )}
-        {photos.length > 0 && (photos[idx]?.color || photos[idx]?.thread) && (
+        {photos.length > 0 && (photos[idx]?.color || photos[idx]?.thread || photos[idx]?.description) && (
           <div className="absolute bottom-12 left-4 text-white font-sans text-sm leading-snug">
             {photos[idx]?.color && <div className="font-500">Cor: {photos[idx].color}</div>}
             {photos[idx]?.thread && <div className="font-500">Fio: {photos[idx].thread}</div>}
+            {photos[idx]?.description && <div className="font-400 text-xs mt-1">{photos[idx].description}</div>}
           </div>
         )}
 

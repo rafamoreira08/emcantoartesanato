@@ -2,6 +2,7 @@ export interface ProductPhoto {
   url: string
   color?: string
   thread?: string
+  description?: string
   isReadyToShip?: boolean
   priceAdjust?: number
 }

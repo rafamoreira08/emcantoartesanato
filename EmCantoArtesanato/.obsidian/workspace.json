@@ -4,17 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "b6fa5eae3f5463ee",
+        "id": "fa4260ac20be15f5",
         "type": "tabs",
         "children": [
           {
-            "id": "12f448fcd804c2e6",
+            "id": "b3990f7c2006371d",
             "type": "leaf",
             "state": {
-              "type": "graph",
+              "type": "empty",
               "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Visualização em gráfico"
+              "icon": "lucide-file",
+              "title": "Nova aba"
             }
           }
         ]
@@ -179,7 +179,7 @@
       "bases:Criar nova base": false
     }
   },
-  "active": "12f448fcd804c2e6",
+  "active": "b3990f7c2006371d",
   "lastOpenFiles": [
     "Brand/DesignSystem.md",
     "Brand/Logo.md",
