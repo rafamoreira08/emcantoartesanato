@@ -22,12 +22,12 @@ export default function Hero() {
         <div className="grid lg:grid-cols-2 gap-16 items-start py-20">
 
           {/* Left — text */}
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-6 items-center lg:items-start">
             {/* Logo + by Sônia Lima */}
             <img
               src="/images/logo_sem_fundo.png"
               alt="Em Canto Artesanato by Sônia Lima"
-              className="w-full max-w-xs lg:max-w-sm object-contain mx-auto lg:mx-0"
+              className="w-full max-w-[240px] lg:max-w-[300px] object-contain mx-auto"
             />
 
             <div className="flex flex-col gap-2">
@@ -62,7 +62,7 @@ export default function Hero() {
 
           {/* Right — featured product image */}
           <div className="relative flex justify-center lg:justify-end">
-            <div className="relative w-4/5 max-w-xs lg:max-w-sm">
+            <div className="relative w-4/5 max-w-xs lg:max-w-lg">
               {/* Decorative background circle */}
               <div className="absolute inset-0 bg-gradient-to-br from-green/8 to-sand/8 rounded-3xl scale-105 -z-10" />
 

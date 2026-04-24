@@ -163,7 +163,7 @@ export default function Admin() {
   }
 
   const addPhoto = () => {
-    setForm(f => ({ ...f, photos: [...(f.photos ?? []), { url: '', color: '', thread: '' }] }))
+    setForm(f => ({ ...f, photos: [...(f.photos ?? []), { url: '', color: '', thread: '', description: '' }] }))
   }
 
   const removePhoto = (i: number) => {
@@ -193,7 +193,16 @@ export default function Admin() {
     setSaving(true)
     try {
       const isReadyToShip = (form.photos ?? []).some(p => p.isReadyToShip)
-      const data = { ...form, isReadyToShip }
+      const basePrice = typeof form.basePrice === 'string'
+        ? parseFloat(form.basePrice.replace(',', '.')) || 0
+        : form.basePrice ?? 0
+      const photos = (form.photos ?? []).map(p => ({
+        ...p,
+        priceAdjust: typeof p.priceAdjust === 'string'
+          ? parseFloat(p.priceAdjust.replace(',', '.')) || 0
+          : p.priceAdjust ?? 0
+      }))
+      const data = { ...form, basePrice, photos, isReadyToShip }
       if (editingProduct) {
         await updateDoc(doc(db, 'products', editingProduct.id!), data)
         showToast('Produto atualizado!')
@@ -464,8 +473,10 @@ export default function Admin() {
               </div>
               <div>
                 <label className="font-sans text-xs text-muted uppercase tracking-wider mb-1 block">Preço base (R$) *</label>
-                <input type="number" required min="0" step="0.01" value={form.basePrice ?? 0}
-                  onChange={e => setForm(f => ({ ...f, basePrice: parseFloat(e.target.value) }))}
+                <input type="text" required
+                  value={form.basePrice ?? ''}
+                  onChange={e => setForm(f => ({ ...f, basePrice: e.target.value as any }))}
+                  placeholder="150,00"
                   className="w-full border border-border rounded-xl px-4 py-3 font-sans text-sm focus:outline-none focus:border-green" />
               </div>
               <div>
@@ -515,11 +526,21 @@ export default function Admin() {
                           <input type="text" value={photo.thread ?? ''} onChange={e => updatePhoto(i, 'thread', e.target.value)}
                             placeholder="ex: ráfia" className="w-full border border-border rounded-lg px-3 py-2 font-sans text-sm focus:outline-none focus:border-green" />
                         </div>
+                        <div className="col-span-2">
+                          <label className="font-sans text-xs text-muted mb-1 block">Descritivo da peça</label>
+                          <input type="text" value={photo.description ?? ''} onChange={e => updatePhoto(i, 'description', e.target.value)}
+                            placeholder="ex: design moderno, acabamento refinado" className="w-full border border-border rounded-lg px-3 py-2 font-sans text-sm focus:outline-none focus:border-green" />
+                        </div>
                         <div>
                           <label className="font-sans text-xs text-muted mb-1 block">Diferença de preço (R$)</label>
-                          <input type="number" step="0.01" value={photo.priceAdjust ?? 0}
-                            onChange={e => updatePhoto(i, 'priceAdjust', e.target.value)}
-                            placeholder="0.00"
+                          <input type="text"
+                            value={photo.priceAdjust ?? ''}
+                            onChange={e => {
+                              const val = e.target.value.replace(',', '.')
+                              const parsed = parseFloat(val) || 0
+                              updatePhoto(i, 'priceAdjust', String(parsed))
+                            }}
+                            placeholder="0,00"
                             className="w-full border border-border rounded-lg px-3 py-2 font-sans text-sm focus:outline-none focus:border-green" />
                           <p className="font-sans text-xs text-muted mt-0.5">0 = mesmo preço · positivo = acréscimo</p>
                         </div>
