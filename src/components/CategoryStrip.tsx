@@ -67,10 +67,7 @@ export default function CategoryStrip({ category, title, description, ctaLink, c
   if (products.length === 0) return null
 
   const current = products[idx]
-  const thumb = (p: Product) => {
-    const photos = (p.photos || []).filter(ph => ph.url)
-    return photos.length > 0 ? photos[0].url : p.image
-  }
+  const thumb = (p: Product) => p.image || (p.photos || []).find(ph => ph.url)?.url || ''
 
   return (
     <section className="py-16 bg-cream">
