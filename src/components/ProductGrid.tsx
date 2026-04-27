@@ -21,11 +21,13 @@ export default function ProductGrid({ category, title, subtitle }: Props) {
   }, [category])
 
   return (
-    <section className="py-20 px-6 max-w-6xl mx-auto">
-      <div className="mb-12">
-        <h2 className="font-serif text-4xl lg:text-5xl text-ink font-700">{title}</h2>
-        {subtitle && <p className="font-sans text-muted mt-3 max-w-lg leading-relaxed">{subtitle}</p>}
-      </div>
+    <section className="pt-8 pb-20 px-6 max-w-6xl mx-auto">
+      {(title || subtitle) && (
+        <div className="mb-8">
+          {title && <h2 className="font-serif text-4xl lg:text-5xl text-ink font-700">{title}</h2>}
+          {subtitle && <p className="font-sans text-muted mt-3 max-w-lg leading-relaxed">{subtitle}</p>}
+        </div>
+      )}
 
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">

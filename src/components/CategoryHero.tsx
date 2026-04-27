@@ -6,7 +6,7 @@ interface Props {
 
 export default function CategoryHero({ title, subtitle, icon }: Props) {
   return (
-    <section className="pt-20 pb-12 bg-gradient-to-b from-cream to-white border-b border-border">
+    <section className="pt-20 pb-6 bg-gradient-to-b from-cream to-white border-b border-border">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-start gap-4">
           {icon && <div className="text-4xl">{icon}</div>}
