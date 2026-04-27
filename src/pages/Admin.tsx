@@ -193,14 +193,10 @@ export default function Admin() {
     setSaving(true)
     try {
       const isReadyToShip = (form.photos ?? []).some(p => p.isReadyToShip)
-      const basePrice = typeof form.basePrice === 'string'
-        ? parseFloat(form.basePrice.replace(',', '.')) || 0
-        : form.basePrice ?? 0
+      const basePrice = parseFloat(String(form.basePrice ?? '0').replace(',', '.')) || 0
       const photos = (form.photos ?? []).map(p => ({
         ...p,
-        priceAdjust: typeof p.priceAdjust === 'string'
-          ? parseFloat(p.priceAdjust.replace(',', '.')) || 0
-          : p.priceAdjust ?? 0
+        priceAdjust: parseFloat(String(p.priceAdjust ?? '0').replace(',', '.')) || 0
       }))
       const data = { ...form, basePrice, photos, isReadyToShip }
       if (editingProduct) {
