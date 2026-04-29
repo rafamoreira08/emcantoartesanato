@@ -34,4 +34,5 @@ export interface Product {
   isReadyToShip: boolean
   isFeatured?: boolean
   order?: number
+  deletedAt?: string
 }
