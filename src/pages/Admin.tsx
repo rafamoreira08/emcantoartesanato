@@ -1,7 +1,7 @@
 /** Painel administrativo: login, CRUD de produtos e upload de fotos */
 import { useState, useEffect } from 'react'
 import {
-  collection, getDocs, doc, updateDoc, deleteDoc,
+  collection, getDocs, doc, updateDoc,
   writeBatch, addDoc
 } from 'firebase/firestore'
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
@@ -10,7 +10,7 @@ import { cloudinaryUrl } from '../lib/products'
 import type { Product } from '../types/product'
 import {
   Trash2, GripVertical, Save, Eye, EyeOff,
-  Package, Star, Plus, Pencil, X, LogOut, Upload
+  Package, Star, Plus, Pencil, X, LogOut, Upload, RotateCcw
 } from 'lucide-react'
 
 const CLOUDINARY_CLOUD = 'dmd3guxrq'
@@ -38,6 +38,7 @@ export default function Admin() {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [form, setForm]                 = useState<Partial<Product>>(EMPTY_FORM)
   const [uploading, setUploading]       = useState(false)
+  const [showTrash, setShowTrash]       = useState(false)
 
   // Auth state
   useEffect(() => {
@@ -118,10 +119,17 @@ export default function Admin() {
 
   const deleteProduct = async (e: React.MouseEvent, p: Product) => {
     e.stopPropagation()
-    if (!confirm(`Excluir "${p.name}"?`)) return
-    await deleteDoc(doc(db, 'products', p.id!))
-    setProducts(prev => prev.filter(x => x.id !== p.id))
-    showToast('Produto excluído')
+    if (!confirm(`Mover "${p.name}" para a lixeira?`)) return
+    await updateDoc(doc(db, 'products', p.id!), { active: false, deletedAt: new Date().toISOString() })
+    setProducts(prev => prev.map(x => x.id === p.id ? { ...x, active: false, deletedAt: new Date().toISOString() } : x))
+    showToast('Produto movido para a lixeira')
+  }
+
+  const restoreProduct = async (e: React.MouseEvent, p: Product) => {
+    e.stopPropagation()
+    await updateDoc(doc(db, 'products', p.id!), { active: true, deletedAt: null })
+    setProducts(prev => prev.map(x => x.id === p.id ? { ...x, active: true, deletedAt: undefined } : x))
+    showToast(`"${p.name}" restaurado!`)
   }
 
   const openAdd = () => {
@@ -335,11 +343,12 @@ export default function Admin() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-4 mb-8">
+          <div className="grid grid-cols-4 gap-4 mb-8">
             {[
-              { label: 'Total', value: products.length },
-              { label: 'Ativos', value: products.filter(p => p.active).length },
-              { label: 'Pronta entrega', value: products.filter(p => p.isReadyToShip).length },
+              { label: 'Total', value: products.filter(p => !p.deletedAt).length },
+              { label: 'Ativos', value: products.filter(p => p.active && !p.deletedAt).length },
+              { label: 'Pronta entrega', value: products.filter(p => p.isReadyToShip && !p.deletedAt).length },
+              { label: 'Lixeira', value: products.filter(p => p.deletedAt).length },
             ].map(s => (
               <div key={s.label} className="bg-white rounded-2xl p-5 border border-border text-center">
                 <p className="font-serif text-3xl font-700 text-green">{s.value}</p>
@@ -373,10 +382,10 @@ export default function Admin() {
             <div className="bg-white rounded-2xl border border-border overflow-hidden">
               <div className="px-6 py-4 border-b border-border flex items-center gap-2">
                 <Package size={18} className="text-green" />
-                <h2 className="font-sans text-sm font-600 text-ink">Produtos ({products.length})</h2>
+                <h2 className="font-sans text-sm font-600 text-ink">Produtos ({products.filter(p => !p.deletedAt).length})</h2>
               </div>
               <div className="divide-y divide-border">
-                {products.map((p, i) => (
+                {products.filter(p => !p.deletedAt).map((p, i) => (
                   <div
                     key={p.id}
                     draggable
@@ -432,6 +441,46 @@ export default function Admin() {
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* Trash */}
+          {!loading && products.some(p => p.deletedAt) && (
+            <div className="mt-6">
+              <button
+                onClick={() => setShowTrash(v => !v)}
+                className="flex items-center gap-2 font-sans text-sm text-muted hover:text-ink transition-colors mb-3"
+              >
+                <Trash2 size={15} />
+                Lixeira ({products.filter(p => p.deletedAt).length})
+                <span className="text-xs">{showTrash ? '▲ ocultar' : '▼ mostrar'}</span>
+              </button>
+              {showTrash && (
+                <div className="bg-white rounded-2xl border border-red-100 overflow-hidden opacity-75">
+                  <div className="divide-y divide-border">
+                    {products.filter(p => p.deletedAt).map(p => (
+                      <div key={p.id} className="flex items-center gap-4 px-6 py-4">
+                        <div className="w-12 h-12 rounded-xl overflow-hidden bg-cream flex-shrink-0">
+                          {thumb(p) && <img src={thumb(p)} alt={p.name} className="w-full h-full object-cover grayscale" />}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-sans text-sm font-600 text-muted truncate line-through">{p.name}</p>
+                          <p className="font-sans text-xs text-muted mt-0.5">
+                            Excluído em {p.deletedAt ? new Date(p.deletedAt).toLocaleDateString('pt-BR') : '—'}
+                          </p>
+                        </div>
+                        <button
+                          onClick={e => restoreProduct(e, p)}
+                          title="Restaurar produto"
+                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-green hover:bg-green/10 font-sans text-xs font-600 transition-colors flex-shrink-0"
+                        >
+                          <RotateCcw size={14} /> Restaurar
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
