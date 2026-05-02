@@ -1,5 +1,5 @@
-/** Roteador principal com HashRouter para GitHub Pages */
-import { createHashRouter, RouterProvider, Outlet } from 'react-router-dom'
+/** Roteador principal com clean URLs em domínio customizado */
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
@@ -26,7 +26,7 @@ function Layout() {
   )
 }
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
